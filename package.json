@@ -1,0 +1,27 @@
+{
+	"name": "landing-page",
+	"version": "0.0.1",
+	"description": "My temporary landing page while I create the full site",
+	"keywords": [],
+	"license": "ISC",
+	"author": "Kleber Silva",
+	"scripts": {
+		"build": "parcel build index.html",
+		"dev": "parcel index.html",
+		"start": "npm run build && npm run dev",
+		"deploy": "firebase deploy",
+		"prebuild": "rm -rf dist",
+		"predeploy": "npm run build"
+	},
+	"files": [
+		"dist"
+	],
+	"directories": {
+		"doc": "doc"
+	},
+	"devDependencies": {
+		"@parcel/packager-raw-url": "^2.5.0",
+		"@parcel/transformer-webmanifest": "^2.5.0",
+		"parcel": "^2.5.0"
+	}
+}
