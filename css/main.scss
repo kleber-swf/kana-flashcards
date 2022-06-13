@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap');
+@import './_variables.scss';
 
 html,
 body {
@@ -13,4 +14,20 @@ body {
 .btn {
 	cursor: pointer;
 	user-select: none;
+}
+
+#error {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	opacity: 0;
+	transition: opacity 2000ms 1000ms;
+	background-color: $error;
+	color: $on-error;
+
+	&.visible {
+		transition: none;
+		opacity: 1;
+	}
 }
