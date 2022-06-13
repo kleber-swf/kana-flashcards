@@ -1,4 +1,4 @@
-import { CharacterModel, Elements, GameElements } from './model';
+import { CharacterGroupModel, CharacterModel, Elements, GameElements, KanaModel } from './model';
 
 export class Game {
 	private readonly game: HTMLElement;
@@ -22,8 +22,8 @@ export class Game {
 		document.addEventListener('keydown', this.onKeyDown.bind(this))
 	}
 
-	public start(characters: CharacterModel[][][], revealOrder: Elements[]) {
-		this.chars = characters.flat(2).filter(e => !e.hidden);
+	public start(kanas: KanaModel[], revealOrder: Elements[]) {
+		kanas.map(k => k.groups).flat().map(g => g.characters).flat().filter(c => !c.hidden);
 		this.revealOrder = revealOrder;
 		this.selectedCharIndex = -1;
 		this.nextChar();

@@ -1,5 +1,18 @@
-import { hiragana } from './content';
-import { Game } from './game';
+import { ContentSelector } from './content-selector';
+import hiragana from '../content/hiragana.json';
 
-const game = new Game();
-game.start([hiragana], ['reads', 'tip', 'writes']);
+const contents: any[] = [hiragana];
+
+const selector = new ContentSelector();
+
+Promise.all(contents.map(e => fetch(e)))
+	.then(responses => Promise.all(responses.map(e => e.json())))
+	.then(contents => {
+		selector.setup(document.querySelector('#content-selector')!, contents);
+	})
+	.catch(console.error);
+
+
+
+// const game = new Game();
+// game.start([hiragana], ['reads', 'tip', 'writes']);
