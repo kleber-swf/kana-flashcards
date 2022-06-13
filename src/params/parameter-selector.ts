@@ -1,5 +1,5 @@
+import { KanaModel, Parameters } from '../model';
 import { KanaPanel } from './kana-panel';
-import { KanaModel, Parameters } from './model';
 
 export class ParameterSelector {
 	private panels: KanaPanel[];
