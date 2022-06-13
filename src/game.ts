@@ -23,7 +23,7 @@ export class Game {
 	}
 
 	public start(kanas: KanaModel[], revealOrder: Elements[]) {
-		kanas.map(k => k.groups).flat().map(g => g.characters).flat().filter(c => !c.hidden);
+		kanas.map(k => k.groups).flat().map(g => g.characters).flat().filter(c => c && !c.hidden);
 		this.revealOrder = revealOrder;
 		this.selectedCharIndex = -1;
 		this.nextChar();
