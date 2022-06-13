@@ -1,17 +1,22 @@
-import { ContentSelector } from './content-selector';
+import { ParameterSelector } from './parameter-selector';
 import hiragana from '../content/hiragana.json';
+import { Game } from './game';
+import { KanaModel } from './model';
 
-const contents: any[] = [hiragana];
-const selector = new ContentSelector();
+let content: KanaModel[];
+const parameters = new ParameterSelector();
+const game = new Game();
 
-Promise.all(contents.map(e => fetch(e)))
+function getContentUrls() { return [hiragana] as any[]; }
+
+Promise.all(getContentUrls().map(e => fetch(e)))
 	.then(responses => Promise.all(responses.map(e => e.json())))
-	.then(contents => {
-		selector.setup(document.querySelector('#selector')!, contents);
+	.then(jsons => {
+		content = jsons;
+		parameters.setup(document.querySelector('#selector')!, jsons);
 	})
 	.catch(console.error);
 
-
-
-// const game = new Game();
-// game.start([hiragana], ['reads', 'tip', 'writes']);
+document.querySelector('#start-button')?.addEventListener('click', () => {
+	game.start(content, ['reads', 'tip', 'writes']);
+});
