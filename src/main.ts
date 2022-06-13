@@ -8,7 +8,7 @@ const game = new Game();
 
 document.querySelector('#start-button')!
 	.addEventListener('click', () => {
-		if (parameters.canStart) game.show(parameters.data, 'writes');
+		if (parameters.canStart) game.show(parameters.data);
 		else showError('Select at least two characters');
 	});
 

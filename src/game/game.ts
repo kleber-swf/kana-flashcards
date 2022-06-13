@@ -37,21 +37,21 @@ export class Game {
 		};
 
 		this.timebar = document.querySelector('#timebar') as HTMLElement;
-		this.time = new TimeController(this.timebar.querySelector('#progress') as HTMLElement);
-		// this.time.callback = this.auto.bind(this);
+		this.time = new TimeController(this.timebar.querySelector('#progress') as HTMLElement, this.advance.bind(this));
 		document.addEventListener('keyup', this.onKeyPress.bind(this));
 	}
 
-	public show(params: Parameters, studying: 'reads' | 'writes') {
+	public show(params: Parameters) {
 		this.chars = params.kanas
 			.map(k => k.groups).flat()
 			.map(g => g.characters).flat()
 			.filter(c => c && !c.hidden);
 
-		this.revealOrder = [studying === 'reads' ? 'writes' : 'reads', studying];
+		this.revealOrder = [params.studying === 'reads' ? 'writes' : 'reads', params.studying];
 		this.selectedCharIndex = -1;
 		this.game.classList.add(PLAYING_CLASS);
-
+		this.time.delay = params.time;
+		Object.keys(this.elements).forEach(i => this.elements[i].classList.add(INVISIBLE_CLASS));
 		setTimeout(this.start.bind(this), PLAY_ANIM_DURATION);
 	}
 
@@ -102,7 +102,7 @@ export class Game {
 				e.innerText = this.selectedChar[k];
 			});
 
-		this.startTimer();
+		this.time.start();
 	}
 
 	private reveal(el: Elements) {
@@ -127,10 +127,6 @@ export class Game {
 
 		e.preventDefault();
 		e.stopPropagation();
-	}
-
-	private startTimer() {
-		this.time.start(2000, this.advance.bind(this));
 	}
 
 	private exit() {

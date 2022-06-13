@@ -1,6 +1,8 @@
 // #region Paramters
 
 export interface Parameters {
+	studying: Study;
+	time: number;
 	kanas: KanaModel[];
 }
 
@@ -17,7 +19,8 @@ export interface CellElement extends HTMLTableCellElement {
 
 // #region Game
 
-export type Elements = 'reads' | 'writes' | 'tip';
+export type Study = 'reads' | 'writes';
+export type Elements = Study | 'tip';
 
 export interface GameElements extends Record<Elements, HTMLElement> { }
 
