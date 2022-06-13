@@ -19,6 +19,7 @@ export class Game {
 	private revealIndex: number;
 
 	private playing = false;
+	private canAdvance = false;
 
 	constructor() {
 		this.game = document.querySelector('#game')!;
@@ -32,10 +33,10 @@ export class Game {
 			tip: this.game.querySelector('#tip')!,
 		};
 
-		document.addEventListener('keydown', this.onKeyDown.bind(this))
+		document.addEventListener('keydown', this.onKeyDown.bind(this));
 	}
 
-	public start(params: Parameters, revealOrder: Elements[]) {
+	public show(params: Parameters, revealOrder: Elements[]) {
 		this.chars = params.kanas
 			.map(k => k.groups).flat()
 			.map(g => g.characters).flat()
@@ -46,27 +47,42 @@ export class Game {
 		this.game.classList.add(PLAYING_CLASS);
 
 		this.nextChar();
-		this.showInitialMessage();
-		setTimeout(() => this.playing = true, PLAY_ANIM_DURATION);
+		setTimeout(this.start.bind(this), PLAY_ANIM_DURATION);
 	}
 
-	private showInitialMessage() {
+	private start() {
 		this.initialMessage.classList.remove(INVISIBLE_CLASS);
 
-		const s = (e: KeyboardEvent) => {
-			if (!(e.code === ACTION_KEY || e.code === EXIT_KEY)) return;
+		const doStart = (e: KeyboardEvent) => {
+			if (e.code === ACTION_KEY) {
+				this.playing = true;
+				this.canAdvance = true;
+				this.advance();
+			} else if (e.code !== EXIT_KEY) return;
 			this.initialMessage.classList.add(INVISIBLE_CLASS);
-			document.removeEventListener('keydown', s);
+			document.removeEventListener('keydown', doStart);
 		}
 
-		document.addEventListener('keydown', s);
+		document.addEventListener('keydown', doStart);
+	}
+
+	private advance() {
+		if (!this.canAdvance) return;
+		this.revealIndex++;
+		if (this.revealIndex < this.revealOrder.length) {
+			this.reveal(this.revealOrder[this.revealIndex]);
+		} else {
+			this.nextChar();
+		}
 	}
 
 	private nextChar() {
 		this.revealIndex = -1;
+
 		let i: number;
 		do i = Math.floor(Math.random() * this.chars.length);
 		while (i === this.selectedCharIndex);
+
 		this.selectedCharIndex = i;
 		this.selectedChar = this.chars[i];
 
@@ -90,15 +106,6 @@ export class Game {
 
 		e.preventDefault();
 		e.stopPropagation();
-	}
-
-	private advance() {
-		this.revealIndex++;
-		if (this.revealIndex < this.revealOrder.length) {
-			this.reveal(this.revealOrder[this.revealIndex]);
-		} else {
-			this.nextChar();
-		}
 	}
 
 	private exit() {
