@@ -1,6 +1,7 @@
 import { CellElement, CharacterGroupModel, HeadElement, KanaModel } from '../model';
 
 const SELECTED_CLASS = 'selected';
+const KANA_CLASS = 'kana';
 
 export class KanaPanel {
 	private readonly allCells: CellElement[] = [];
@@ -48,7 +49,7 @@ export class KanaPanel {
 				const cell = rows[i].insertCell() as CellElement;
 				if (!c) return;
 				cell.addEventListener('click', cellClick);
-				cell.classList.add(SELECTED_CLASS);
+				cell.classList.add(SELECTED_CLASS, KANA_CLASS);
 				cell.innerHTML = c.writes;
 				cell.char = c;
 				head.cells.push(cell);
@@ -67,12 +68,12 @@ export class KanaPanel {
 
 		const all = parent.appendChild(document.createElement('div'));
 		all.innerHTML = 'all';
-		all.classList.add('btn');
+		all.classList.add('btn', 'btn-primary');
 		all.addEventListener('click', () => this.setAllCellsSelected(this.allCells));
 
 		const dakuten = parent.appendChild(document.createElement('div'));
 		dakuten.innerHTML = 'dakuten';
-		all.classList.add('btn');
+		dakuten.classList.add('btn', 'btn-primary');
 		dakuten.addEventListener('click', () => this.setAllCellsSelected(this.dakutenCells));
 
 		return parent;

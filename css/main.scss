@@ -1,33 +1,75 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap');
-@import './_variables.scss';
+@import './variables';
 
-html,
-body {
+#main {
 	display: flex;
-	margin: 0;
-	padding: 0;
-	border: 0;
-	width: 100%;
+	flex-direction: column;
+	align-items: center;
+	overflow: auto;
 	height: 100%;
-}
 
-.btn {
-	cursor: pointer;
-	user-select: none;
-}
+	h1 {
+		color: $primary;
+	}
 
-#error {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	text-align: center;
-	opacity: 0;
-	transition: opacity 2000ms 1000ms;
-	background-color: $error;
-	color: $on-error;
+	#kanas {
+		display: flex;
+		flex-direction: column;
 
-	&.visible {
-		transition: none;
-		opacity: 1;
+		table {
+			// border-collapse: collapse;
+			// border-spacing: 1px;
+			background-color: $primary;
+
+			td {
+				cursor: pointer;
+				user-select: none;
+				text-align: center;
+				background-color: white;
+				width: 36px;
+				height: 36px;
+			}
+
+			thead td {
+				font-size: 90%;
+				font-weight: bold;
+				text-transform: uppercase;
+				background-color: $on-primary;
+			}
+
+			tbody td {
+				color: rgba($text, 0.6);
+			}
+
+			.selected {
+				background-color: $selection;
+				color: $on-selection;
+			}
+		}
+
+		.filters {
+			margin: 20px 0;
+			display: flex;
+			justify-content: center;
+		}
+	}
+
+	#start-button {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 20px 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		background-color: $primary;
+		transition: all 250ms;
+		&:hover {
+			font-size: 120%;
+			color: $on-primary;
+			padding: 30px 0;
+		}
 	}
 }

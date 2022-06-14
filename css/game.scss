@@ -1,15 +1,19 @@
+@import './variables';
+
 #game {
 	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin: 0;
 	padding: 0;
 	border: 0;
 	width: 100%;
 	height: 100%;
-	justify-content: center;
-	align-items: center;
-	background-color: #ddd;
+	top: 100%;
+	overflow: hidden;
 	position: absolute;
-	top: -100%;
+	background-color: $primary;
+	transition: top 500ms;
 
 	&.playing {
 		top: 0;

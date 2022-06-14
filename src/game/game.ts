@@ -3,7 +3,7 @@ import { TimeController } from './time.controller';
 
 const PLAYING_CLASS = 'playing';
 const INVISIBLE_CLASS = 'invisible';
-const PLAY_ANIM_DURATION = 1000;
+const PLAY_ANIM_DURATION = 500;
 const ACTION_KEY = 'Space';
 const EXIT_KEY = 'Escape';
 

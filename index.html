@@ -15,8 +15,8 @@
 		<link rel="apple-touch-icon" href="icon.png" />
 
 		<link rel="stylesheet" href="css/normalize.css" />
+		<link rel="stylesheet" href="css/index.scss" />
 		<link rel="stylesheet" href="css/main.scss" />
-		<link rel="stylesheet" href="css/parameters.scss" />
 		<link rel="stylesheet" href="css/game.scss" />
 
 		<meta name="theme-color" content="#1d1d1bff" />
@@ -24,16 +24,21 @@
 
 	<body>
 		<div id="main">
-			<div id="parameters" class="btn"></div>
-			<div id="options">
-				<input type="number" id="time" min="0" max="10" value="2" />
-				<select id="studying">
-					<option value="writes">Write</option>
-					<option value="reads">Read</option>
-				</select>
-			</div>
+			<div class="content">
+				<h1>Kana Flashcards</h1>
+				<div id="kanas"></div>
 
-			<div id="start-button" class="btn">start</div>
+				<div id="options">
+					<h2>options</h2>
+					<input type="number" id="time" min="0" max="10" value="0" />
+					<select id="studying">
+						<option value="writes">Write</option>
+						<option value="reads">Read</option>
+					</select>
+				</div>
+
+				<div id="start-button" class="btn">start</div>
+			</div>
 			<div id="error"></div>
 		</div>
 

@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&family=Nunito:wght@500&display=swap');
+@import './_variables.scss';
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-family: Nunito, sans-serif;
+	font-weight: bold;
+	color: $text;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.kana {
+	font-family: 'Noto Sans JP';
+	font-weight: 700;
+}
+
+.btn {
+	cursor: pointer;
+	user-select: none;
+	text-transform: uppercase;
+	padding: 8px 26px;
+	margin: 0 10px;
+
+	&.btn-primary {
+		background-color: white;
+		color: $primary;
+		border: 2px solid $primary;
+
+		&:hover {
+			background-color: $primary;
+			color: $on-primary;
+		}
+	}
+
+	&.btn-secondary {
+		border: 2px solid $ternary;
+		color: $ternary;
+
+		&:hover {
+			background-color: $ternary;
+			color: $on-primary;
+		}
+	}
+}
+
+#error {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	opacity: 0;
+	transition: opacity 2000ms 1000ms;
+	background-color: $error;
+	color: $on-error;
+
+	&.visible {
+		transition: none;
+		opacity: 1;
+	}
+}

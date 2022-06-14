@@ -17,9 +17,10 @@ export class ParameterSelector {
 		}
 	}
 
-	public setup(parent: HTMLElement, kanas: KanaModel[]) {
+	public setup(kanas: KanaModel[]) {
 		this.kanas = kanas;
-		this.kanaPanels = kanas.map(kana => new KanaPanel(parent, kana));
+		const kanasParent = document.querySelector('#kanas') as HTMLElement;
+		this.kanaPanels = kanas.map(kana => new KanaPanel(kanasParent, kana));
 		this.optionsPanel = new OptionsPanel(document.querySelector('#options') as HTMLElement);
 	}
 }
