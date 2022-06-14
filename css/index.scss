@@ -94,7 +94,7 @@ number-input {
 	width: 100%;
 	text-align: center;
 	opacity: 0;
-	transition: opacity 1500ms 500ms;
+	transition: opacity 500ms;
 	background-color: $error;
 	color: $on-error;
 	user-select: none;
