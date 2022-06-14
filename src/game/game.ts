@@ -64,7 +64,9 @@ export class Game {
 				this.canAdvance = true;
 				this.nextChar();
 				this.advance();
-			} else if (e.code !== EXIT_KEY) return;
+			} else if (e.code === EXIT_KEY) {
+				this.exit();
+			} else return;
 			document.removeEventListener('keyup', doStart);
 			this.initialMessage.classList.add(INVISIBLE_CLASS);
 			document.removeEventListener('keydown', doStart);
