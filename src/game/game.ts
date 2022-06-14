@@ -113,7 +113,8 @@ export class Game {
 		if (!this.playing) return;
 		switch (e.code) {
 			case 'Space':
-				while (!this.advance());
+				if (this.time.enabled) this.time.interrupt();
+				else while (!this.advance());
 				break;
 			case 'Escape':
 				this.exit();
