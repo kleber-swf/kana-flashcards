@@ -37,6 +37,7 @@
 						background-color: $on-primary;
 						width: 36px;
 						height: 36px;
+						transition: $default-transition;
 					}
 
 					thead td {
@@ -48,11 +49,18 @@
 
 					tbody td {
 						color: rgba($text, 0.6);
-					}
 
-					.selected {
-						background-color: $selection;
-						color: $on-selection;
+						&:hover {
+							color: $text;
+						}
+
+						&.selected {
+							background-color: $selection;
+							color: $on-selection;
+							&:hover {
+								background-color: darken($selection, 20);
+							}
+						}
 					}
 				}
 
