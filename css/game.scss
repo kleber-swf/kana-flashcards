@@ -46,4 +46,21 @@
 			background-color: $on-primary;
 		}
 	}
+
+	#close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 16px;
+		font-size: 200%;
+		line-height: 1;
+		user-select: none;
+		cursor: pointer;
+		z-index: 100;
+		color: $text;
+		transition: $default-transition;
+		&:hover {
+			color: $on-primary;
+		}
+	}
 }

@@ -38,8 +38,10 @@ export class Game {
 
 		this.timebar = document.querySelector('#timebar') as HTMLElement;
 		this.time = new TimeController(this.timebar.querySelector('#progress') as HTMLElement, this.advance.bind(this));
+
 		document.addEventListener('keyup', this.onKeyPress.bind(this));
-		game.addEventListener('mousedown', this.onMouseDown.bind(this));
+		game.addEventListener('click', this.onMouseDown.bind(this));
+		game.querySelector('#close')?.addEventListener('click', this.exit.bind(this));
 	}
 
 	public show(params: Parameters) {
@@ -62,18 +64,18 @@ export class Game {
 		const initialInput = (e: KeyboardEvent | MouseEvent) => {
 			if (e instanceof KeyboardEvent) {
 				if (e.code === ACTION_KEY) this.startGame();
-				else if (e.code === EXIT_KEY) this.exit();
+				else if (e.code === EXIT_KEY) this.exit(e);
 				else return;
 			} else {
 				this.startGame();
 			}
 			this.initialMessage.classList.add(INVISIBLE_CLASS);
 			document.removeEventListener('keyup', initialInput);
-			this.game.removeEventListener('mousedown', initialInput);
+			this.game.removeEventListener('click', initialInput);
 		}
 
 		document.addEventListener('keyup', initialInput);
-		this.game.addEventListener('mousedown', initialInput);
+		this.game.addEventListener('click', initialInput);
 	}
 
 	private startGame() {
@@ -127,7 +129,7 @@ export class Game {
 				else while (!this.advance());
 				break;
 			case 'Escape':
-				this.exit();
+				this.exit(e);
 				break;
 			case 'KeyT':
 				this.reveal('tip');
@@ -145,8 +147,11 @@ export class Game {
 		while (!this.advance());
 	}
 
-	private exit() {
+	private exit(e?: Event) {
+		e?.stopPropagation();
 		this.playing = false;
+		this.initialMessage.classList.add(INVISIBLE_CLASS);
+		Object.keys(this.elements).forEach(i => this.elements[i].classList.add(INVISIBLE_CLASS));
 		this.game.classList.remove(PLAYING_CLASS);
 	}
 }
