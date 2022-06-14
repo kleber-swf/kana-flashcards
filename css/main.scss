@@ -11,20 +11,22 @@
 		color: $primary;
 	}
 
+	h2 {
+		margin: 1em 0;
+	}
+
 	#kanas {
 		display: flex;
 		flex-direction: column;
 
 		table {
-			// border-collapse: collapse;
-			// border-spacing: 1px;
 			background-color: $primary;
 
 			td {
 				cursor: pointer;
 				user-select: none;
 				text-align: center;
-				background-color: white;
+				background-color: $on-primary;
 				width: 36px;
 				height: 36px;
 			}
@@ -50,6 +52,35 @@
 			margin: 20px 0;
 			display: flex;
 			justify-content: center;
+		}
+	}
+
+	#options {
+		display: flex;
+		flex-direction: column;
+		.content {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-around;
+
+			.option {
+				display: flex;
+				justify-content: start;
+				align-items: center;
+				& > * {
+					margin: 0.4em;
+				}
+			}
+
+			.input {
+				box-sizing: border-box;
+				text-align: center;
+				width: 120px;
+				height: 38px;
+				font-size: 100%;
+				font-weight: bold;
+				border: 2px solid $primary;
+			}
 		}
 	}
 
