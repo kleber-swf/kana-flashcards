@@ -18,9 +18,11 @@ export class KanaPanel {
 	// #region Kana Panel
 
 	public constructor(parent: HTMLElement, kana: KanaModel) {
-		parent.appendChild(this.createTitle(kana.name));
-		parent.appendChild(this.createTable(kana.groups));
-		parent.appendChild(this.createFilters());
+		const panel = parent.appendChild(document.createElement('div'));
+		panel.classList.add('kana-panel');
+		panel.appendChild(this.createTitle(kana.name));
+		panel.appendChild(this.createTable(kana.groups));
+		panel.appendChild(this.createFilters());
 	}
 
 	private createTitle(title: string): HTMLElement {
@@ -95,7 +97,6 @@ export class KanaPanel {
 
 	private setCellSelected(cell: CellElement, selected: boolean) {
 		cell.char.hidden = !selected;
-		if (selected) cell.classList.add(SELECTED_CLASS);
-		else cell.classList.remove(SELECTED_CLASS);
+		cell.classList.toggle(SELECTED_CLASS, selected);
 	}
 }

@@ -5,5 +5,5 @@ $text: #000;
 $selection: $primary;
 $on-selection: $on-primary;
 
-$error: red;
-$on-error: blue;
+$error: $primary;
+$on-error: $on-primary;
