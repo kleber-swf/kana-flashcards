@@ -1,5 +1,13 @@
+interface Btn extends HTMLElement {
+	increment: -1 | 1;
+}
+
 export class NumberInput extends HTMLElement {
 	private readonly input: HTMLInputElement;
+
+	private iid: any;
+	private buttonIsDown = false;
+
 	public get value() { return this.input.valueAsNumber; }
 
 	public set value(value: number) {
@@ -11,26 +19,51 @@ export class NumberInput extends HTMLElement {
 
 	constructor() {
 		super();
-
-		const prev = this.appendChild(document.createElement('div'));
-		prev.setAttribute('action', 'down');
-		prev.innerText = '-';
-		prev.addEventListener('click', () => this.value = this.value - 1);
-
-		const input = this.appendChild(document.createElement('input'));
-		input.type = 'number';
-		input.addEventListener('change', e => this.value = (e.target as HTMLInputElement).valueAsNumber);
-		this.input = input;
-
-		const next = this.appendChild(document.createElement('div'));
-		next.setAttribute('action', 'up');
-		next.innerText = '+';
-		next.addEventListener('click', () => this.value = this.value + 1);
+		this.createButton(-1, '-');
+		this.input = this.createInput();
+		this.createButton(1, '+');
 	}
 
 	public connectedCallback() {
 		this.input.setAttribute('min', this.getAttribute('min') || '');
 		this.input.setAttribute('max', this.getAttribute('max') || '');
 		this.input.setAttribute('value', this.getAttribute('value') || '');
+	}
+
+	private createInput() {
+		const input = this.appendChild(document.createElement('input'));
+		input.type = 'number';
+		input.addEventListener('change', e => this.value = (e.target as HTMLInputElement).valueAsNumber);
+		return input;
+	}
+
+	private createButton(increment: -1 | 1, text: string) {
+		const btn = this.appendChild(document.createElement('div')) as unknown as Btn;
+		btn.setAttribute('action', increment === 1 ? 'up' : 'down');
+		btn.innerText = text;
+		btn.increment = increment;
+		btn.addEventListener('mousedown', this.onButtonDown.bind(this));
+		btn.addEventListener('mouseup', this.onButtonUp.bind(this));
+	}
+
+	private onButtonDown(e: PointerEvent) {
+		const inc = (e.target as Btn).increment;
+		this.incrementValue(inc);
+		this.buttonIsDown = true;
+
+		this.iid = setTimeout(() => {
+			if (!this.buttonIsDown) return;
+			this.incrementValue(inc);
+			this.iid = setInterval(() => this.incrementValue(inc), 80);
+		}, 500);
+	}
+
+	private onButtonUp() {
+		this.buttonIsDown = false;
+		clearInterval(this.iid);
+	}
+
+	private incrementValue(increment: -1 | 1) {
+		this.value = this.value + increment;
 	}
 }
