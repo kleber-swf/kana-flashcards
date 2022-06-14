@@ -81,8 +81,7 @@ export class Game {
 	private startGame() {
 		this.playing = true;
 		this.canAdvance = true;
-		this.nextChar();
-		this.advance();
+		this.nextChar().then(() => this.advance());
 	}
 
 	private advance() {
@@ -90,14 +89,12 @@ export class Game {
 		this.revealIndex++;
 		if (this.revealIndex < this.revealOrder.length) {
 			this.reveal(this.revealOrder[this.revealIndex]);
-			return true;
 		} else {
-			this.nextChar();
-			return false;
+			this.nextChar().then(() => this.advance());
 		}
 	}
 
-	private nextChar() {
+	private nextChar(): Promise<void> {
 		this.revealIndex = -1;
 
 		let i: number;
@@ -107,14 +104,16 @@ export class Game {
 		this.selectedCharIndex = i;
 		this.selectedChar = this.chars[i];
 
-		Object.keys(this.elements)
-			.forEach(k => {
-				const e = this.elements[k];
-				e.classList.add(INVISIBLE_CLASS);
-				e.innerText = this.selectedChar[k];
-			});
+		const keys = Object.keys(this.elements);
+		keys.forEach(k => this.elements[k].classList.add(INVISIBLE_CLASS));
+		return new Promise<void>(resolve => {
+			setTimeout(() => {
+				this.time.start();
+				keys.forEach(k => this.elements[k].innerText = this.selectedChar[k]);
+				resolve();
+			}, 1000);
+		})
 
-		this.time.start();
 	}
 
 	private reveal(el: Elements) {
@@ -126,7 +125,7 @@ export class Game {
 		switch (e.code) {
 			case 'Space':
 				if (this.time.enabled) this.time.interrupt();
-				else while (!this.advance());
+				else this.advance();
 				break;
 			case 'Escape':
 				this.exit(e);
@@ -144,7 +143,8 @@ export class Game {
 
 	private onMouseDown() {
 		if (!this.playing) return;
-		while (!this.advance());
+		if (this.time.enabled) this.time.interrupt();
+		else this.advance();
 	}
 
 	private exit(e?: Event) {
