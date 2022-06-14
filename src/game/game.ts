@@ -39,6 +39,7 @@ export class Game {
 		this.timebar = document.querySelector('#timebar') as HTMLElement;
 		this.time = new TimeController(this.timebar.querySelector('#progress') as HTMLElement, this.advance.bind(this));
 		document.addEventListener('keyup', this.onKeyPress.bind(this));
+		game.addEventListener('mousedown', this.onMouseDown.bind(this));
 	}
 
 	public show(params: Parameters) {
@@ -58,21 +59,28 @@ export class Game {
 	private start() {
 		this.initialMessage.classList.remove(INVISIBLE_CLASS);
 
-		const doStart = (e: KeyboardEvent) => {
-			if (e.code === ACTION_KEY) {
-				this.playing = true;
-				this.canAdvance = true;
-				this.nextChar();
-				this.advance();
-			} else if (e.code === EXIT_KEY) {
-				this.exit();
-			} else return;
-			document.removeEventListener('keyup', doStart);
+		const initialInput = (e: KeyboardEvent | MouseEvent) => {
+			if (e instanceof KeyboardEvent) {
+				if (e.code === ACTION_KEY) this.startGame();
+				else if (e.code === EXIT_KEY) this.exit();
+				else return;
+			} else {
+				this.startGame();
+			}
 			this.initialMessage.classList.add(INVISIBLE_CLASS);
-			document.removeEventListener('keydown', doStart);
+			document.removeEventListener('keyup', initialInput);
+			this.game.removeEventListener('mousedown', initialInput);
 		}
 
-		document.addEventListener('keyup', doStart);
+		document.addEventListener('keyup', initialInput);
+		this.game.addEventListener('mousedown', initialInput);
+	}
+
+	private startGame() {
+		this.playing = true;
+		this.canAdvance = true;
+		this.nextChar();
+		this.advance();
 	}
 
 	private advance() {
@@ -130,6 +138,11 @@ export class Game {
 
 		e.preventDefault();
 		e.stopPropagation();
+	}
+
+	private onMouseDown() {
+		if (!this.playing) return;
+		while (!this.advance());
 	}
 
 	private exit() {
