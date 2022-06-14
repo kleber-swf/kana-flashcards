@@ -1,14 +1,15 @@
 import hiragana from '../content/hiragana.json';
+import { NumberInput } from './components/number-input';
+import { TextToggle } from './components/text-toggle';
 import { showError } from './error';
 import { Game } from './game/game';
-import { NumberInput } from './number-input';
 import { ParameterSelector } from './params/parameter-selector';
 
 const parameters = new ParameterSelector();
 const game = new Game();
 
-
 customElements.define('number-input', NumberInput);
+customElements.define('text-toggle', TextToggle);
 
 document.querySelector('#start-button')!
 	.addEventListener('click', () => {

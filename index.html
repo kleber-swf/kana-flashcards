@@ -33,16 +33,18 @@
 					<div class="content">
 						<div class="option">
 							<label for="time">time</label>
-							<number-input id="time" class="number-input input" min="0" max="100" value="0">
-								<!-- <div action="decrement">-</div>
-								<input type="number" id="time" min="0" max="100" value="0" />
-								<div action="increment">+</div> -->
-							</number-input>
+							<number-input id="time" class="number-input input" min="0" max="100" value="0"> </number-input>
 							<span>seconds</span>
 						</div>
 						<div class="option">
 							<label for="studying">train</label>
-							<div class="btn btn-primary input" id="studying">Write</div>
+							<text-toggle
+								selected-text="Write"
+								unselected-text="Read"
+								selected="true"
+								id="studying"
+								class="btn btn-primary input"
+							></text-toggle>
 						</div>
 					</div>
 				</div>
