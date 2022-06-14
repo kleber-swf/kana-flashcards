@@ -5,59 +5,62 @@
 	flex-direction: column;
 	align-items: center;
 	overflow: auto;
-	height: 100%;
+	height: calc(100% - $start-button-height);
 
-	h1 {
-		color: $primary;
-	}
+	& > .content {
+		padding: 40px 10px 0px 10px;
 
-	h2 {
-		margin: 1em 0;
-	}
+		h1 {
+			color: $primary;
+		}
 
-	#kanas {
-		display: flex;
-		flex-direction: column;
-		margin-bottom: 20px;
+		h2 {
+			margin: 1em 0;
+		}
 
-		.kana-panel {
+		#kanas {
 			display: flex;
 			flex-direction: column;
-			justify-content: stretch;
 
-			table {
-				background-color: $primary;
-
-				td {
-					cursor: pointer;
-					user-select: none;
-					text-align: center;
-					background-color: $on-primary;
-					width: 36px;
-					height: 36px;
-				}
-
-				thead td {
-					font-size: 90%;
-					font-weight: bold;
-					text-transform: uppercase;
-					background-color: $on-primary;
-				}
-
-				tbody td {
-					color: rgba($text, 0.6);
-				}
-
-				.selected {
-					background-color: $selection;
-					color: $on-selection;
-				}
-			}
-
-			.filters {
-				margin: 20px 0;
+			.kana-panel {
 				display: flex;
-				justify-content: center;
+				flex-direction: column;
+				justify-content: stretch;
+
+				table {
+					background-color: $primary;
+
+					td {
+						cursor: pointer;
+						user-select: none;
+						text-align: center;
+						background-color: $on-primary;
+						width: 36px;
+						height: 36px;
+					}
+
+					thead td {
+						font-size: 90%;
+						font-weight: bold;
+						text-transform: uppercase;
+						background-color: $on-primary;
+					}
+
+					tbody td {
+						color: rgba($text, 0.6);
+					}
+
+					.selected {
+						background-color: $selection;
+						color: $on-selection;
+					}
+				}
+
+				.filters {
+					margin: 20px 0;
+					display: flex;
+					justify-content: center;
+				}
 			}
 		}
 	}
@@ -70,7 +73,6 @@
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-around;
-			margin-bottom: 140px;
 
 			.option {
 				display: flex;
@@ -102,18 +104,19 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
-		padding: 20px 0;
 		margin: 0;
+		height: $start-button-height;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		background-color: $primary;
-		transition: all 250ms;
 		color: $on-primary;
+		transition: all 200ms;
 		&:hover {
-			font-size: 120%;
+			font-size: 160%;
 			padding: 30px 0;
+			height: $start-button-height * 1.4;
 		}
 	}
 }
