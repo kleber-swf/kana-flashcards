@@ -113,6 +113,12 @@ kana-game {
 		}
 	}
 
+	.initial-message {
+		position: absolute;
+		margin: auto;
+		transition: $default-transition;
+	}
+
 	.time-progress {
 		position: absolute;
 		bottom: 0;
