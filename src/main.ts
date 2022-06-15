@@ -3,10 +3,12 @@ import { NumberInput } from './components/number-input';
 import { TextToggle } from './components/text-toggle';
 import { ErrorHandler } from './error';
 import { Game } from './game/game';
+import { KanaPanel } from './params/kana-panel';
 import { ParameterSelector } from './params/parameter-selector';
 
 customElements.define('number-input', NumberInput);
 customElements.define('text-toggle', TextToggle);
+customElements.define('kana-panel', KanaPanel);
 customElements.define('kana-game', Game);
 
 const parameters = new ParameterSelector();
