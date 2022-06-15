@@ -17,11 +17,13 @@ export class Game extends HTMLElement {
 	private hasRevealDelay: boolean;
 	private hasAdvanceDelay: boolean;
 
+	private playing: boolean;
 	private selectedCharIndex: number;
 
 	constructor() {
 		super();
 		this.isMobile = /Mobi|Android/i.test(navigator.userAgent);
+		this.playing = false;
 
 		const result = this.appendChild(document.createElement('div'));
 		result.classList.add('result');
@@ -46,7 +48,7 @@ export class Game extends HTMLElement {
 		exit.classList.add('exit-button');
 		exit.addEventListener('click', this.exit.bind(this));
 
-		this.addEventListener('click', this.nextStep.bind(this));
+		this.addEventListener('click', this.onTouch.bind(this));
 		document.addEventListener('keyup', this.onKeyUp.bind(this));
 	}
 
@@ -69,13 +71,20 @@ export class Game extends HTMLElement {
 
 		const initialInput = (e: KeyboardEvent | MouseEvent) => {
 			if (e instanceof KeyboardEvent) {
-				if (e.code === ACTION_KEY) this.nextCharacter();
-				else if (e.code === EXIT_KEY) this.exit();
-				else return;
-			} else this.nextCharacter();
+				if (e.code === ACTION_KEY) {
+					this.playing = true;
+					this.nextCharacter();
+				} else if (e.code === EXIT_KEY) {
+					this.exit();
+				} else return;
+			} else {
+				this.playing = true;
+				this.nextCharacter();
+			}
 
 			e.preventDefault();
 			e.stopPropagation();
+
 			this.initialMessage.style.opacity = '0';
 			document.removeEventListener('keyup', initialInput);
 			this.removeEventListener('click', initialInput);
@@ -152,11 +161,17 @@ export class Game extends HTMLElement {
 	}
 
 	private exit() {
+		this.playing = false;
 		this.timeline.clear(true);
 		this.classList.remove(PLAYING_CLASS);
 	}
 
+	private onTouch() {
+		if (this.playing) this.nextStep();
+	}
+
 	private onKeyUp(e: KeyboardEvent) {
+		if (!this.playing) return;
 		if (e.code === ACTION_KEY) this.nextStep();
 		else if (e.code === EXIT_KEY) this.exit();
 		else return;
