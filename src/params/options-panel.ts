@@ -6,7 +6,7 @@ export class OptionsPanel {
 	private readonly timeElement: NumberInput;
 	private readonly studyingElement: TextToggle;
 
-	public get time() { return this.timeElement.value * 1000; }
+	public get time() { return this.timeElement.value; }
 
 	public get studying(): Study { return this.studyingElement.selected ? 'writes' : 'reads'; }
 
