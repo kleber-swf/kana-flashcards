@@ -121,4 +121,26 @@ kana-game {
 		height: 10px;
 		background-color: $on-primary;
 	}
+
+	.exit-button {
+		position: absolute;
+		padding: 16px;
+		top: 0;
+		right: 0;
+		cursor: pointer;
+
+		&:after {
+			content: '\00D7';
+			display: inline-block;
+			font-size: 200%;
+			line-height: 1;
+			color: $text;
+			user-select: none;
+			transition: $default-transition;
+		}
+
+		&:hover:after {
+			color: $on-primary;
+		}
+	}
 }
