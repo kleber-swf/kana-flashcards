@@ -1,5 +1,5 @@
 import gsap from 'gsap';
-import { CharacterModel, Parameters, Study } from '../model';
+import { CharacterModel, Parameters, Train } from '../model';
 
 const ACTION_KEY = 'Space';
 const EXIT_KEY = 'Escape';
@@ -58,7 +58,7 @@ export class Game extends HTMLElement {
 
 		this.clear();
 
-		this.createTimeline(params.studying, params.revealDelay, params.autoAdvanceDelay);
+		this.createTimeline(params.training, params.revealDelay, params.autoAdvanceDelay);
 		this.classList.add(PLAYING_CLASS);
 
 		this.showInitialMessage();
@@ -85,10 +85,10 @@ export class Game extends HTMLElement {
 		this.addEventListener('click', initialInput);
 	}
 
-	private createTimeline(studying: Study, revealDelay: number, autoAdvanceDelay: number) {
+	private createTimeline(training: Train, revealDelay: number, autoAdvanceDelay: number) {
 		this.hasRevealDelay = !isNaN(revealDelay) && revealDelay > 0;
 		this.hasAdvanceDelay = !isNaN(autoAdvanceDelay) && autoAdvanceDelay > 0;
-		const chars = studying === 'reads' ? [this.kana, this.romaji] : [this.romaji, this.kana];
+		const chars = training === 'reads' ? [this.kana, this.romaji] : [this.romaji, this.kana];
 
 		const timeline = this.timeline = gsap.timeline({ paused: true })
 			.fromTo(chars, { opacity: 1 }, { opacity: 0, duration: 0.6 })
@@ -119,8 +119,8 @@ export class Game extends HTMLElement {
 		while (i === this.selectedCharIndex);
 		this.selectedCharIndex = i;
 		const char = this.chars[i];
-		this.romaji.innerText = char.reads;
-		this.kana.innerText = char.writes;
+		this.romaji.innerText = char.romaji;
+		this.kana.innerText = char.kana;
 	}
 
 	private nextCharacter() {
