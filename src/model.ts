@@ -2,7 +2,8 @@
 
 export interface Parameters {
 	studying: Study;
-	time: number;
+	revealDelay: number;
+	autoAdvanceDelay: number;
 	kanas: KanaModel[];
 }
 
