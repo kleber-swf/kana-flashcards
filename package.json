@@ -25,5 +25,8 @@
 		"@parcel/transformer-sass": "^2.5.0",
 		"@parcel/transformer-webmanifest": "^2.5.0",
 		"parcel": "^2.5.0"
+	},
+	"dependencies": {
+		"gsap": "^3.10.4"
 	}
 }
