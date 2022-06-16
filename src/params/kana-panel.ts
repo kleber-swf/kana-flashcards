@@ -1,7 +1,11 @@
 import { CellElement, CharacterGroupModel, HeadElement, KanaModel } from '../model';
 
 const SELECTED_CLASS = 'selected';
+const COL_CLASS = 'col';
+const HEAD_CLASS = 'head';
+const CELL_CLASS = 'cell';
 const KANA_CLASS = 'kana';
+const SELECTABLE_CLASS = 'selectable';
 
 export class KanaPanel extends HTMLElement {
 	private readonly allCells: CellElement[] = [];
@@ -33,27 +37,31 @@ export class KanaPanel extends HTMLElement {
 	}
 
 	private createTable(groups: CharacterGroupModel[]): HTMLElement {
-		const table = document.createElement('table');
-		const header = table.createTHead().insertRow();
-		const body = table.createTBody();
-		const rows: HTMLTableRowElement[] = groups[0].characters.map(() => body.insertRow());
+		const table = document.createElement('div');
+		table.classList.add('table');
 
 		const cellClick = this.onCellClick.bind(this);
 		const headClick = this.onHeadClick.bind(this);
 
-		groups.reverse().forEach(group => {
-			const head = header.insertCell() as HeadElement;
-			head.innerText = group.title;
-			head.cells = [];
-			head.addEventListener('click', headClick);
+		groups.forEach(group => {
+			const col = table.appendChild(document.createElement('div'));
+			col.classList.add(COL_CLASS);
 
-			group.characters.forEach((c, i) => {
-				const cell = rows[i].insertCell() as CellElement;
-				if (!c) return;
+			const head = col.appendChild(document.createElement('div')) as HeadElement;
+			head.classList.add(HEAD_CLASS, CELL_CLASS, SELECTABLE_CLASS);
+			head.innerText = group.title;
+			head.addEventListener('click', headClick);
+			head.cells = [];
+
+			group.characters.map(char => {
+				const cell = col.appendChild(document.createElement('div')) as CellElement;
+				cell.classList.add(CELL_CLASS);
+				if (!char) return;
+				cell.classList.add(SELECTABLE_CLASS, KANA_CLASS);
+				if (!char.hidden) cell.classList.add(SELECTED_CLASS)
+				cell.char = char;
+				cell.innerText = char.kana;
 				cell.addEventListener('click', cellClick);
-				cell.classList.add(SELECTED_CLASS, KANA_CLASS);
-				cell.innerHTML = c.kana;
-				cell.char = c;
 				head.cells.push(cell);
 			});
 
