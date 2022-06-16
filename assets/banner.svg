@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="898"
+   height="228"
+   viewBox="0 0 237.59583 60.325002"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="banner.svg"
+   inkscape:export-filename="/home/kleber/Downloads/banner.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     width="898px"
+     inkscape:zoom="0.99130617"
+     inkscape:cx="392.41156"
+     inkscape:cy="206.29348"
+     inkscape:window-width="1920"
+     inkscape:window-height="996"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="false"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="99.865487,16.113243"
+       orientation="1,0"
+       id="guide43643" />
+    <sodipodi:guide
+       position="137.2899,14.892976"
+       orientation="1,0"
+       id="guide43645" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#f24535;fill-opacity:1;fill-rule:evenodd;stroke-width:0.258119"
+       id="rect31"
+       width="238.55933"
+       height="61.97237"
+       x="-0.48174641"
+       y="-0.82368505" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <g
+       id="g39087"
+       transform="translate(-6.5773551,-0.94136384)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:20.0307px;line-height:1.25;font-family:'Noto Sans JP';-inkscape-font-specification:'Noto Sans JP Medium';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.268269"
+         x="126.23184"
+         y="33.259254"
+         id="text1351"><tspan
+           sodipodi:role="line"
+           id="tspan1349"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:20.0307px;font-family:'Noto Sans JP';-inkscape-font-specification:'Noto Sans JP Medium';text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0.268269"
+           x="126.23184"
+           y="33.259254">仮名</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.76111px;line-height:1.25;font-family:'Noto Sans JP';-inkscape-font-specification:'Noto Sans JP Medium';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="125.39079"
+         y="45.733459"
+         id="text1351-3"><tspan
+           sodipodi:role="line"
+           id="tspan1349-6"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.76111px;font-family:'Noto Sans JP';-inkscape-font-specification:'Noto Sans JP Medium';text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0.264583"
+           x="125.39079"
+           y="45.733459">flashcards</tspan></text>
+    </g>
+  </g>
+</svg>
