@@ -6,23 +6,32 @@
 	align-items: center;
 	overflow: auto;
 	height: calc(100% - $start-button-height);
+	position: relative;
 
+	h1 {
+		background-color: red;
+		margin: 0 0 20px;
+		padding: 40px 20px;
+		text-align: center;
+		color: white;
+
+		p {
+			padding: 2px;
+			margin: 0;
+			font-size: 20px;
+			&.kana {
+				font-size: 50px;
+			}
+		}
+	}
+	
 	& > .content {
-		padding: 80px 0;
+		padding: 40px 0 80px;
 
 		@include mobile {
 			width: 87vw;
 		}
 
-		h1 {
-			color: $primary;
-			padding: 0;
-			font-size: 2rem;
-			@include mobile {
-				text-align: center;
-				font-size: 2.5rem;
-			}
-		}
 
 		h2 {
 			margin: 1em 0 0.5em 0;
@@ -150,39 +159,6 @@
 					font-size: 1em;
 					font-weight: bold;
 				}
-			}
-		}
-	}
-
-	#start-button {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		margin: 0;
-		height: $start-button-height;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		background-color: $primary;
-		color: $on-primary;
-		transition: all 200ms;
-		border-top: 2px solid $background;
-
-		@include desktop {
-			&:hover {
-				font-size: 160%;
-				padding: 30px 0;
-				height: $start-button-height * 1.4;
-			}
-		}
-
-		@include mobile {
-			&:active {
-				font-size: 160%;
-				padding: 30px 0;
-				height: $start-button-height * 1.4;
 			}
 		}
 	}
