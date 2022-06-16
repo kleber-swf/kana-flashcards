@@ -2,6 +2,8 @@ $primary: #f24535;
 $on-primary: #fff;
 $text: #000;
 
+$background: #fff;
+
 $selection: $primary;
 $on-selection: $on-primary;
 
@@ -10,3 +12,15 @@ $on-error: $on-primary;
 
 $start-button-height: 60px;
 $default-transition: all 200ms;
+
+@mixin desktop {
+	@media screen and (min-width: 640px) {
+		@content;
+	}
+}
+
+@mixin mobile {
+	@media screen and (max-width: 639px) {
+		@content;
+	}
+}
