@@ -9,8 +9,7 @@ export class ParameterSelector {
 	private kanas: KanaModel[];
 
 	public get canStart() {
-		//return this.kanaPanels.every(p => p.hasEnoughSelection);
-		return true;
+		return this.kanaPanels.every(p => p.hasEnoughSelection);
 	}
 
 	public get data(): Parameters {
