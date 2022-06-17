@@ -12,7 +12,8 @@
 		"deploy": "firebase deploy",
 		"prebuild": "rm -rf dist",
 		"predeploy": "npm run build",
-		"check": "tsc --noEmit"
+		"check": "tsc --noEmit",
+		"lint": "eslint --cache --fix --color --ext .js --ext .ts \"src\""
 	},
 	"files": [
 		"dist"
@@ -24,6 +25,11 @@
 		"@parcel/packager-raw-url": "^2.5.0",
 		"@parcel/transformer-sass": "^2.5.0",
 		"@parcel/transformer-webmanifest": "^2.5.0",
+		"@typescript-eslint/eslint-plugin": "^5.28.0",
+		"eslint": "^8.17.0",
+		"eslint-config-airbnb-base": "^15.0.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-unused-imports": "^2.0.0",
 		"parcel": "^2.5.0"
 	},
 	"dependencies": {
