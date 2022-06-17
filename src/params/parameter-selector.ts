@@ -25,7 +25,6 @@ export class ParameterSelector {
 	public setup(kanas: KanaModel[], saved: string | null) {
 		const kanaParent = document.querySelector('#kanas') as HTMLElement;
 		const initialData = this.getInitialData(kanas, saved);
-		console.log(initialData);
 		this.kanas = initialData.kanas;
 
 		this.kanaPanels = initialData.kanas.map(kana => {
@@ -37,11 +36,12 @@ export class ParameterSelector {
 
 		this.optionsPanel = new OptionsPanel(
 			document.querySelector('#options') as HTMLElement,
-			initialData);
+			initialData
+		);
 	}
 
 	private getInitialData(kanas: KanaModel[], saved: string | null): Parameters {
-		const params: Parameters = { training: 'writes', revealDelay: 0, autoAdvanceDelay: 0, kanas, };
+		const params: Parameters = { training: 'writes', revealDelay: 0, autoAdvanceDelay: 0, kanas };
 		return saved ? merge(params, JSON.parse(saved)) : params;
 	}
 }

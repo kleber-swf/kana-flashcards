@@ -26,7 +26,6 @@ Promise.all(([hiragana, katakana] as any[]).map(e => fetch(e)))
 	.then(contents => parameters.setup(contents, saved))
 	.catch(console.error);
 
-
 document.querySelector('#start-button')?.addEventListener('click', () => {
 	if (!parameters.canStart) {
 		error.show('Select at least two characters');
