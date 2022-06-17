@@ -11,9 +11,8 @@ https://kana-flashcards.kleber-silva.com/
 ## Features
 
 -   Romaji
--   **Hiragana** alphabet
--   `[TODO]` **Katakana** alphabet
--   `[TODO]` **Tips** based based on a [JapanesePod101 video](https://www.youtube.com/watch?v=6p9Il_j0zjc).
+-   **Hiragana** alphabet (black)
+-   **Katakana** alphabet (white)
 -   Optional **time to reveal** the character
 -   Optional **auto advance** to the next character with a timer
 -   Train **writting** or **reading** the characters
