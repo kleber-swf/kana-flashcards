@@ -17,15 +17,16 @@ export interface CellElement extends HTMLTableCellElement {
 
 // #endregion
 
-
 // #region Game
 
 export type Train = 'reads' | 'writes';
+export type Alphabet = 'hiragana' | 'katakana';
 
 export interface CharacterModel {
 	kana: string;
 	romaji: string;
 	hidden?: boolean;
+	alphabet: Alphabet;
 }
 
 export interface CharacterGroupModel {
@@ -35,7 +36,7 @@ export interface CharacterGroupModel {
 }
 
 export interface KanaModel {
-	name: string;
+	name: Alphabet;
 	groups: CharacterGroupModel[];
 }
 

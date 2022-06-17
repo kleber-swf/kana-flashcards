@@ -35,6 +35,14 @@ kana-game {
 		}
 	}
 
+	.hiragana {
+		color: $text;
+	}
+
+	.katakana {
+		color: $on-primary;
+	}
+
 	.initial-message {
 		position: absolute;
 		margin: auto;
@@ -43,6 +51,16 @@ kana-game {
 		text-align: center;
 		max-width: 100vh;
 		padding: 20px;
+
+		.training-message {
+			line-height: 1.4em;
+			.hiragana,
+			.katakana {
+				background-color: rgba($text, 0.2);
+				padding:0 0.5em;
+			}
+		}
+
 	}
 
 	.time-progress {
