@@ -55,7 +55,8 @@ export class Game extends HTMLElement {
 	public start(params: Parameters) {
 		this.chars = params.kanas
 			.map(k => k.groups).flat()
-			.map(g => g.characters).flat()
+			.map(g => g.characters)
+			.flat()
 			.filter(c => c && !c.hidden);
 
 		this.clear();
@@ -88,7 +89,7 @@ export class Game extends HTMLElement {
 			this.initialMessage.style.opacity = '0';
 			document.removeEventListener('keyup', initialInput);
 			this.removeEventListener('click', initialInput);
-		}
+		};
 
 		document.addEventListener('keyup', initialInput);
 		this.addEventListener('click', initialInput);
@@ -138,7 +139,6 @@ export class Game extends HTMLElement {
 			this.timeline.tweenFromTo(0, 'step2');
 		}
 	}
-
 
 	private nextStep() {
 		if (this.timeline.progress() === 1) {

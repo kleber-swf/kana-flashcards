@@ -18,7 +18,7 @@ export class ParameterSelector {
 			revealDelay: this.optionsPanel.revealDelay,
 			autoAdvanceDelay: this.optionsPanel.autoAdvanceDelay,
 			kanas: this.kanas,
-		}
+		};
 	}
 
 	public setup(kanas: KanaModel[]) {
