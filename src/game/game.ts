@@ -4,6 +4,8 @@ import { CharacterModel, Parameters, Train } from '../model';
 const ACTION_KEY = 'Space';
 const EXIT_KEY = 'Escape';
 const PLAYING_CLASS = 'playing';
+const HIRAGANA_CLASS = 'hiragana';
+const KATAKANA_CLASS = 'katakana';
 
 export class Game extends HTMLElement {
 	private readonly isMobile: boolean;
@@ -12,7 +14,7 @@ export class Game extends HTMLElement {
 	private readonly progress: HTMLElement;
 	private readonly initialMessage: HTMLElement;
 
-	private chars: CharacterModel[];
+	private chars: CharacterModel[] = [];
 	private timeline: GSAPTimeline;
 	private hasRevealDelay: boolean;
 	private hasAdvanceDelay: boolean;
@@ -53,11 +55,13 @@ export class Game extends HTMLElement {
 	}
 
 	public start(params: Parameters) {
-		this.chars = params.kanas
-			.map(k => k.groups).flat()
-			.map(g => g.characters)
-			.flat()
-			.filter(c => c && !c.hidden);
+		this.chars = params.kanas.map(kana =>
+			kana.groups
+				// gets only visible characters as a single dimension array
+				.map(group => group.characters.filter(c => c && !c.hidden)).flat()
+				// adds the alphabet name to each character
+				.map(char => ({ ...char, alphabet: kana.name }))
+		).flat();
 
 		this.clear();
 
@@ -117,7 +121,7 @@ export class Game extends HTMLElement {
 
 		if (this.hasAdvanceDelay) {
 			timeline.addLabel('step4')
-				.fromTo(this.progress, { width: 0 }, { width: '100%', duration: autoAdvanceDelay, ease: 'none' })
+				.fromTo(this.progress, { width: 0 }, { width: '100%', duration: autoAdvanceDelay, delay: 1, ease: 'none' })
 				.addLabel('step5')
 				.call(this.nextStep.bind(this), undefined, 'step5+=0.1');
 		}
@@ -127,10 +131,18 @@ export class Game extends HTMLElement {
 		let i: number;
 		do i = Math.floor(Math.random() * this.chars.length);
 		while (i === this.selectedCharIndex);
+
 		this.selectedCharIndex = i;
 		const char = this.chars[i];
-		this.romaji.innerText = char.romaji;
-		this.kana.innerText = char.kana;
+		const { romaji, kana } = this;
+
+		romaji.innerText = char.romaji;
+		romaji.classList.toggle(HIRAGANA_CLASS, char.alphabet === 'hiragana');
+		romaji.classList.toggle(KATAKANA_CLASS, char.alphabet === 'katakana');
+
+		kana.innerText = char.kana;
+		kana.classList.toggle(HIRAGANA_CLASS, char.alphabet === 'hiragana');
+		kana.classList.toggle(KATAKANA_CLASS, char.alphabet === 'katakana');
 	}
 
 	private nextCharacter() {
