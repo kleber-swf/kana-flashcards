@@ -6,6 +6,8 @@ A simple flashcards game to help you remember the kana japanese characters.
 
 https://kana-flashcards.kleber-silva.com/
 
+![GitHub package.json version](https://img.shields.io/github/package-json/v/kleber-swf/kana-flashcards?style=for-the-badge)
+
 > I made this project to help me study kana characters and it'll evolve as I progress.
 
 ## Features
