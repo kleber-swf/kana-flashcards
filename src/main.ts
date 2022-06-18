@@ -1,5 +1,7 @@
+import { logEvent } from 'firebase/analytics';
 import hiragana from '../content/hiragana.json';
 import katakana from '../content/katakana.json';
+import { analytics } from './analytics';
 import { ErrorSnackbar } from './components/error-snackbar';
 import { NumberInput } from './components/number-input';
 import { TextToggle } from './components/text-toggle';
@@ -36,4 +38,5 @@ document.querySelector('#start-button')?.addEventListener('click', () => {
 	error.hide();
 	game.start(data);
 	window.localStorage.setItem(LS_KEY, JSON.stringify(data));
+	logEvent(analytics, 'level_start');
 });
