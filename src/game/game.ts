@@ -1,5 +1,5 @@
 import gsap from 'gsap';
-import { CharacterModel, Parameters, Train } from '../model';
+import { ALPHABETS, CharacterModel, Parameters, Train } from '../model';
 
 const ACTION_KEY = 'Space';
 const EXIT_KEY = 'Escape';
@@ -57,32 +57,22 @@ export class Game extends HTMLElement {
 	}
 
 	public start(params: Parameters) {
-		this.chars = params.kanas.map(kana =>
-			kana.groups
-				// gets only visible characters as a single dimension array
-				.map(group => group.characters.filter(c => c && !c.hidden)).flat()
-				// adds the alphabet name to each character
-				.map(char => ({ ...char, alphabet: kana.name }))
-		).flat();
+		this.chars = params.kanas.map(kana => kana.groups
+			// gets only visible characters as a single dimension array
+			.map(group => group.characters.filter(c => c && !c.hidden)).flat()
+			// adds the alphabet name to each character
+			.map(char => ({ ...char, alphabet: kana.name }))).flat();
 
 		this.clear();
 
 		this.createTimeline(params.training, params.revealDelay, params.autoAdvanceDelay);
 		this.classList.add(PLAYING_CLASS);
 
-		this.showInitialMessage();
+		this.showInitialMessage(params.training);
 	}
 
-	private setTrainingMessage() {
-		const t = ['hiragana', 'katakana']
-			.filter(e => this.chars.some(c => c.alphabet === e))
-			.map(e => `<span class="${e}">${e}</span>`)
-			.join(' &amp; ');
-		this.trainingMessage.innerHTML = `<p>training</br>${t}</p>`;
-	}
-
-	private showInitialMessage() {
-		this.setTrainingMessage();
+	private showInitialMessage(train: Train) {
+		this.setTrainingMessage(train);
 		this.initialMessage.style.opacity = '1';
 
 		const initialInput = (e: KeyboardEvent | MouseEvent) => {
@@ -108,6 +98,16 @@ export class Game extends HTMLElement {
 
 		document.addEventListener('keyup', initialInput);
 		this.addEventListener('click', initialInput);
+	}
+
+	private setTrainingMessage(train: Train) {
+		const alphabets = ALPHABETS
+			.filter(e => this.chars.some(c => c.alphabet === e))
+			.map(e => `<span class="${e}">${e}</span>`)
+			.join(' ');
+
+		const training = train === 'writes' ? 'writting' : 'reading';
+		this.trainingMessage.innerHTML = `<p>${training}</br>${alphabets}</p>`;
 	}
 
 	private createTimeline(training: Train, revealDelay: number, autoAdvanceDelay: number) {
