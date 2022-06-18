@@ -20,7 +20,8 @@ export interface CellElement extends HTMLTableCellElement {
 // #region Game
 
 export type Train = 'reads' | 'writes';
-export type Alphabet = 'hiragana' | 'katakana';
+export type Alphabet = typeof ALPHABETS[number];
+export const ALPHABETS = ['hiragana', 'katakana'] as const;
 
 export interface CharacterModel {
 	kana: string;
