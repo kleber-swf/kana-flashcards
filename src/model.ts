@@ -26,6 +26,7 @@ export const ALPHABETS = ['hiragana', 'katakana'] as const;
 export interface CharacterModel {
 	kana: string;
 	romaji: string;
+	tip: string;
 	hidden?: boolean;
 	alphabet: Alphabet;
 }

@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { isMobile } from '../globals';
 import { ALPHABETS, CharacterModel, Parameters, Train } from '../model';
+import { GameTip } from './game-tip';
 
 const ACTION_KEY = 'Space';
 const EXIT_KEY = 'Escape';
@@ -11,6 +12,7 @@ const KATAKANA_CLASS = 'katakana';
 export class Game extends HTMLElement {
 	private readonly kana: HTMLElement;
 	private readonly romaji: HTMLElement;
+	private readonly tip: GameTip;
 	private readonly progress: HTMLElement;
 	private readonly initialMessage: HTMLElement;
 	private readonly trainingMessage: HTMLElement;
@@ -46,6 +48,8 @@ export class Game extends HTMLElement {
 		this.trainingMessage.classList.add('training-message');
 		this.initialMessage.appendChild(document.createElement('small'))
 			.innerHTML = isMobile ? 'touch to start' : `touch or press ${ACTION_KEY.toLowerCase()} to start`;
+
+		this.tip = this.appendChild(document.createElement('game-tip')) as GameTip;
 
 		const exit = this.appendChild(document.createElement('div'));
 		exit.classList.add('exit-button');
@@ -153,6 +157,8 @@ export class Game extends HTMLElement {
 		kana.innerText = char.kana;
 		kana.classList.toggle(HIRAGANA_CLASS, char.alphabet === 'hiragana');
 		kana.classList.toggle(KATAKANA_CLASS, char.alphabet === 'katakana');
+
+		if (char.tip) this.tip.setup(char.tip);
 	}
 
 	private nextCharacter() {
