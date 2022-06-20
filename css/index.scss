@@ -38,7 +38,12 @@ body {
 		color: $primary;
 		border: 2px solid $primary;
 
-		@include desktop {
+		&:active {
+			background-color: $primary;
+			color: $on-primary;
+		}
+
+		@include has-hover {
 			&:hover {
 				background-color: $primary;
 				color: $on-primary;
@@ -48,10 +53,6 @@ body {
 		@include mobile {
 			font-size: 1.1em;
 			padding: 12px 26px;
-			&:active {
-				background-color: $primary;
-				color: $on-primary;
-			}
 		}
 	}
 }
@@ -91,15 +92,13 @@ number-input {
 		user-select: none;
 		transition: $default-transition;
 
-		@include desktop {
-			&:hover {
-				background-color: $primary;
-				color: $on-primary;
-			}
+		&:active {
+			background-color: $primary;
+			color: $on-primary;
 		}
 
-		@include mobile {
-			&:active {
+		@include has-hover {
+			&:hover {
 				background-color: $primary;
 				color: $on-primary;
 			}
@@ -131,7 +130,7 @@ number-input {
 	transition: all 200ms;
 	border-top: 2px solid $background;
 
-	@include desktop {
+	@include has-hover {
 		&:hover {
 			font-size: 160%;
 			padding: 30px 0;
@@ -176,14 +175,12 @@ number-input {
 	font-size: 20px;
 	transform: $default-transition;
 
-	@include desktop {
-		:hover {
-			color: $primary;
-		}
+	&:active {
+		color: $primary;
 	}
 
-	@include mobile {
-		:active {
+	@include has-hover {
+		&:hover {
 			color: $primary;
 		}
 	}

@@ -90,16 +90,22 @@ kana-game {
 			transition: $default-transition;
 		}
 
-		@include desktop {
+		&:active:after {
+			color: $on-primary;
+		}
+
+		@include has-hover {
 			&:hover:after {
 				color: $on-primary;
 			}
 		}
+	}
+}
 
-		@include mobile {
-			&:active:after {
-				color: $on-primary;
-			}
+body.mobile {
+	kana-game {
+		.exit-button:active:after {
+			color: $on-primary;
 		}
 	}
 }
