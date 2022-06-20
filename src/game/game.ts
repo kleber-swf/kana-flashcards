@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import { isMobile } from '../globals';
 import { ALPHABETS, CharacterModel, Parameters, Train } from '../model';
 
 const ACTION_KEY = 'Space';
@@ -8,7 +9,6 @@ const HIRAGANA_CLASS = 'hiragana';
 const KATAKANA_CLASS = 'katakana';
 
 export class Game extends HTMLElement {
-	private readonly isMobile: boolean;
 	private readonly kana: HTMLElement;
 	private readonly romaji: HTMLElement;
 	private readonly progress: HTMLElement;
@@ -25,7 +25,6 @@ export class Game extends HTMLElement {
 
 	constructor() {
 		super();
-		this.isMobile = /Mobi|Android/i.test(navigator.userAgent);
 		this.playing = false;
 
 		const result = this.appendChild(document.createElement('div'));
@@ -46,7 +45,7 @@ export class Game extends HTMLElement {
 		this.trainingMessage = this.initialMessage.appendChild(document.createElement('div'));
 		this.trainingMessage.classList.add('training-message');
 		this.initialMessage.appendChild(document.createElement('small'))
-			.innerHTML = this.isMobile ? 'touch to start' : `touch or press ${ACTION_KEY.toLowerCase()} to start`;
+			.innerHTML = isMobile ? 'touch to start' : `touch or press ${ACTION_KEY.toLowerCase()} to start`;
 
 		const exit = this.appendChild(document.createElement('div'));
 		exit.classList.add('exit-button');

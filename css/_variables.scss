@@ -13,8 +13,8 @@ $on-error: $on-primary;
 $start-button-height: 60px;
 $default-transition: all 200ms;
 
-@mixin desktop {
-	@media screen and (min-width: 640px) {
+@mixin has-hover {
+	@media (hover: hover) and (pointer: fine) {
 		@content;
 	}
 }

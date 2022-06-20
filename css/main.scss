@@ -91,14 +91,12 @@
 								background-color: $selection;
 								color: $on-selection;
 
-								@include desktop {
-									&:hover {
-										background-color: darken($selection, 20);
-									}
+								&:active {
+									background-color: darken($selection, 20);
 								}
 
-								@include mobile {
-									&:active {
+								@include has-hover {
+									&:hover {
 										background-color: darken($selection, 20);
 									}
 								}
