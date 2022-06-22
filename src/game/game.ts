@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { isMobile } from '../globals';
-import { ALPHABETS, CharacterModel, Parameters, Train } from '../model';
+import { CharacterModel, Parameters, Train } from '../model';
+import { InitialMessage } from './initial-message';
 
 const ACTION_KEY = 'Space';
 const EXIT_KEY = 'Escape';
@@ -12,8 +13,7 @@ export class Game extends HTMLElement {
 	private readonly kana: HTMLElement;
 	private readonly romaji: HTMLElement;
 	private readonly progress: HTMLElement;
-	private readonly initialMessage: HTMLElement;
-	private readonly trainingMessage: HTMLElement;
+	private readonly initialMessage: InitialMessage;
 
 	private chars: CharacterModel[] = [];
 	private timeline: GSAPTimeline;
@@ -39,13 +39,8 @@ export class Game extends HTMLElement {
 		this.progress = this.appendChild(document.createElement('div'));
 		this.progress.classList.add('time-progress');
 
-		this.initialMessage = this.appendChild(document.createElement('div'));
-		this.initialMessage.classList.add('initial-message');
-		this.initialMessage.style.opacity = '0';
-		this.trainingMessage = this.initialMessage.appendChild(document.createElement('div'));
-		this.trainingMessage.classList.add('training-message');
-		this.initialMessage.appendChild(document.createElement('small'))
-			.innerHTML = isMobile ? 'touch to start' : `touch or press ${ACTION_KEY.toLowerCase()} to start`;
+		this.initialMessage = this.appendChild(document.createElement('game-initial-message')) as InitialMessage;
+		this.initialMessage.info = isMobile ? 'touch to start' : `touch or press ${ACTION_KEY.toLowerCase()} to start`;
 
 		const exit = this.appendChild(document.createElement('div'));
 		exit.classList.add('exit-button');
@@ -71,8 +66,7 @@ export class Game extends HTMLElement {
 	}
 
 	private showInitialMessage(train: Train) {
-		this.setTrainingMessage(train);
-		this.initialMessage.style.opacity = '1';
+		this.initialMessage.show(train, this.chars);
 
 		const initialInput = (e: KeyboardEvent | MouseEvent) => {
 			if (e instanceof KeyboardEvent) {
@@ -90,23 +84,13 @@ export class Game extends HTMLElement {
 			e.preventDefault();
 			e.stopPropagation();
 
-			this.initialMessage.style.opacity = '0';
+			this.initialMessage.hide();
 			document.removeEventListener('keyup', initialInput);
 			this.removeEventListener('click', initialInput);
 		};
 
 		document.addEventListener('keyup', initialInput);
 		this.addEventListener('click', initialInput);
-	}
-
-	private setTrainingMessage(train: Train) {
-		const alphabets = ALPHABETS
-			.filter(e => this.chars.some(c => c.alphabet === e))
-			.map(e => `<span class="${e}">${e}</span>`)
-			.join(' ');
-
-		const training = train === 'writes' ? 'writting' : 'reading';
-		this.trainingMessage.innerHTML = `<p>${training}</br>${alphabets}</p>`;
 	}
 
 	private createTimeline(training: Train, revealDelay: number, autoAdvanceDelay: number) {
@@ -179,8 +163,8 @@ export class Game extends HTMLElement {
 	private clear() {
 		this.kana.innerText = '';
 		this.romaji.innerText = '';
-		this.initialMessage.style.opacity = '0';
 		this.progress.style.width = '0';
+		this.initialMessage.hide();
 	}
 
 	private exit() {
