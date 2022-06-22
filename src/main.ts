@@ -6,6 +6,7 @@ import { NumberInput } from './components/number-input';
 import { TextToggle } from './components/text-toggle';
 import { analytics } from './firebase';
 import { Game } from './game/game';
+import { InitialMessage } from './game/initial-message';
 import { isMobile } from './globals';
 import { KanaPanel } from './params/kana-panel';
 import { ParameterSelector } from './params/parameter-selector';
@@ -16,6 +17,7 @@ customElements.define('number-input', NumberInput);
 customElements.define('text-toggle', TextToggle);
 customElements.define('kana-panel', KanaPanel);
 customElements.define('kana-game', Game);
+customElements.define('game-initial-message', InitialMessage);
 customElements.define('error-snackbar', ErrorSnackbar);
 
 const parameters = new ParameterSelector();
