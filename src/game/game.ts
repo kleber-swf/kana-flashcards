@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { isMobile } from '../globals';
 import { CharacterModel, Parameters, Train } from '../model';
+import { GameCompleteEvent } from './game-complete.event';
 import { InitialMessage } from './initial-message';
 
 const ACTION_KEY = 'Space';
@@ -171,6 +172,7 @@ export class Game extends HTMLElement {
 		this.playing = false;
 		this.timeline.clear(true);
 		this.classList.remove(PLAYING_CLASS);
+		this.dispatchEvent(new GameCompleteEvent(0, 1));
 	}
 
 	private onTouch() {
