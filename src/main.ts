@@ -26,6 +26,7 @@ customElements.define('results-panel', ResultsPanel);
 const parameters = new ParameterSelector();
 const game = document.querySelector('#game') as Game;
 const error = document.querySelector('#error') as ErrorSnackbar;
+const result = document.querySelector('#results') as ResultsPanel;
 
 const saved = window.localStorage.getItem(LS_KEY);
 
@@ -54,5 +55,5 @@ function tryStartGame() {
 
 function onGameComplete(e: Event) {
 	const ev = e as GameCompleteEvent;
-	console.log(ev);
+	result.show(ev.charCount, ev.totalTime);
 }
