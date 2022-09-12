@@ -3,6 +3,7 @@ import { isMobile } from '../globals';
 import { CharacterModel, Parameters, Train } from '../model';
 import { GameCompleteEvent } from './game-complete.event';
 import { InitialMessage } from './initial-message';
+import { Random } from './rnd';
 
 const ACTION_KEY = 'Space';
 const EXIT_KEY = 'Escape';
@@ -147,7 +148,7 @@ export class Game extends HTMLElement {
 
 	private randomCharacter() {
 		let i: number;
-		do i = Math.floor(Math.random() * this.chars.length);
+		do i = Random.between(0, this.chars.length);
 		while (i === this.selectedCharIndex);
 
 		this.selectedCharIndex = i;

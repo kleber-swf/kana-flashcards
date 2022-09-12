@@ -173,6 +173,14 @@ number-input {
 	}
 }
 
+#version {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 10px;
+	user-select: none;
+}
+
 #fork-on-github {
 	position: absolute;
 	top: 0;
@@ -181,7 +189,7 @@ number-input {
 	color: $text;
 	margin: 10px;
 	font-size: 20px;
-	transform: $default-transition;
+	transition: $default-transition;
 
 	&:active {
 		color: $primary;
