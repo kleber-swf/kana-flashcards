@@ -12,19 +12,16 @@ export class ResultsPanel extends HTMLElement {
 		this.charCountLabel.innerText = '1234';
 
 		this.createLabel('title').innerText = 'Total Time';
-
 		this.totalTimeLabel = this.createLabel('total-time', 'value-label');
-		this.totalTimeLabel.innerText = '4321ms';
 
 		this.createLabel('title').innerText = 'Average Speed';
 		this.speedLabel = this.createLabel('speed', 'value-label');
-		this.speedLabel.innerText = '4321 char/s';
 
 		const exit = this.appendChild(document.createElement('div'));
 		exit.classList.add('exit-button');
 		exit.addEventListener('click', this.exit.bind(this));
 
-		// this.classList.add('visible');
+		// this.show(200, 4300);
 	}
 
 	private createLabel(...classes: string[]) {
@@ -34,9 +31,12 @@ export class ResultsPanel extends HTMLElement {
 	}
 
 	public show(charCount: number, totalTime: number) {
+		if (charCount <= 0) return;
 		this.classList.add('visible');
+
+		const speed = (charCount / (totalTime / 1000)).toFixed(2);
 		this.charCountLabel.innerText = charCount.toString(10);
-		this.totalTimeLabel.innerText = totalTime.toString(10);
+		this.speedLabel.innerHTML = `<span class="value">${speed}</span><span class="measure">char/s</span>`;
 	}
 
 	private exit() {
