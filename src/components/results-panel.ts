@@ -1,10 +1,14 @@
 import gsap from 'gsap';
 
+const LS_KEY = 'record';
+
 export class ResultsPanel extends HTMLElement {
 	private readonly charCountLabel: HTMLElement;
 	private readonly totalTimeLabel: HTMLElement;
 	private readonly speedLabel: HTMLElement;
 	private readonly recordIcon: HTMLElement;
+
+	private lastRecord: number;
 
 	constructor() {
 		super();
@@ -30,7 +34,7 @@ export class ResultsPanel extends HTMLElement {
 		exit.classList.add('exit-button');
 		exit.addEventListener('click', this.exit.bind(this));
 
-		this.show(200, 4300);
+		this.lastRecord = parseFloat(window.localStorage.getItem(LS_KEY) ?? '0');
 	}
 
 	private createLabel(...classes: string[]) {
@@ -43,17 +47,27 @@ export class ResultsPanel extends HTMLElement {
 		if (charCount <= 0) return;
 		this.classList.add('visible');
 
-		const speed = (charCount / (totalTime / 1000)).toFixed(2);
+		const speed = charCount / (totalTime / 1000);
 		this.charCountLabel.innerText = charCount.toString(10);
 		this.totalTimeLabel.innerText = this.formatInterval(totalTime);
-		this.speedLabel.innerHTML = `<span class="value">${speed}</span><span class="measure">char/s</span>`;
+		this.speedLabel.innerHTML = `<span class="value">${speed.toFixed(2)}</span><span class="measure">char/s</span>`;
 
-		gsap.fromTo(this.recordIcon, { alpha: 0, scale: 0 }, {
-			alpha: 1,
-			scale: 2,
-			delay: 1,
-			ease: 'Elastic.easeOut',
-		});
+		this.checkNewRecord(speed);
+	}
+
+	private checkNewRecord(speed: number) {
+		console.log(speed, this.lastRecord);
+		if (speed <= this.lastRecord) {
+			gsap.set(this.recordIcon, { alpha: 0 });
+			return;
+		}
+
+		this.lastRecord = speed;
+		window.localStorage.setItem(LS_KEY, speed.toString(10));
+
+		gsap.fromTo(this.recordIcon,
+			{ alpha: 0, scale: 0 },
+			{ alpha: 1, scale: 2, delay: 1, ease: 'Elastic.easeOut' });
 	}
 
 	private exit() {
