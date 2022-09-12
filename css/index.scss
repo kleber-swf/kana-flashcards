@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&family=Nunito:wght@500&display=swap');
-@import './_variables.scss';
+@import './variables.scss';
 
 html,
 body {
@@ -13,6 +13,14 @@ body {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+
+	&.mobile {
+		kana-game {
+			.exit-button:active:after {
+				color: $on-primary;
+			}
+		}
+	}
 }
 
 .kana {
@@ -182,6 +190,34 @@ number-input {
 	@include has-hover {
 		&:hover {
 			color: $primary;
+		}
+	}
+}
+
+.exit-button {
+	position: absolute;
+	padding: 16px;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+	font-size: 1rem;
+
+	&:after {
+		content: '\00D7';
+		display: inline-block;
+		font-size: 200%;
+		line-height: 1;
+		color: $text;
+		transition: $default-transition;
+	}
+
+	&:active:after {
+		color: $on-primary;
+	}
+
+	@include has-hover {
+		&:hover:after {
+			color: $on-primary;
 		}
 	}
 }
