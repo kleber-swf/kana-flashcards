@@ -5,6 +5,7 @@ export interface Parameters {
 	revealDelay: number;
 	autoAdvanceDelay: number;
 	kanas: KanaModel[];
+	withAudio: boolean;
 }
 
 export interface HeadElement extends HTMLTableCellElement {
