@@ -41,7 +41,7 @@ export class ParameterSelector {
 	}
 
 	private getInitialData(kanas: KanaModel[], saved: string | null): Parameters {
-		const params: Parameters = { training: 'writes', revealDelay: 0, autoAdvanceDelay: 0, kanas };
+		const params: Parameters = { training: 'write', revealDelay: 0, autoAdvanceDelay: 0, kanas };
 		return saved ? merge(params, JSON.parse(saved)) : params;
 	}
 }
