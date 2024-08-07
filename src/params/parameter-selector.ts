@@ -56,37 +56,17 @@ export class ParameterSelector {
 			const kchars: (CharacterModel | null)[] = [];
 
 			group.characters.forEach(char => {
-				if (char === null) {
+				if (char !== null) {
+					hchars.push({ alphabet: 'hiragana', kana: char.hiragana, romaji: char.romaji });
+					kchars.push({ alphabet: 'katakana', kana: char.katakana, romaji: char.romaji });
+				} else {
 					hchars.push(null);
 					kchars.push(null);
-					return;
 				}
-
-				hchars.push({
-					alphabet: 'hiragana',
-					kana: char.hiragana,
-					romaji: char.romaji,
-					audio: char.audio,
-				});
-				kchars.push({
-					alphabet: 'katakana',
-					kana: char.katakana,
-					romaji: char.romaji,
-					audio: char.audio,
-				});
 			});
 
-			hiraganas.push({
-				title: group.title,
-				dakuten: group.dakuten,
-				characters: hchars,
-			});
-
-			katakanas.push({
-				title: group.title,
-				dakuten: group.dakuten,
-				characters: kchars,
-			});
+			hiraganas.push({ title: group.title, dakuten: group.dakuten, characters: hchars });
+			katakanas.push({ title: group.title, dakuten: group.dakuten, characters: kchars });
 		});
 
 		return [
