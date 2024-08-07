@@ -9,6 +9,7 @@ body {
 	font-family: Nunito, sans-serif;
 	font-weight: bold;
 	color: $text;
+	background-color: $background;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
@@ -19,3 +20,115 @@ body {
 	font-weight: 700;
 }
 
+.btn {
+	cursor: pointer;
+	user-select: none;
+	text-transform: uppercase;
+	box-sizing: border-box;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: $default-transition;
+
+	&.btn-primary {
+		padding: 8px 26px;
+		margin: 0 10px;
+		background-color: $on-primary;
+		color: $primary;
+		border: 2px solid $primary;
+
+		@include desktop {
+			&:hover {
+				background-color: $primary;
+				color: $on-primary;
+			}
+		}
+
+		@include mobile {
+			font-size: 1.1em;
+			padding: 12px 26px;
+			&:active {
+				background-color: $primary;
+				color: $on-primary;
+			}
+		}
+	}
+}
+
+number-input {
+	position: relative;
+	padding: 0;
+	display: flex;
+	justify-content: stretch;
+	align-items: stretch;
+
+	input[type='number'] {
+		-moz-appearance: textfield;
+		appearance: textfield;
+		margin: 0 20px;
+		flex: 1;
+		border: none;
+		text-align: center;
+		outline: none;
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+	}
+
+	div[action='down'],
+	div[action='up'] {
+		position: absolute;
+		background: $on-primary;
+		color: $text;
+		width: 20%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		user-select: none;
+		transition: $default-transition;
+
+		@include desktop {
+			&:hover {
+				background-color: $primary;
+				color: $on-primary;
+			}
+		}
+
+		@include mobile {
+			&:active {
+				background-color: $primary;
+				color: $on-primary;
+			}
+		}
+	}
+
+	div[action='down'] {
+		left: 0;
+	}
+
+	div[action='up'] {
+		right: 0;
+	}
+}
+
+#error {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	text-align: center;
+	opacity: 0;
+	transition: opacity 500ms;
+	background-color: $error;
+	color: $on-error;
+	user-select: none;
+	padding: 10px 0;
+
+	&.visible {
+		transition: opacity 250ms;
+		opacity: 1 !important;
+	}
+}

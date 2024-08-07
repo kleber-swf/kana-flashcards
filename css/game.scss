@@ -70,8 +70,16 @@ kana-game {
 			transition: $default-transition;
 		}
 
-		&:hover:after {
-			color: $on-primary;
+		@include desktop {
+			&:hover:after {
+				color: $on-primary;
+			}
+		}
+
+		@include mobile {
+			&:active:after {
+				color: $on-primary;
+			}
 		}
 	}
 }

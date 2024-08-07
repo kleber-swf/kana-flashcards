@@ -8,49 +8,89 @@
 	height: calc(100% - $start-button-height);
 
 	& > .content {
-		padding: 40px 10px 0px 10px;
+		padding: 80px 0;
+
+		@include mobile {
+			width: 87vw;
+		}
 
 		h1 {
 			color: $primary;
+			padding: 0;
+			font-size: 2rem;
+			@include mobile {
+				text-align: center;
+				font-size: 2.5rem;
+			}
 		}
 
 		h2 {
-			margin: 1em 0;
+			margin: 1em 0 0.5em 0;
+			font-size: 1.5rem;
+			@include mobile {
+				text-align: center;
+				font-size: 1.8rem;
+			}
 		}
 
-		#kanas {
-			kana-panel {
-				.table {
+		kana-panel {
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+
+			.table {
+				display: inline-flex;
+				flex-direction: row-reverse;
+				align-self: center;
+				background-color: $primary;
+				padding: 1px;
+				user-select: none;
+
+				@include mobile {
+					flex-direction: column;
+				}
+
+				.col {
 					display: flex;
-					flex-direction: row-reverse;
-					background-color: $primary;
-					padding: 1px;
-					user-select: none;
+					flex-direction: column;
 
-					.col {
+					@include mobile {
+						flex-direction: row;
+					}
+
+					.cell {
 						display: flex;
-						flex-direction: column;
+						justify-content: center;
+						align-items: center;
+						text-align: center;
+						vertical-align: middle;
+						width: 36px;
+						height: 36px;
+						margin: 1px;
+						background-color: $on-primary;
 
-						.cell {
-							display: flex;
-							justify-content: center;
-							align-items: center;
-							text-align: center;
-							vertical-align: middle;
-							width: 30px;
-							height: 30px;
-							margin: 1px;
-							background-color: $on-primary;
+						@include mobile {
+							width: 14vw;
+							height: 14vw;
+							font-size: 7vw;
+						}
 
-							&.selectable {
-								transition: $default-transition;
-								cursor: pointer;
+						&.selectable {
+							transition: $default-transition;
+							cursor: pointer;
 
-								&.selected {
-									background-color: $selection;
-									color: $on-selection;
+							&.selected {
+								background-color: $selection;
+								color: $on-selection;
 
+								@include desktop {
 									&:hover {
+										background-color: darken($selection, 20);
+									}
+								}
+
+								@include mobile {
+									&:active {
 										background-color: darken($selection, 20);
 									}
 								}
@@ -58,12 +98,12 @@
 						}
 					}
 				}
+			}
 
-				.filters {
-					margin: 20px 0;
-					display: flex;
-					justify-content: center;
-				}
+			.filters {
+				margin: 2em 0;
+				display: flex;
+				justify-content: center;
 			}
 		}
 	}
@@ -75,13 +115,17 @@
 		.content {
 			display: flex;
 			flex-wrap: wrap;
-			justify-content: space-around;
+			justify-content: center;
 
 			.option {
 				display: flex;
 				flex-direction: column;
 				justify-content: start;
 				align-items: flex-start;
+				margin: 16px 6px;
+				label {
+					margin-bottom: 4px;
+				}
 				text-toggle {
 					margin: 0;
 				}
@@ -92,11 +136,18 @@
 				text-align: center;
 				width: 120px;
 				height: 38px;
-				font-size: 100%;
+				font-size: 1em;
 				font-weight: bold;
 				border: 2px solid $primary;
+
+				@include mobile {
+					width: 140px;
+					height: 50px;
+					font-size: 1.1em;
+				}
+
 				& > * {
-					font-size: 100%;
+					font-size: 1em;
 					font-weight: bold;
 				}
 			}
@@ -117,100 +168,22 @@
 		background-color: $primary;
 		color: $on-primary;
 		transition: all 200ms;
-		&:hover {
-			font-size: 160%;
-			padding: 30px 0;
-			height: $start-button-height * 1.4;
-		}
-	}
+		border-top: 2px solid $background;
 
-	.btn {
-		cursor: pointer;
-		user-select: none;
-		text-transform: uppercase;
-		padding: 8px 26px;
-		margin: 0 10px;
-		box-sizing: border-box;
-		text-align: center;
-		transition: $default-transition;
-
-		&.btn-primary {
-			background-color: $on-primary;
-			color: $primary;
-			border: 2px solid $primary;
-
+		@include desktop {
 			&:hover {
-				background-color: $primary;
-				color: $on-primary;
-			}
-		}
-	}
-
-	number-input {
-		position: relative;
-		padding: 0;
-		display: flex;
-		justify-content: stretch;
-		align-items: stretch;
-
-		input[type='number'] {
-			-moz-appearance: textfield;
-			appearance: textfield;
-			margin: 0 20px;
-			flex: 1;
-			border: none;
-			text-align: center;
-			outline: none;
-			&::-webkit-inner-spin-button,
-			&::-webkit-outer-spin-button {
-				-webkit-appearance: none;
-				margin: 0;
+				font-size: 160%;
+				padding: 30px 0;
+				height: $start-button-height * 1.4;
 			}
 		}
 
-		div[action='down'],
-		div[action='up'] {
-			position: absolute;
-			background: $on-primary;
-			color: $text;
-			width: 20px;
-			height: 100%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			user-select: none;
-			transition: $default-transition;
-
-			&:hover {
-				background-color: $primary;
-				color: $on-primary;
+		@include mobile {
+			&:active {
+				font-size: 160%;
+				padding: 30px 0;
+				height: $start-button-height * 1.4;
 			}
-		}
-
-		div[action='down'] {
-			left: 0;
-		}
-
-		div[action='up'] {
-			right: 0;
-		}
-	}
-
-	#error {
-		position: absolute;
-		top: 0;
-		width: 100%;
-		text-align: center;
-		opacity: 0;
-		transition: opacity 500ms;
-		background-color: $error;
-		color: $on-error;
-		user-select: none;
-		padding: 10px 0;
-
-		&.visible {
-			transition: opacity 250ms;
-			opacity: 1 !important;
 		}
 	}
 }
