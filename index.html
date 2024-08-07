@@ -16,6 +16,7 @@
 
 		<link rel="stylesheet" href="css/normalize.css" />
 		<link rel="stylesheet" href="css/index.scss" />
+		<link rel="stylesheet" href="css/fontello.css" />
 		<link rel="stylesheet" href="css/main.scss" />
 		<link rel="stylesheet" href="css/game.scss" />
 
@@ -24,8 +25,11 @@
 
 	<body>
 		<div id="main">
+			<h1>
+				<p class="kana">仮名</p>
+				<p class="title">flashcards</p>
+			</h1>
 			<div class="content">
-				<h1>Kana Flashcards</h1>
 				<div id="kanas"></div>
 
 				<div id="options">
@@ -51,11 +55,13 @@
 						</div>
 					</div>
 				</div>
-
-				<div id="start-button" class="btn">start</div>
 			</div>
-			<div id="error" style="opacity: 0"></div>
+
+			<a href="https://github.com/kleber-swf/kana-flashcards" id="fork-on-github"><i class="icon-github"></i></a>
 		</div>
+
+		<div id="error" style="opacity: 0"></div>
+		<div id="start-button" class="btn">start</div>
 
 		<kana-game id="game"></kana-game>
 
