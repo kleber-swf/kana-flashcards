@@ -24,7 +24,7 @@ export class ResultsPanel extends HTMLElement {
 		exit.classList.add('exit-button');
 		exit.addEventListener('click', this.exit.bind(this));
 
-		this.classList.add('visible');
+		// this.classList.add('visible');
 	}
 
 	private createLabel(...classes: string[]) {
