@@ -4,7 +4,7 @@
 
 A simple flashcards game to help you remember the kana japanese characters.
 
-http://kleber-silva.com/kana-flashcards
+https://kana-flashcards.kleber-silva.com/
 
 > I made this project to help me study kana characters and it'll evolve as I progress.
 
