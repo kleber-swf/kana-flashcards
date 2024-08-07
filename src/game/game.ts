@@ -10,11 +10,12 @@ export class Game extends HTMLElement {
 	private readonly kana: HTMLElement;
 	private readonly romaji: HTMLElement;
 	private readonly progress: HTMLElement;
+	private readonly initialMessage: HTMLElement;
 
 	private chars: CharacterModel[];
+	private timeline: GSAPTimeline;
 	private hasTime: boolean;
 
-	private timeline: GSAPTimeline;
 	private selectedCharIndex: number;
 
 	constructor() {
@@ -33,11 +34,18 @@ export class Game extends HTMLElement {
 		this.progress = this.appendChild(document.createElement('div'));
 		this.progress.classList.add('time-progress');
 
+		this.initialMessage = this.appendChild(document.createElement('div'));
+		this.initialMessage.classList.add('initial-message');
+		this.initialMessage.style.opacity = '0';
+		this.initialMessage.innerHTML = this.isMobile
+			? 'Touch to start'
+			: `Touch or press &lt;${ACTION_KEY}&gt; to start`;
+
 		const exit = this.appendChild(document.createElement('div'));
 		exit.classList.add('exit-button');
 		exit.addEventListener('click', this.exit.bind(this));
 
-		document.addEventListener('click', this.onClick.bind(this));
+		this.addEventListener('click', this.onClick.bind(this));
 		document.addEventListener('keyup', this.onKeyUp.bind(this));
 	}
 
@@ -46,9 +54,34 @@ export class Game extends HTMLElement {
 			.map(k => k.groups).flat()
 			.map(g => g.characters).flat()
 			.filter(c => c && !c.hidden);
+
 		this.createTimeline(params.studying, params.time);
 		this.classList.add(PLAYING_CLASS);
-		this.nextCharacter();
+
+		this.clear();
+		this.showInitialMessage();
+	}
+
+	private showInitialMessage() {
+		this.initialMessage.style.opacity = '1';
+
+		const initialInput = (e: KeyboardEvent | MouseEvent) => {
+			console.log(e)
+			if (e instanceof KeyboardEvent) {
+				if (e.code === ACTION_KEY) this.nextCharacter();
+				else if (e.code === EXIT_KEY) this.exit();
+				else return;
+			} else this.nextCharacter();
+
+			e.preventDefault();
+			e.stopPropagation();
+			this.initialMessage.style.opacity = '0';
+			document.removeEventListener('keyup', initialInput);
+			this.removeEventListener('click', initialInput);
+		}
+
+		document.addEventListener('keyup', initialInput);
+		this.addEventListener('click', initialInput);
 	}
 
 	private createTimeline(studying: Study, time: number) {
@@ -103,11 +136,16 @@ export class Game extends HTMLElement {
 		else this.timeline.resume();
 	}
 
+	private clear() {
+		this.kana.style.opacity = '0';
+		this.romaji.style.opacity = '0';
+		this.initialMessage.style.opacity = '0';
+		this.progress.style.width = '0';
+	}
+
 	private exit() {
 		this.timeline.clear(true);
 		this.classList.remove(PLAYING_CLASS);
-		this.kana.style.opacity = '0';
-		this.romaji.style.opacity = '0';
 	}
 
 	private onClick() {
