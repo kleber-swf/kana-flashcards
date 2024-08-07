@@ -7,7 +7,7 @@
 	"author": "Kleber Silva",
 	"scripts": {
 		"build": "parcel build index.html",
-		"dev": "parcel index.html",
+		"dev": "parcel serve index.html",
 		"start": "npm run build && npm run dev",
 		"deploy": "firebase deploy",
 		"prebuild": "rm -rf dist",
