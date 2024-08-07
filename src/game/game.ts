@@ -36,13 +36,13 @@ export class Game {
 		document.addEventListener('keyup', this.onKeyPress.bind(this));
 	}
 
-	public show(params: Parameters, revealOrder: Elements[]) {
+	public show(params: Parameters, studying: 'reads' | 'writes') {
 		this.chars = params.kanas
 			.map(k => k.groups).flat()
 			.map(g => g.characters).flat()
 			.filter(c => c && !c.hidden);
 
-		this.revealOrder = revealOrder;
+		this.revealOrder = [studying === 'reads' ? 'writes' : 'reads', studying];
 		this.selectedCharIndex = -1;
 		this.game.classList.add(PLAYING_CLASS);
 
@@ -101,11 +101,25 @@ export class Game {
 		this.elements[el].classList.remove(INVISIBLE_CLASS);
 	}
 
+	private showTip() {
+		this.reveal('tip');
+	}
+
 	private onKeyPress(e: KeyboardEvent) {
 		if (!this.playing) return;
-		if (e.code === 'Space') while (!this.advance());
-		else if (e.code === 'Escape') this.exit();
-		else return;
+		switch (e.code) {
+			case 'Space':
+				while (!this.advance());
+				break;
+			case 'Escape':
+				this.exit();
+				break;
+			case 'KeyT':
+				this.showTip();
+				break;
+			default:
+				return;
+		}
 
 		e.preventDefault();
 		e.stopPropagation();
