@@ -39,7 +39,7 @@ export class Game extends HTMLElement {
 		this.initialMessage.style.opacity = '0';
 		this.initialMessage.innerHTML = this.isMobile
 			? 'Touch to start'
-			: `Touch or press &lt;${ACTION_KEY}&gt; to start`;
+			: `Touch or press ${ACTION_KEY} to start`;
 
 		const exit = this.appendChild(document.createElement('div'));
 		exit.classList.add('exit-button');
@@ -55,10 +55,11 @@ export class Game extends HTMLElement {
 			.map(g => g.characters).flat()
 			.filter(c => c && !c.hidden);
 
+		this.clear();
+
 		this.createTimeline(params.studying, params.time);
 		this.classList.add(PLAYING_CLASS);
 
-		this.clear();
 		this.showInitialMessage();
 	}
 
@@ -66,7 +67,6 @@ export class Game extends HTMLElement {
 		this.initialMessage.style.opacity = '1';
 
 		const initialInput = (e: KeyboardEvent | MouseEvent) => {
-			console.log(e)
 			if (e instanceof KeyboardEvent) {
 				if (e.code === ACTION_KEY) this.nextCharacter();
 				else if (e.code === EXIT_KEY) this.exit();
@@ -88,7 +88,7 @@ export class Game extends HTMLElement {
 		this.hasTime = !isNaN(time) && time > 0;
 		const chars = studying === 'reads' ? [this.kana, this.romaji] : [this.romaji, this.kana];
 
-		this.timeline = gsap.timeline({ paused: true })
+		const timeline = this.timeline = gsap.timeline({ paused: true })
 			.to(chars, { opacity: 0, duration: 0.5 })
 			.call(() => this.randomCharacter())
 			.addLabel('step1')
@@ -96,13 +96,14 @@ export class Game extends HTMLElement {
 			.addLabel('step2');
 
 		if (this.hasTime) {
-			this.timeline.set({}, { delay: time }).addLabel('step3')
-			this.timeline.fromTo(this.progress, { width: '100%' }, { width: 0, duration: time, ease: 'none' }, 'step2');
+			timeline.set({}, { delay: time }).addLabel('step3');
+			timeline.fromTo(this.progress, { opacity: 0 }, { opacity: 1, duration: 0.2 }, 'step1');
+			timeline.fromTo(this.progress, { width: '100%' }, { width: 0, duration: time, ease: 'none' }, 'step2');
 		} else {
 			this.progress.style.width = '0';
 		}
 
-		this.timeline.to(chars[1], { opacity: 1, duration: 0.5 });
+		timeline.to(chars[1], { opacity: 1, duration: 0.5 });
 	}
 
 	private randomCharacter() {
