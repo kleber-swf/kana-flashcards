@@ -22,18 +22,18 @@ export class Game {
 	private canAdvance = false;
 
 	constructor() {
-		this.game = document.querySelector('#game')!;
+		const game = this.game = document.querySelector('#game')!;
 		this.initialMessage = document.querySelector('#initial-message')!;
 		this.initialMessage.innerHTML = `<div>Press &lt;${ACTION_KEY}&gt; to start</div>` +
 			`<div class="small">Press &lt;${ACTION_KEY}&gt; to advance or &lt;${EXIT_KEY}&gt; to exit.</div>`;
 
 		this.elements = {
-			reads: this.game.querySelector('#reads')!,
-			writes: this.game.querySelector('#writes')!,
-			tip: this.game.querySelector('#tip')!,
+			reads: game.querySelector('#reads')!,
+			writes: game.querySelector('#writes')!,
+			tip: game.querySelector('#tip')!,
 		};
 
-		document.addEventListener('keydown', this.onKeyDown.bind(this));
+		document.addEventListener('keyup', this.onKeyPress.bind(this));
 	}
 
 	public show(params: Parameters, revealOrder: Elements[]) {
@@ -59,11 +59,12 @@ export class Game {
 				this.canAdvance = true;
 				this.advance();
 			} else if (e.code !== EXIT_KEY) return;
+			document.removeEventListener('keyup', doStart);
 			this.initialMessage.classList.add(INVISIBLE_CLASS);
 			document.removeEventListener('keydown', doStart);
 		}
 
-		document.addEventListener('keydown', doStart);
+		document.addEventListener('keyup', doStart);
 	}
 
 	private advance() {
@@ -71,8 +72,10 @@ export class Game {
 		this.revealIndex++;
 		if (this.revealIndex < this.revealOrder.length) {
 			this.reveal(this.revealOrder[this.revealIndex]);
+			return true;
 		} else {
 			this.nextChar();
+			return false;
 		}
 	}
 
@@ -98,9 +101,9 @@ export class Game {
 		this.elements[el].classList.remove(INVISIBLE_CLASS);
 	}
 
-	private onKeyDown(e: KeyboardEvent) {
+	private onKeyPress(e: KeyboardEvent) {
 		if (!this.playing) return;
-		if (e.code === 'Space') this.advance();
+		if (e.code === 'Space') while (!this.advance());
 		else if (e.code === 'Escape') this.exit();
 		else return;
 
