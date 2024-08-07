@@ -25,6 +25,7 @@ kana-game {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		margin-top: -30px;
 
 		.romaji {
 			font-size: 40px;
@@ -72,40 +73,5 @@ kana-game {
 		width: 100%;
 		height: 10px;
 		background-color: darken($primary, 20);
-	}
-
-	.exit-button {
-		position: absolute;
-		padding: 16px;
-		top: 0;
-		right: 0;
-		cursor: pointer;
-
-		&:after {
-			content: '\00D7';
-			display: inline-block;
-			font-size: 200%;
-			line-height: 1;
-			color: $text;
-			transition: $default-transition;
-		}
-
-		&:active:after {
-			color: $on-primary;
-		}
-
-		@include has-hover {
-			&:hover:after {
-				color: $on-primary;
-			}
-		}
-	}
-}
-
-body.mobile {
-	kana-game {
-		.exit-button:active:after {
-			color: $on-primary;
-		}
 	}
 }

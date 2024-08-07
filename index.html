@@ -16,10 +16,11 @@
 		<link rel="apple-touch-icon" href="icon.png" />
 
 		<link rel="stylesheet" href="css/normalize.css" />
+		<link rel="stylesheet" href="css/fontello.scss" />
 		<link rel="stylesheet" href="css/index.scss" />
-		<link rel="stylesheet" href="css/fontello.css" />
 		<link rel="stylesheet" href="css/main.scss" />
 		<link rel="stylesheet" href="css/game.scss" />
+		<link rel="stylesheet" href="css/results-panel.scss" />
 
 		<meta name="theme-color" content="#1d1d1bff" />
 	</head>
@@ -59,13 +60,17 @@
 			</div>
 
 			<div id="version">$VERSION$</div>
-			<a href="https://github.com/kleber-swf/kana-flashcards" id="fork-on-github" target="_blank"> <i class="icon-github"></i></a>
+			<a href="https://github.com/kleber-swf/kana-flashcards" id="fork-on-github" target="_blank">
+				<i class="icon-github"></i>
+			</a>
 		</div>
 
 		<error-snackbar id="error"></error-snackbar>
 		<div id="start-button" class="btn">start</div>
 
 		<kana-game id="game"></kana-game>
+
+		<results-panel id="results"></results-panel>
 
 		<script src="src/main.ts" type="module"></script>
 	</body>
