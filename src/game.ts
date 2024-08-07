@@ -1,4 +1,4 @@
-import { CharacterModel, Elements, GameElements, KanaModel } from './model';
+import { CharacterModel, Elements, GameElements, KanaModel, Parameters } from './model';
 
 const PLAYING_CLASS = 'playing';
 const INVISIBLE_CLASS = 'invisible';
@@ -35,8 +35,12 @@ export class Game {
 		document.addEventListener('keydown', this.onKeyDown.bind(this))
 	}
 
-	public start(kanas: KanaModel[], revealOrder: Elements[]) {
-		this.chars = kanas.map(k => k.groups).flat().map(g => g.characters).flat().filter(c => c && !c.hidden);
+	public start(params: Parameters, revealOrder: Elements[]) {
+		this.chars = params.kanas
+			.map(k => k.groups).flat()
+			.map(g => g.characters).flat()
+			.filter(c => c && !c.hidden);
+
 		this.revealOrder = revealOrder;
 		this.selectedCharIndex = -1;
 		this.game.classList.add(PLAYING_CLASS);

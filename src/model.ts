@@ -1,4 +1,8 @@
-// #region Content Selector
+// #region Paramters
+
+export interface Parameters {
+	kanas: KanaModel[];
+}
 
 export interface HeadElement extends HTMLTableCellElement {
 	cells: CellElement[],
