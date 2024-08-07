@@ -71,8 +71,8 @@ export class ParameterSelector {
 				kchars.push(toChar(char, group, 'katakana'));
 			});
 
-			hiraganas.push({ title: group.title, dakuten: group.dakuten, characters: hchars });
-			katakanas.push({ title: group.title, dakuten: group.dakuten, characters: kchars });
+			hiraganas.push({ title: group.title, type: group.type, dakuten: group.dakuten, characters: hchars });
+			katakanas.push({ title: group.title, type: group.type, dakuten: group.dakuten, characters: kchars });
 		});
 
 		return [

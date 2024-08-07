@@ -25,7 +25,8 @@ export class KanaPanel extends HTMLElement {
 
 	public setup(kana: KanaModel) {
 		this.appendChild(this.createTitle(kana.name));
-		this.appendChild(this.createTable(kana.groups));
+		this.appendChild(this.createTable(kana.groups.filter(e => e.type === 'kana')));
+		this.appendChild(this.createTable(kana.groups.filter(e => e.type === 'yoon')));
 		this.appendChild(this.createFilters());
 	}
 
