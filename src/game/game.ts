@@ -159,7 +159,7 @@ export class Game extends HTMLElement {
 		const char = this.chars[i];
 		const { romaji, kana } = this;
 
-		romaji.innerText = char.romaji;
+		romaji.innerText = char.romaji + (char.tip ? ` (${char.tip})` : '');
 		romaji.classList.toggle(HIRAGANA_CLASS, char.alphabet === 'hiragana');
 		romaji.classList.toggle(KATAKANA_CLASS, char.alphabet === 'katakana');
 

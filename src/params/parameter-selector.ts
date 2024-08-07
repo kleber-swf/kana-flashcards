@@ -1,5 +1,5 @@
 import merge from 'deepmerge-json';
-import { CharacterGroupModel, CharacterModel, FileKanaModel, KanaModel, Parameters } from '../model';
+import { Alphabet, CharacterGroupModel, CharacterModel, FileCharacterGroupModel, FileCharacterModel, FileKanaModel, KanaModel, Parameters } from '../model';
 import { KanaPanel } from './kana-panel';
 import { OptionsPanel } from './options-panel';
 
@@ -51,18 +51,24 @@ export class ParameterSelector {
 		const hiraganas: CharacterGroupModel[] = [];
 		const katakanas: CharacterGroupModel[] = [];
 
+		function toChar(char: FileCharacterModel | null, group: FileCharacterGroupModel, alphabet: Alphabet): CharacterModel | null {
+			return char
+				? {
+					alphabet,
+					kana: char[alphabet],
+					romaji: char.romaji,
+					tip: char.ambiguous ? group.title.substring(0, 1) : undefined
+				}
+				: null;
+		}
+
 		groups.forEach(group => {
 			const hchars: (CharacterModel | null)[] = [];
 			const kchars: (CharacterModel | null)[] = [];
 
 			group.characters.forEach(char => {
-				if (char !== null) {
-					hchars.push({ alphabet: 'hiragana', kana: char.hiragana, romaji: char.romaji });
-					kchars.push({ alphabet: 'katakana', kana: char.katakana, romaji: char.romaji });
-				} else {
-					hchars.push(null);
-					kchars.push(null);
-				}
+				hchars.push(toChar(char, group, 'hiragana'));
+				kchars.push(toChar(char, group, 'katakana'));
 			});
 
 			hiraganas.push({ title: group.title, dakuten: group.dakuten, characters: hchars });

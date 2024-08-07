@@ -29,6 +29,7 @@ export interface CharacterModel {
 	romaji: string;
 	hidden?: boolean;
 	alphabet: Alphabet;
+	tip?: string;
 }
 
 export interface CharacterGroupModel {
@@ -47,6 +48,7 @@ export interface FileCharacterModel {
 	hiragana: string;
 	katakana: string;
 	romaji: string;
+	ambiguous?: boolean;
 }
 
 export interface FileCharacterGroupModel {
