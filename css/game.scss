@@ -4,6 +4,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -28,10 +29,27 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-	}
 
-	.kana {
-		font-family: 'Noto Sans JP';
+		#reads,
+		#writes {
+			transition: all 200ms;
+			height: auto;
+		}
+
+		#reads {
+			font-size: 36px;
+			color: $text;
+		}
+
+		#writes {
+			font-size: 80px;
+			color: $text;
+		}
+
+		.invisible {
+			transition: none !important;
+			height: 0 !important;
+		}
 	}
 
 	#timebar {
