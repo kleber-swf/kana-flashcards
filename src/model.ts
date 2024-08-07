@@ -17,7 +17,6 @@ export interface CellElement extends HTMLTableCellElement {
 
 // #endregion
 
-
 // #region Game
 
 export type Train = 'reads' | 'writes';

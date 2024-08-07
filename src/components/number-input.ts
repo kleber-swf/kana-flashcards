@@ -11,8 +11,8 @@ export class NumberInput extends HTMLElement {
 	public get value() { return this.input.valueAsNumber; }
 
 	public set value(value: number) {
-		const min = parseInt(this.input.min);
-		const max = parseInt(this.input.max);
+		const min = parseInt(this.input.min, 10);
+		const max = parseInt(this.input.max, 10);
 		if (isNaN(value)) value = min;
 		this.input.value = Math.floor(Math.min(Math.max(value, min), max)).toString(10);
 	}
@@ -66,6 +66,6 @@ export class NumberInput extends HTMLElement {
 	}
 
 	private incrementValue(increment: -1 | 1) {
-		this.value = this.value + increment;
+		this.value += increment;
 	}
 }
