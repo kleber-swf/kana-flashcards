@@ -3,10 +3,13 @@ import { CharacterModel, Elements, GameElements, KanaModel } from './model';
 const PLAYING_CLASS = 'playing';
 const INVISIBLE_CLASS = 'invisible';
 const PLAY_ANIM_DURATION = 1000;
+const ACTION_KEY = 'Space';
+const EXIT_KEY = 'Escape';
 
 export class Game {
 	private readonly game: HTMLElement;
 	private readonly elements: GameElements;
+	private readonly initialMessage: HTMLElement;
 
 	private chars: CharacterModel[];
 	private selectedCharIndex: number;
@@ -19,6 +22,10 @@ export class Game {
 
 	constructor() {
 		this.game = document.querySelector('#game')!;
+		this.initialMessage = document.querySelector('#initial-message')!;
+		this.initialMessage.innerHTML = `<div>Press &lt;${ACTION_KEY}&gt; to start</div>` +
+			`<div class="small">Press &lt;${ACTION_KEY}&gt; to advance or &lt;${EXIT_KEY}&gt; to exit.</div>`;
+
 		this.elements = {
 			reads: this.game.querySelector('#reads')!,
 			writes: this.game.querySelector('#writes')!,
@@ -35,6 +42,20 @@ export class Game {
 		this.game.classList.add(PLAYING_CLASS);
 		setTimeout(() => this.playing = true, PLAY_ANIM_DURATION);
 		this.nextChar();
+
+		this.showInitialMessage();
+	}
+
+	private showInitialMessage() {
+		this.initialMessage.classList.remove(INVISIBLE_CLASS);
+
+		const s = (e: KeyboardEvent) => {
+			if (!(e.code === ACTION_KEY || e.code === EXIT_KEY)) return;
+			this.initialMessage.classList.add(INVISIBLE_CLASS);
+			document.removeEventListener('keydown', s);
+		}
+
+		document.addEventListener('keydown', s);
 	}
 
 	private nextChar() {
