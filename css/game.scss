@@ -53,14 +53,16 @@ kana-game {
 		padding: 20px;
 
 		.training-message {
-			line-height: 1.4em;
+			line-height: 1.5em;
 			.hiragana,
 			.katakana {
-				background-color: rgba($text, 0.2);
-				padding:0 0.5em;
+				display: inline-block;
+				border: 1px solid $text;
+				padding: 0 0.5em;
+				width: 205px;
+				margin: 10px;
 			}
 		}
-
 	}
 
 	.time-progress {
