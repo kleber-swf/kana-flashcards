@@ -9,7 +9,7 @@
 	position: relative;
 
 	h1 {
-		background-color: red;
+		background-color: $primary;
 		margin: 0 0 20px;
 		padding: 40px 20px;
 		text-align: center;
@@ -24,14 +24,13 @@
 			}
 		}
 	}
-	
+
 	& > .content {
 		padding: 40px 0 80px;
 
 		@include mobile {
 			width: 87vw;
 		}
-
 
 		h2 {
 			margin: 1em 0 0.5em 0;
