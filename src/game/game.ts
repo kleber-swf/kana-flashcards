@@ -63,9 +63,8 @@ export class Game extends HTMLElement {
 	public start(params: Parameters) {
 		this.chars = params.kanas.map(kana => kana.groups
 			// gets only visible characters as a single dimension array
-			.map(group => group.characters.filter(c => c && !c.hidden)).flat()
-			// adds the alphabet name to each character
-			.map(char => ({ ...char, alphabet: kana.name }))).flat();
+			.map(group => group.characters.filter(c => c && !c.hidden)).flat())
+			.flat() as CharacterModel[];
 
 		this.clear();
 

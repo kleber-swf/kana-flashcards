@@ -29,11 +29,12 @@ export interface CharacterModel {
 	romaji: string;
 	hidden?: boolean;
 	alphabet: Alphabet;
+	audio?: string;
 }
 
 export interface CharacterGroupModel {
 	title: string;
-	characters: CharacterModel[];
+	characters: (CharacterModel | null)[];
 	dakuten?: boolean;
 }
 
@@ -41,5 +42,21 @@ export interface KanaModel {
 	name: Alphabet;
 	groups: CharacterGroupModel[];
 }
+
+
+export interface FileCharacterModel {
+	hiragana: string;
+	katakana: string;
+	romaji: string;
+	audio?: string;
+}
+
+export interface FileCharacterGroupModel {
+	title: string;
+	dakuten?: boolean;
+	characters: (FileCharacterModel | null)[];
+}
+
+export type FileKanaModel = FileCharacterGroupModel[];
 
 // #endregion
