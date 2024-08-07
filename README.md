@@ -18,6 +18,7 @@ https://kana-flashcards.kleber-silva.com/
 -   Optional **time to reveal** the character
 -   Optional **auto advance** to the next character with a timer
 -   Train **writting** or **reading** the characters
+-   Speed results with records
 -   Mobile and desktop
 
 ## Development
