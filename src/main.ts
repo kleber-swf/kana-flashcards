@@ -14,5 +14,5 @@ document.querySelector('#start-button')!
 
 Promise.all(([hiragana] as any[]).map(e => fetch(e)))
 	.then(responses => Promise.all(responses.filter(e => e.ok).map(e => e.json())))
-	.then(contents => parameters.setup(document.querySelector('#parameters')!, contents))
+	.then(contents => parameters.setup(contents))
 	.catch(console.error);
