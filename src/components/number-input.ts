@@ -7,13 +7,15 @@ export class NumberInput extends HTMLElement {
 
 	private iid: any;
 	private buttonIsDown = false;
+	private _value: number;
 
-	public get value() { return this.input.valueAsNumber; }
+	public get value() { return this._value; }
 
 	public set value(value: number) {
 		const min = parseInt(this.input.min);
 		const max = parseInt(this.input.max);
 		if (isNaN(value)) value = min;
+		this._value = value;
 		this.input.value = Math.floor(Math.min(Math.max(value, min), max)).toString(10);
 	}
 
@@ -25,9 +27,11 @@ export class NumberInput extends HTMLElement {
 	}
 
 	public connectedCallback() {
-		this.input.setAttribute('min', this.getAttribute('min') || '');
+		const min = this.getAttribute('min');
+		this.input.setAttribute('min', min || '');
 		this.input.setAttribute('max', this.getAttribute('max') || '');
-		this.input.setAttribute('value', this.getAttribute('value') || '');
+		this.input.setAttribute('value', this.getAttribute('value') || min || '0');
+		this._value = this.input.valueAsNumber ?? 0;
 	}
 
 	private createInput() {

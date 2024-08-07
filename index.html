@@ -32,7 +32,12 @@
 					<h2>options</h2>
 					<div class="content">
 						<div class="option">
-							<label for="time">time</label>
+							<label for="reveal-delay">reveal delay</label>
+							<number-input id="reveal-delay" class="input" min="0" max="100" value="0"> </number-input>
+							<span>seconds</span>
+						</div>
+						<div class="option">
+							<label for="auto-advance-delay">auto advance in</label>
 							<number-input id="time" class="input" min="0" max="100" value="0"> </number-input>
 							<span>seconds</span>
 						</div>
@@ -51,21 +56,8 @@
 
 				<div id="start-button" class="btn">start</div>
 			</div>
-			<div id="error"></div>
+			<div id="error" style="opacity: 0"></div>
 		</div>
-
-		<!-- <div id="game">
-			<div id="result">
-				<div id="reads" class="romaji invisible"></div>
-				<div id="writes" class="kana invisible"></div>
-				<div id="tip" class="tip invisible"></div>
-			</div>
-			<div id="initial-message" class="invisible"></div>
-			<div id="timebar">
-				<div id="progress"></div>
-			</div>
-			<div id="close">&times;</div>
-		</div> -->
 
 		<kana-game id="game"></kana-game>
 
