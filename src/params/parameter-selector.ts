@@ -12,7 +12,8 @@ export class ParameterSelector {
 	public get data(): Parameters {
 		return {
 			studying: this.optionsPanel.studying,
-			time: this.optionsPanel.time,
+			revealDelay: this.optionsPanel.revealDelay,
+			autoAdvanceDelay: this.optionsPanel.autoAdvanceDelay,
 			kanas: this.kanas
 		}
 	}

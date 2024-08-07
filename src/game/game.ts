@@ -14,7 +14,8 @@ export class Game extends HTMLElement {
 
 	private chars: CharacterModel[];
 	private timeline: GSAPTimeline;
-	private hasTime: boolean;
+	private hasRevealDelay: boolean;
+	private hasAdvanceDelay: boolean;
 
 	private selectedCharIndex: number;
 
@@ -45,7 +46,7 @@ export class Game extends HTMLElement {
 		exit.classList.add('exit-button');
 		exit.addEventListener('click', this.exit.bind(this));
 
-		this.addEventListener('click', this.onClick.bind(this));
+		this.addEventListener('click', this.nextStep.bind(this));
 		document.addEventListener('keyup', this.onKeyUp.bind(this));
 	}
 
@@ -57,7 +58,7 @@ export class Game extends HTMLElement {
 
 		this.clear();
 
-		this.createTimeline(params.studying, params.time);
+		this.createTimeline(params.studying, params.revealDelay, params.autoAdvanceDelay);
 		this.classList.add(PLAYING_CLASS);
 
 		this.showInitialMessage();
@@ -84,26 +85,32 @@ export class Game extends HTMLElement {
 		this.addEventListener('click', initialInput);
 	}
 
-	private createTimeline(studying: Study, time: number) {
-		this.hasTime = !isNaN(time) && time > 0;
+	private createTimeline(studying: Study, revealDelay: number, autoAdvanceDelay: number) {
+		this.hasRevealDelay = !isNaN(revealDelay) && revealDelay > 0;
+		this.hasAdvanceDelay = !isNaN(autoAdvanceDelay) && autoAdvanceDelay > 0;
 		const chars = studying === 'reads' ? [this.kana, this.romaji] : [this.romaji, this.kana];
 
 		const timeline = this.timeline = gsap.timeline({ paused: true })
-			.to(chars, { opacity: 0, duration: 0.5 })
+			.fromTo(chars, { opacity: 1 }, { opacity: 0, duration: 0.6 })
 			.call(() => this.randomCharacter())
 			.addLabel('step1')
-			.to(chars[0], { opacity: 1, duration: 0.5 })
+			.fromTo(chars[0], { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.5 })
 			.addLabel('step2');
 
-		if (this.hasTime) {
-			timeline.set({}, { delay: time }).addLabel('step3');
-			timeline.fromTo(this.progress, { opacity: 0 }, { opacity: 1, duration: 0.2 }, 'step1');
-			timeline.fromTo(this.progress, { width: '100%' }, { width: 0, duration: time, ease: 'none' }, 'step2');
-		} else {
-			this.progress.style.width = '0';
+		if (this.hasRevealDelay) {
+			timeline.set({}, { delay: revealDelay })
+				.addLabel('step3')
+				.fromTo(this.progress, { width: '100%' }, { width: 0, duration: revealDelay, ease: 'none' }, 'step2');
 		}
 
-		timeline.to(chars[1], { opacity: 1, duration: 0.5 });
+		timeline.fromTo(chars[1], { opacity: 0 }, { opacity: 1, duration: 1 });
+
+		if (this.hasAdvanceDelay) {
+			timeline.addLabel('step4')
+				.fromTo(this.progress, { width: 0 }, { width: '100%', duration: autoAdvanceDelay, ease: 'none' })
+				.addLabel('step5')
+				.call(this.nextStep.bind(this), undefined, 'step5+=0.1');
+		}
 	}
 
 	private randomCharacter() {
@@ -118,7 +125,7 @@ export class Game extends HTMLElement {
 
 	private nextCharacter() {
 		this.timeline.restart();
-		if (!this.hasTime) {
+		if (!this.hasRevealDelay) {
 			this.timeline.tweenFromTo(0, 'step2');
 		}
 	}
@@ -138,8 +145,8 @@ export class Game extends HTMLElement {
 	}
 
 	private clear() {
-		this.kana.style.opacity = '0';
-		this.romaji.style.opacity = '0';
+		this.kana.innerText = '';
+		this.romaji.innerText = '';
 		this.initialMessage.style.opacity = '0';
 		this.progress.style.width = '0';
 	}
@@ -147,10 +154,6 @@ export class Game extends HTMLElement {
 	private exit() {
 		this.timeline.clear(true);
 		this.classList.remove(PLAYING_CLASS);
-	}
-
-	private onClick() {
-		this.nextStep();
 	}
 
 	private onKeyUp(e: KeyboardEvent) {
