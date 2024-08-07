@@ -127,7 +127,7 @@ export class Game extends HTMLElement {
 				.fromTo(this.progress, { width: '100%' }, { width: 0, duration: revealDelay, ease: 'none' }, 'step2');
 		}
 
-		timeline.fromTo(chars[1], { opacity: 0 }, { opacity: 1, duration: 1 });
+		timeline.fromTo(chars[1], { opacity: 0 }, { opacity: 1, duration: 0.5 });
 
 		if (this.hasAdvanceDelay) {
 			timeline.addLabel('step4')
@@ -163,7 +163,8 @@ export class Game extends HTMLElement {
 	}
 
 	private nextStep() {
-		if (this.timeline.progress() === 1) {
+		if (this.timeline.progress() >= 0.8) {
+			this.timeline.kill();
 			this.nextCharacter();
 			return;
 		}
