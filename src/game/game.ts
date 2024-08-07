@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { isMobile } from '../globals';
 import { CharacterModel, Parameters, Train } from '../model';
+import { GameCompleteEvent } from './game-complete.event';
 import { InitialMessage } from './initial-message';
 
 const ACTION_KEY = 'Space';
@@ -22,6 +23,10 @@ export class Game extends HTMLElement {
 
 	private playing: boolean;
 	private selectedCharIndex: number;
+
+	private charCount: number;
+	private totalTime: number;
+	private lastTimeMark: number;
 
 	constructor() {
 		super();
@@ -102,20 +107,39 @@ export class Game extends HTMLElement {
 			.fromTo(chars, { opacity: 1 }, { opacity: 0, duration: 0.6 })
 			.call(() => this.randomCharacter())
 			.addLabel('step1')
-			.fromTo(chars[0], { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.5 })
+			.fromTo(chars[0], { opacity: 0 }, {
+				opacity: 1,
+				duration: 0.5,
+				delay: 0.5,
+				onStart: () => this.startTimer(),
+			})
 			.addLabel('step2');
 
 		if (this.hasRevealDelay) {
 			timeline.set({}, { delay: revealDelay })
 				.addLabel('step3')
-				.fromTo(this.progress, { width: '100%' }, { width: 0, duration: revealDelay, ease: 'none' }, 'step2');
+				.fromTo(this.progress, { width: '100%' }, {
+					width: 0,
+					duration: revealDelay,
+					ease: 'none',
+				}, 'step2');
 		}
 
-		timeline.fromTo(chars[1], { opacity: 0 }, { opacity: 1, duration: 0.5 });
+		timeline.fromTo(chars[1], { opacity: 0 }, {
+			opacity: 1,
+			duration: 0.5,
+			onStart: () => this.stopTimer(),
+		});
 
 		if (this.hasAdvanceDelay) {
 			timeline.addLabel('step4')
-				.fromTo(this.progress, { width: 0 }, { width: '100%', duration: autoAdvanceDelay, delay: 1, ease: 'none' })
+				.call(() => this.stopTimer())
+				.fromTo(this.progress, { width: 0 }, {
+					width: '100%',
+					duration: autoAdvanceDelay,
+					delay: 1,
+					ease: 'none',
+				})
 				.addLabel('step5')
 				.call(this.nextStep.bind(this), undefined, 'step5+=0.1');
 		}
@@ -153,7 +177,8 @@ export class Game extends HTMLElement {
 			return;
 		}
 
-		if (!this.timeline.currentLabel()) return;
+		const currentLabel = this.timeline.currentLabel();
+		if (!currentLabel || currentLabel === 'step1') return;
 
 		const nextLabel = this.timeline.nextLabel();
 		if (nextLabel) this.timeline.play(nextLabel);
@@ -161,6 +186,9 @@ export class Game extends HTMLElement {
 	}
 
 	private clear() {
+		this.charCount = 0;
+		this.totalTime = 0;
+		this.lastTimeMark = 0;
 		this.kana.innerText = '';
 		this.romaji.innerText = '';
 		this.progress.style.width = '0';
@@ -168,9 +196,23 @@ export class Game extends HTMLElement {
 	}
 
 	private exit() {
+		const event = new GameCompleteEvent(this.charCount, this.totalTime);
 		this.playing = false;
 		this.timeline.clear(true);
 		this.classList.remove(PLAYING_CLASS);
+		this.dispatchEvent(event);
+	}
+
+	private startTimer() {
+		if (this.lastTimeMark !== 0) return;
+		this.lastTimeMark = Date.now();
+	}
+
+	private stopTimer() {
+		if (this.lastTimeMark === 0) return;
+		this.totalTime += Date.now() - this.lastTimeMark;
+		this.lastTimeMark = 0;
+		this.charCount++;
 	}
 
 	private onTouch() {
