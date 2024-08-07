@@ -19,46 +19,41 @@
 		}
 
 		#kanas {
-			display: flex;
-			flex-direction: column;
-
-			.kana-panel {
-				display: flex;
-				flex-direction: column;
-				justify-content: stretch;
-
-				table {
+			kana-panel {
+				.table {
+					display: flex;
+					flex-direction: row-reverse;
 					background-color: $primary;
+					padding: 1px;
+					user-select: none;
 
-					td {
-						cursor: pointer;
-						user-select: none;
-						text-align: center;
-						background-color: $on-primary;
-						width: 36px;
-						height: 36px;
-						transition: $default-transition;
-					}
+					.col {
+						display: flex;
+						flex-direction: column;
 
-					thead td {
-						font-size: 90%;
-						font-weight: bold;
-						text-transform: uppercase;
-						background-color: $on-primary;
-					}
+						.cell {
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							text-align: center;
+							vertical-align: middle;
+							width: 30px;
+							height: 30px;
+							margin: 1px;
+							background-color: $on-primary;
 
-					tbody td {
-						color: rgba($text, 0.6);
+							&.selectable {
+								transition: $default-transition;
+								cursor: pointer;
 
-						&:hover {
-							color: $text;
-						}
+								&.selected {
+									background-color: $selection;
+									color: $on-selection;
 
-						&.selected {
-							background-color: $selection;
-							color: $on-selection;
-							&:hover {
-								background-color: darken($selection, 20);
+									&:hover {
+										background-color: darken($selection, 20);
+									}
+								}
 							}
 						}
 					}
