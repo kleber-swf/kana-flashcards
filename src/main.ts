@@ -1,4 +1,5 @@
 import hiragana from '../content/hiragana.json';
+import katakana from '../content/katakana.json';
 import { ErrorSnackbar } from './components/error-snackbar';
 import { NumberInput } from './components/number-input';
 import { TextToggle } from './components/text-toggle';
@@ -16,7 +17,7 @@ const parameters = new ParameterSelector();
 const game = document.querySelector('#game') as Game;
 const error = document.querySelector('#error') as ErrorSnackbar;
 
-Promise.all(([hiragana] as any[]).map(e => fetch(e)))
+Promise.all(([hiragana, katakana] as any[]).map(e => fetch(e)))
 	.then(responses => Promise.all(responses.filter(e => e.ok).map(e => e.json())))
 	.then(contents => parameters.setup(contents))
 	.catch(console.error);
