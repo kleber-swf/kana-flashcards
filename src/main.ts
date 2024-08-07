@@ -1,6 +1,5 @@
 import { logEvent } from 'firebase/analytics';
-import hiragana from '../content/hiragana.json';
-import katakana from '../content/katakana.json';
+import characters from '../content/characters.json';
 import { ErrorSnackbar } from './components/error-snackbar';
 import { NumberInput } from './components/number-input';
 import { ResultsPanel } from './components/results-panel';
@@ -32,10 +31,9 @@ const saved = window.localStorage.getItem(LS_KEY);
 
 if (isMobile) document.body.classList.add('mobile');
 
-Promise.all(([hiragana, katakana] as any[]).map(e => fetch(e)))
-	.then(responses => Promise.all(responses.filter(e => e.ok).map(e => e.json())))
-	.then(contents => parameters.setup(contents, saved))
-	.catch(console.error);
+fetch(characters as any)
+	.then(response => response.json())
+	.then(contents => parameters.setup(contents, saved));
 
 document.querySelector('#start-button')?.addEventListener('click', tryStartGame);
 

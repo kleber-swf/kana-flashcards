@@ -56,7 +56,6 @@ export class ResultsPanel extends HTMLElement {
 	}
 
 	private checkNewRecord(speed: number) {
-		console.log(speed, this.lastRecord);
 		if (speed <= this.lastRecord) {
 			gsap.set(this.recordIcon, { alpha: 0 });
 			return;

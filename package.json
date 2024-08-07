@@ -7,14 +7,15 @@
 	"author": "Kleber Silva",
 	"scripts": {
 		"build": "parcel build index.html",
-		"dev": "parcel index.html",
+		"dev": "parcel serve index.html",
 		"start": "npm run build && npm run dev",
 		"deploy": "firebase deploy",
 		"prebuild": "rm -rf dist",
 		"postbuild": "node scripts/post-build.js",
 		"predeploy": "npm run build",
 		"check": "tsc --noEmit",
-		"lint": "eslint --cache --fix --color --ext .js --ext .ts \"src\""
+		"lint": "eslint --cache --fix --color --ext .js --ext .ts \"src\"",
+		"audio-files-to-module": "bun ./scripts/audio-files-to-module.mjs"
 	},
 	"files": [
 		"dist"

@@ -39,21 +39,28 @@
 					<div class="content">
 						<div class="option">
 							<label for="reveal-delay">reveal delay</label>
-							<number-input id="reveal-delay" class="input" min="0" max="100" value="0"> </number-input>
+							<number-input id="reveal-delay" class="input border" min="0" max="100" value="0"> </number-input>
 						</div>
 						<div class="option">
 							<label for="auto-advance">auto advance in</label>
-							<number-input id="auto-advance" class="input" min="0" max="100" value="0"> </number-input>
+							<number-input id="auto-advance" class="input border" min="0" max="100" value="0"> </number-input>
 						</div>
 						<div class="option">
 							<label for="training">train</label>
 							<text-toggle
-								selected-text="Write"
-								unselected-text="Read"
+								selected-text="A ➔ あ"
+								unselected-text="あ ➔ A"
 								selected="true"
 								id="training"
 								class="btn btn-primary input"
 							></text-toggle>
+						</div>
+						<div class="option audio">
+							<label for="withAudio">sound</label>
+							<label for="withAudio" class="checkbox input">
+								<input type="checkbox" name="withAudio" id="withAudio" />
+								<span class="checkmark"></span>
+							</label>
 						</div>
 					</div>
 				</div>
