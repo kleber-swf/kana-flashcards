@@ -1,16 +1,14 @@
-import { Parameters } from '../model';
+import { Study } from '../model';
 
 export class OptionsPanel {
-	private data: Parameters;
+	private readonly timeElement: HTMLInputElement;
+	private readonly studyingElement: HTMLSelectElement;
 
-	public setup(panel: HTMLElement, data: Parameters) {
-		this.data = data;
-		(panel.querySelector('#time') as HTMLInputElement)!
-			.addEventListener('change', this.onTimeChanged.bind(this));
-	}
+	public get time() { return parseInt(this.timeElement.value) * 1000; }
+	public get studying() { return this.studyingElement.value as Study; }
 
-	private onTimeChanged(e: Event) {
-		const value = parseInt((e.target as HTMLInputElement).value, 10);
-		this.data.time = value * 1000;
+	public constructor(panel: HTMLElement) {
+		this.timeElement = panel.querySelector('#time') as HTMLInputElement;
+		this.studyingElement = panel.querySelector('#studying') as HTMLSelectElement;
 	}
 }
