@@ -212,6 +212,7 @@ export class Game extends HTMLElement {
 		if (this.lastTimeMark === 0) return;
 		this.totalTime += Date.now() - this.lastTimeMark;
 		this.lastTimeMark = 0;
+		this.charCount++;
 	}
 
 	private onTouch() {

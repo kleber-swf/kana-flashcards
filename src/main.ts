@@ -55,5 +55,5 @@ function tryStartGame() {
 
 function onGameComplete(e: Event) {
 	const ev = e as GameCompleteEvent;
-	result.show(ev.charCount, ev.totalTime);
+	if (ev.charCount > 0) result.show(ev.charCount, ev.totalTime);
 }
