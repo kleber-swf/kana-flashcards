@@ -1,0 +1,26 @@
+{
+	"name": "hiragana",
+	"groups": [
+		{
+			"title": "a",
+			"characters": [
+				{ "writes": "あ", "reads": "a", "tip": "apple" },
+				{ "writes": "い", "reads": "i", "tip": "ii" },
+				{ "writes": "う", "reads": "u", "tip": "ugh" },
+				{ "writes": "え", "reads": "e", "tip": "energetic ninja" },
+				{ "writes": "お", "reads": "o", "tip": "u.f.o" }
+			]
+		},
+
+		{
+			"title": "ka",
+			"characters": [
+				{ "writes": "か", "reads": "ka", "tip": "knife cutting a stick" },
+				{ "writes": "き", "reads": "ki", "tip": "XXX" },
+				{ "writes": "く", "reads": "ku", "tip": "XXX" },
+				{ "writes": "け", "reads": "ke", "tip": "XXX" },
+				{ "writes": "こ", "reads": "ko", "tip": "XXX" }
+			]
+		}
+	]
+}

@@ -1,8 +1,17 @@
-import { CharacterModel } from './model';
+import { CharacterGroupModel } from './model';
 
-export const hiragana: CharacterModel[][] = [
-	[{ writes: 'あ', reads: 'a', tip: 'apple' }, { writes: 'い', reads: 'i', tip: 'ii' }, { writes: 'う', reads: 'u', tip: 'ugh' }, { writes: 'え', reads: 'e', tip: 'energetic ninja' }, { writes: 'お', reads: 'o', tip: 'u.f.o' },],
-	[{ writes: 'か', reads: 'ka', tip: 'knife cutting a stick' }, { writes: 'き', reads: 'ki', tip: 'XXX' }, { writes: 'く', reads: 'ku', tip: 'XXX' }, { writes: 'け', reads: 'ke', tip: 'XXX' }, { writes: 'こ', reads: 'ko', tip: 'XXX' },],
+export const hiragana: CharacterGroupModel[] = [
+	{
+		title: 'a',
+		characters: [
+			{ writes: 'あ', reads: 'a', tip: 'apple' },
+			{ writes: 'い', reads: 'i', tip: 'ii' },
+			{ writes: 'う', reads: 'u', tip: 'ugh' },
+			{ writes: 'え', reads: 'e', tip: 'energetic ninja' },
+			{ writes: 'お', reads: 'o', tip: 'u.f.o' },
+		]
+	},
+	{ title: 'ka', characters: [{ writes: 'か', reads: 'ka', tip: 'knife cutting a stick' }, { writes: 'き', reads: 'ki', tip: 'XXX' }, { writes: 'く', reads: 'ku', tip: 'XXX' }, { writes: 'け', reads: 'ke', tip: 'XXX' }, { writes: 'こ', reads: 'ko', tip: 'XXX' },] },
 	// が ga	ぎ gi	ぐ gu	げ ge	ご go
 	// さ sa	し shi	す su	せ se	そ so
 	// ざ za	じ ji	ず zu	ぜ ze	ぞ zo
@@ -17,3 +26,5 @@ export const hiragana: CharacterModel[][] = [
 	// ら ra	り ri	る ru	れ re	ろ ro
 	// わ wa	を wo	ん n/m		
 ];
+
+export const katakana: CharacterGroupModel[] = [];

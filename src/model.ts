@@ -6,3 +6,12 @@ export interface CharacterModel extends Record<Elements, string> {
 	hidden?: boolean;
 }
 
+export interface CharacterGroupModel {
+	title: string;
+	characters: CharacterModel[];
+}
+
+export interface KanaModel {
+	name: string;
+	groups: CharacterGroupModel[];
+}
