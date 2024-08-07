@@ -115,7 +115,14 @@
 			.filters {
 				margin: 0;
 				display: flex;
+				flex-wrap: wrap;
 				justify-content: center;
+				gap: 1em;
+
+				& > div.btn {
+					font-size: 0.8em;
+					width: 100px;
+				}
 			}
 		}
 	}

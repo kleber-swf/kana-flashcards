@@ -40,8 +40,7 @@ body {
 	transition: $default-transition;
 
 	&.btn-primary {
-		padding: 8px 26px;
-		margin: 0 10px;
+		padding: 8px;
 		background-color: $on-primary;
 		color: $primary;
 		border: 2px solid $primary;

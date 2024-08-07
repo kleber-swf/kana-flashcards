@@ -38,11 +38,6 @@ fetch(characters as any)
 document.querySelector('#start-button')?.addEventListener('click', tryStartGame);
 
 function tryStartGame() {
-	if (!parameters.canStart) {
-		error.show('Select at least two characters');
-		return;
-	}
-
 	const data = parameters.data;
 	error.hide();
 	game.start(data);
