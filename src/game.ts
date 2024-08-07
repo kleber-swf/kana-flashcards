@@ -2,6 +2,7 @@ import { CharacterModel, Elements, GameElements, KanaModel } from './model';
 
 const PLAYING_CLASS = 'playing';
 const INVISIBLE_CLASS = 'invisible';
+const PLAY_ANIM_DURATION = 1000;
 
 export class Game {
 	private readonly game: HTMLElement;
@@ -14,14 +15,7 @@ export class Game {
 	private revealOrder: Elements[];
 	private revealIndex: number;
 
-	private _playing = false;
-	private set playing(value: boolean) {
-		this._playing = value;
-		if (value) this.game.classList.add(PLAYING_CLASS)
-		else this.game.classList.remove(PLAYING_CLASS);
-	}
-
-	public onExit: () => void;
+	private playing = false;
 
 	constructor() {
 		this.game = document.querySelector('#game')!;
@@ -38,7 +32,8 @@ export class Game {
 		this.chars = kanas.map(k => k.groups).flat().map(g => g.characters).flat().filter(c => c && !c.hidden);
 		this.revealOrder = revealOrder;
 		this.selectedCharIndex = -1;
-		this.playing = true;
+		this.game.classList.add(PLAYING_CLASS);
+		setTimeout(() => this.playing = true, PLAY_ANIM_DURATION);
 		this.nextChar();
 	}
 
@@ -63,7 +58,7 @@ export class Game {
 	}
 
 	private onKeyDown(e: KeyboardEvent) {
-		if (!this._playing) return;
+		if (!this.playing) return;
 		if (e.code === 'Space') this.advance();
 		else if (e.code === 'Escape') this.exit();
 		else return;
@@ -83,6 +78,6 @@ export class Game {
 
 	private exit() {
 		this.playing = false;
-		if (this.onExit !== null) this.onExit();
+		this.game.classList.remove(PLAYING_CLASS);
 	}
 }

@@ -6,6 +6,14 @@ export class ParameterSelector {
 	private readonly allCells: CellElement[] = [];
 	private readonly dakutenCells: CellElement[] = [];
 
+	public get canStart() {
+		let i = 0;
+		return this.allCells.some(e => {
+			if (!e.char.hidden) i++;
+			return i > 1;
+		});
+	}
+
 	public setup(parent: HTMLElement, kanas: KanaModel[]) {
 		kanas.forEach(kana => this.createPanel(parent, kana));
 	}
