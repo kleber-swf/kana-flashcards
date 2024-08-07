@@ -21,8 +21,12 @@ export interface CellElement extends HTMLTableCellElement {
 // #region Game
 
 export type Train = 'read' | 'write';
-export type Alphabet = typeof ALPHABETS[number];
+
 export const ALPHABETS = ['hiragana', 'katakana'] as const;
+export type Alphabet = typeof ALPHABETS[number];
+
+export const KANA_TYPES = ['kana', 'yoon'] as const;
+export type KanaType = typeof KANA_TYPES[number];
 
 export interface CharacterModel {
 	kana: string;
@@ -36,6 +40,7 @@ export interface CharacterGroupModel {
 	title: string;
 	characters: (CharacterModel | null)[];
 	dakuten?: boolean;
+	type: KanaType;
 }
 
 export interface KanaModel {
@@ -53,6 +58,7 @@ export interface FileCharacterModel {
 
 export interface FileCharacterGroupModel {
 	title: string;
+	type: KanaType;
 	dakuten?: boolean;
 	characters: (FileCharacterModel | null)[];
 }

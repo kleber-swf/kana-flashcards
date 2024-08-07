@@ -4,14 +4,9 @@ import { KanaPanel } from './kana-panel';
 import { OptionsPanel } from './options-panel';
 
 export class ParameterSelector {
-	private kanaPanels: KanaPanel[];
 	private optionsPanel: OptionsPanel;
 
 	private kanas: KanaModel[];
-
-	public get canStart() {
-		return this.kanaPanels.some(p => p.hasEnoughSelection);
-	}
 
 	public get data(): Parameters {
 		return {
@@ -29,11 +24,10 @@ export class ParameterSelector {
 		const initialData = this.getInitialData(kanas, saved);
 		this.kanas = initialData.kanas;
 
-		this.kanaPanels = initialData.kanas.map(kana => {
+		initialData.kanas.forEach(kana => {
 			const panel = document.createElement('kana-panel') as KanaPanel;
 			kanaParent.appendChild(panel);
 			panel.setup(kana);
-			return panel;
 		});
 
 		this.optionsPanel = new OptionsPanel(
@@ -71,8 +65,8 @@ export class ParameterSelector {
 				kchars.push(toChar(char, group, 'katakana'));
 			});
 
-			hiraganas.push({ title: group.title, dakuten: group.dakuten, characters: hchars });
-			katakanas.push({ title: group.title, dakuten: group.dakuten, characters: kchars });
+			hiraganas.push({ title: group.title, type: group.type, dakuten: group.dakuten, characters: hchars });
+			katakanas.push({ title: group.title, type: group.type, dakuten: group.dakuten, characters: kchars });
 		});
 
 		return [
