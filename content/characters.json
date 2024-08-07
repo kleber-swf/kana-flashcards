@@ -45,8 +45,8 @@
 		"dakuten": true,
 		"characters": [
 			{ "hiragana": "ざ", "katakana": "ザ", "romaji": "za" },
-			{ "hiragana": "じ", "katakana": "ジ", "romaji": "ji" },
-			{ "hiragana": "ず", "katakana": "ズ", "romaji": "zu" },
+			{ "hiragana": "じ", "katakana": "ジ", "romaji": "ji", "ambiguous": true },
+			{ "hiragana": "ず", "katakana": "ズ", "romaji": "zu", "ambiguous": true },
 			{ "hiragana": "ぜ", "katakana": "ゼ", "romaji": "ze" },
 			{ "hiragana": "ぞ", "katakana": "ゾ", "romaji": "zo" }
 		]
@@ -66,8 +66,8 @@
 		"dakuten": true,
 		"characters": [
 			{ "hiragana": "だ", "katakana": "ダ", "romaji": "da" },
-			{ "hiragana": "ぢ", "katakana": "ヂ", "romaji": "ji" },
-			{ "hiragana": "づ", "katakana": "ヅ", "romaji": "zu" },
+			{ "hiragana": "ぢ", "katakana": "ヂ", "romaji": "ji", "ambiguous": true },
+			{ "hiragana": "づ", "katakana": "ヅ", "romaji": "zu", "ambiguous": true },
 			{ "hiragana": "で", "katakana": "デ", "romaji": "de" },
 			{ "hiragana": "ど", "katakana": "ド", "romaji": "do" }
 		]
@@ -156,12 +156,6 @@
 	},
 	{
 		"title": "n",
-		"characters": [
-			null,
-			null,
-			{ "hiragana": "ん", "katakana": "ン", "romaji": "n" },
-			null,
-			null
-		]
+		"characters": [null, null, { "hiragana": "ん", "katakana": "ン", "romaji": "n" }, null, null]
 	}
 ]
