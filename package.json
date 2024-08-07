@@ -1,7 +1,7 @@
 {
-	"name": "landing-page",
-	"version": "0.0.1",
-	"description": "My temporary landing page while I create the full site",
+	"name": "kana-flashcards",
+	"version": "0.1.0",
+	"description": "Kana Flashcards",
 	"keywords": [],
 	"license": "ISC",
 	"author": "Kleber Silva",
@@ -18,7 +18,7 @@
 		"dist"
 	],
 	"directories": {
-		"doc": "doc"
+		"docs": "docs"
 	},
 	"devDependencies": {
 		"@parcel/packager-raw-url": "^2.5.0",
