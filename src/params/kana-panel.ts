@@ -3,7 +3,7 @@ import { CellElement, CharacterGroupModel, HeadElement, KanaModel } from '../mod
 const SELECTED_CLASS = 'selected';
 const KANA_CLASS = 'kana';
 
-export class KanaPanel {
+export class KanaPanel extends HTMLElement {
 	private readonly allCells: CellElement[] = [];
 	private readonly dakutenCells: CellElement[] = [];
 
@@ -15,14 +15,14 @@ export class KanaPanel {
 		});
 	}
 
-	// #region Kana Panel
+	public connectedCallback() {
+		this.classList.add('kana-panel');
+	}
 
-	public constructor(parent: HTMLElement, kana: KanaModel) {
-		const panel = parent.appendChild(document.createElement('div'));
-		panel.classList.add('kana-panel');
-		panel.appendChild(this.createTitle(kana.name));
-		panel.appendChild(this.createTable(kana.groups));
-		panel.appendChild(this.createFilters());
+	public setup(kana: KanaModel) {
+		this.appendChild(this.createTitle(kana.name));
+		this.appendChild(this.createTable(kana.groups));
+		this.appendChild(this.createFilters());
 	}
 
 	private createTitle(title: string): HTMLElement {

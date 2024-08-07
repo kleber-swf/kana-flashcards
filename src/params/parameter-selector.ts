@@ -8,7 +8,11 @@ export class ParameterSelector {
 
 	private kanas: KanaModel[];
 
-	public get canStart() { return this.kanaPanels.every(p => p.hasEnoughSelection); }
+	public get canStart() {
+		//return this.kanaPanels.every(p => p.hasEnoughSelection);
+		return true;
+	}
+
 	public get data(): Parameters {
 		return {
 			training: this.optionsPanel.training,
@@ -20,8 +24,15 @@ export class ParameterSelector {
 
 	public setup(kanas: KanaModel[]) {
 		this.kanas = kanas;
-		const kanasParent = document.querySelector('#kanas') as HTMLElement;
-		this.kanaPanels = kanas.map(kana => new KanaPanel(kanasParent, kana));
+		const kanaParent = document.querySelector('#kanas') as HTMLElement;
+
+		this.kanaPanels = kanas.map(kana => {
+			const panel = document.createElement('kana-panel') as KanaPanel;
+			kanaParent.appendChild(panel);
+			panel.setup(kana);
+			return panel;
+		});
+
 		this.optionsPanel = new OptionsPanel(document.querySelector('#options') as HTMLElement);
 	}
 }
