@@ -11,7 +11,7 @@ const OUT_FOOTER = '};';
 
 const files = (await fs.readdir(IN_DIR,))
 	.filter(e => e.endsWith(EXT))
-	.map(e => `	'${e.substring(0, e.length - EXT_LEN)}': require('${OUT_REL_PATH}/${e}'),`)
+	.map(e => `	${e.substring(0, e.length - EXT_LEN).replace('-', '')}: require('${OUT_REL_PATH}/${e}'),`)
 	.join('\n');
 
 try {
