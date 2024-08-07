@@ -80,6 +80,10 @@
 				font-size: 100%;
 				font-weight: bold;
 				border: 2px solid $primary;
+				& > * {
+					font-size: 100%;
+					font-weight: bold;
+				}
 			}
 		}
 	}

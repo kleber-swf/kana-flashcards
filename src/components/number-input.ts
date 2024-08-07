@@ -26,7 +26,6 @@ export class NumberInput extends HTMLElement {
 		next.setAttribute('action', 'up');
 		next.innerText = '+';
 		next.addEventListener('click', () => this.value = this.value + 1);
-
 	}
 
 	public connectedCallback() {
@@ -34,5 +33,4 @@ export class NumberInput extends HTMLElement {
 		this.input.setAttribute('max', this.getAttribute('max') || '');
 		this.input.setAttribute('value', this.getAttribute('value') || '');
 	}
-
 }
