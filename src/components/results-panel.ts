@@ -36,11 +36,24 @@ export class ResultsPanel extends HTMLElement {
 
 		const speed = (charCount / (totalTime / 1000)).toFixed(2);
 		this.charCountLabel.innerText = charCount.toString(10);
+		this.totalTimeLabel.innerText = this.formatInterval(totalTime);
 		this.speedLabel.innerHTML = `<span class="value">${speed}</span><span class="measure">char/s</span>`;
 	}
 
 	private exit() {
 		this.classList.remove('visible');
+	}
+
+	private formatInterval(ms: number) {
+		const h = Math.floor(ms / 3600000);
+		ms -= h * 3600000;
+		const m = Math.floor(ms / 60000);
+		ms -= m * 60000;
+		const s = Math.floor(ms / 1000);
+
+		return (h > 0 ? (h.toString(10).padStart(2, '0') + ':') : '')
+			+ m.toString(10).padStart(2, '0') + ':'
+			+ s.toString(10).padStart(2, '0');
 	}
 }
 
