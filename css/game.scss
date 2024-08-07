@@ -33,6 +33,14 @@ kana-game {
 		.kana {
 			font-size: 80;
 		}
+
+		.hiragana {
+			color: $text;
+		}
+
+		.katakana {
+			color: $on-primary;
+		}
 	}
 
 	.initial-message {
