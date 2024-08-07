@@ -71,26 +71,32 @@ export class KanaPanel extends HTMLElement {
 		const parent = document.createElement('div');
 		parent.classList.add('filters');
 
+		const all = parent.appendChild(document.createElement('div'));
+		all.innerHTML = 'all';
+		all.classList.add('btn', 'btn-primary');
+		all.addEventListener('click', () => this.setAllCellsSelected([...this.typeCells.kana, ...this.typeCells.yoon]));
+
+
 		const kana = parent.appendChild(document.createElement('div'));
 		kana.innerHTML = 'kana';
 		kana.classList.add('btn', 'btn-primary');
-		kana.addEventListener('click', () => this.setAllCellsSelected(this.typeCells.kana));
+		kana.addEventListener('click', () => this.toggleAllSelection(this.typeCells.kana));
 
 		const yoon = parent.appendChild(document.createElement('div'));
 		yoon.innerHTML = 'yōon';
 		yoon.classList.add('btn', 'btn-primary');
-		yoon.addEventListener('click', () => this.setAllCellsSelected(this.typeCells.yoon));
+		yoon.addEventListener('click', () => this.toggleAllSelection(this.typeCells.yoon));
 
 		const dakuten = parent.appendChild(document.createElement('div'));
 		dakuten.innerHTML = 'dakuten';
 		dakuten.classList.add('btn', 'btn-primary');
-		dakuten.addEventListener('click', () => this.setAllCellsSelected(this.dakutenCells));
+		dakuten.addEventListener('click', () => this.toggleAllSelection(this.dakutenCells));
 
 		return parent;
 	}
 
 	private onHeadClick(e: PointerEvent) {
-		this.setAllCellsSelected((e.target as HeadElement).cells);
+		this.toggleAllSelection((e.target as HeadElement).cells);
 	}
 
 	private onCellClick(e: PointerEvent) {
@@ -106,5 +112,9 @@ export class KanaPanel extends HTMLElement {
 	private setCellSelected(cell: CellElement, selected: boolean) {
 		cell.char.hidden = !selected;
 		cell.classList.toggle(SELECTED_CLASS, selected);
+	}
+
+	private toggleAllSelection(cells: CellElement[]) {
+		cells.forEach(cell => this.setCellSelected(cell, cell.char.hidden === true));
 	}
 }
