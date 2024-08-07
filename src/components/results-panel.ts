@@ -1,7 +1,10 @@
+import gsap from 'gsap';
+
 export class ResultsPanel extends HTMLElement {
 	private readonly charCountLabel: HTMLElement;
 	private readonly totalTimeLabel: HTMLElement;
 	private readonly speedLabel: HTMLElement;
+	private readonly recordIcon: HTMLElement;
 
 	constructor() {
 		super();
@@ -15,13 +18,19 @@ export class ResultsPanel extends HTMLElement {
 		this.totalTimeLabel = this.createLabel('total-time', 'value-label');
 
 		this.createLabel('title').innerText = 'Average Speed';
+		const speedGroup = this.appendChild(document.createElement('div'));
+		speedGroup.classList.add('speed-group');
 		this.speedLabel = this.createLabel('speed', 'value-label');
+		speedGroup.appendChild(this.speedLabel);
+
+		this.recordIcon = speedGroup.appendChild(document.createElement('i'));
+		this.recordIcon.classList.add('icon-award');
 
 		const exit = this.appendChild(document.createElement('div'));
 		exit.classList.add('exit-button');
 		exit.addEventListener('click', this.exit.bind(this));
 
-		// this.show(200, 4300);
+		this.show(200, 4300);
 	}
 
 	private createLabel(...classes: string[]) {
@@ -38,6 +47,13 @@ export class ResultsPanel extends HTMLElement {
 		this.charCountLabel.innerText = charCount.toString(10);
 		this.totalTimeLabel.innerText = this.formatInterval(totalTime);
 		this.speedLabel.innerHTML = `<span class="value">${speed}</span><span class="measure">char/s</span>`;
+
+		gsap.fromTo(this.recordIcon, { alpha: 0, scale: 0 }, {
+			alpha: 1,
+			scale: 2,
+			delay: 1,
+			ease: 'Elastic.easeOut',
+		});
 	}
 
 	private exit() {
