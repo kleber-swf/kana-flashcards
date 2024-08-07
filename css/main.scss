@@ -45,6 +45,7 @@
 			display: flex;
 			flex-direction: column;
 			align-items: stretch;
+			margin-bottom: 2em;
 
 			.table {
 				display: inline-flex;
@@ -53,6 +54,7 @@
 				background-color: $primary;
 				padding: 1px;
 				user-select: none;
+				margin-bottom: 2em;
 
 				@include mobile {
 					flex-direction: column;
@@ -102,60 +104,74 @@
 								}
 							}
 						}
+
+						&.kana {
+							letter-spacing: -0.1em;
+						}
 					}
 				}
 			}
 
 			.filters {
-				margin: 2em 0;
+				margin: 0;
 				display: flex;
+				flex-wrap: wrap;
 				justify-content: center;
+				gap: 1em;
+
+				& > div.btn {
+					font-size: 0.8em;
+					width: 100px;
+				}
 			}
 		}
 	}
+}
 
-	#options {
+#options {
+	display: flex;
+	flex-direction: column;
+
+	.content {
 		display: flex;
-		flex-direction: column;
+		flex-wrap: wrap;
+		justify-content: center;
 
-		.content {
+		.option {
 			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
+			flex-direction: column;
+			justify-content: start;
+			align-items: flex-start;
+			margin: 16px 6px;
+			label {
+				margin-bottom: 4px;
+			}
+			text-toggle {
+				margin: 0;
+			}
+		}
 
-			.option {
-				display: flex;
-				flex-direction: column;
-				justify-content: start;
-				align-items: flex-start;
-				margin: 16px 6px;
-				label {
-					margin-bottom: 4px;
-				}
-				text-toggle {
-					margin: 0;
-				}
+		.input {
+			box-sizing: border-box;
+			text-align: center;
+			width: 120px;
+			height: 38px;
+			font-size: 1em;
+			font-weight: bold;
+
+			@include mobile {
+				width: 140px;
+				height: 50px;
+				font-size: 1.1em;
 			}
 
-			.input {
-				box-sizing: border-box;
-				text-align: center;
-				width: 120px;
-				height: 38px;
+			& > * {
 				font-size: 1em;
 				font-weight: bold;
+			}
+
+			&.border {
 				border: 2px solid $primary;
-
-				@include mobile {
-					width: 140px;
-					height: 50px;
-					font-size: 1.1em;
-				}
-
-				& > * {
-					font-size: 1em;
-					font-weight: bold;
-				}
 			}
 		}
 	}
