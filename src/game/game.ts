@@ -1,157 +1,106 @@
-import { CharacterModel, Elements, GameElements, Parameters } from '../model';
-import { TimeController } from './time.controller';
+import gsap from 'gsap';
+import { CharacterModel, Parameters, Study } from '../model';
 
-const PLAYING_CLASS = 'playing';
-const INVISIBLE_CLASS = 'invisible';
-const PLAY_ANIM_DURATION = 500;
 const ACTION_KEY = 'Space';
-const EXIT_KEY = 'Escape';
+const PLAYING_CLASS = 'playing';
 
-export class Game {
-	private readonly game: HTMLElement;
-	private readonly elements: GameElements;
-	private readonly timebar: HTMLElement;
-	private readonly initialMessage: HTMLElement;
-	private readonly time: TimeController;
+export class Game extends HTMLElement {
+	private readonly kana: HTMLElement;
+	private readonly romaji: HTMLElement;
+	private readonly progress: HTMLElement;
 
 	private chars: CharacterModel[];
+	private hasTime: boolean;
+
+	private timeline: GSAPTimeline;
 	private selectedCharIndex: number;
-	private selectedChar: CharacterModel;
-
-	private revealOrder: Elements[];
-	private revealIndex: number;
-
-	private playing = false;
-	private canAdvance = false;
 
 	constructor() {
-		const game = this.game = document.querySelector('#game')!;
-		this.initialMessage = document.querySelector('#initial-message')!;
-		this.initialMessage.innerHTML = `<div>Press &lt;${ACTION_KEY}&gt; to start</div>` +
-			`<div class="small">Press &lt;${ACTION_KEY}&gt; to advance or &lt;${EXIT_KEY}&gt; to exit.</div>`;
+		super();
 
-		this.elements = {
-			reads: game.querySelector('#reads')!,
-			writes: game.querySelector('#writes')!,
-			tip: game.querySelector('#tip')!,
-		};
+		const parent = this.appendChild(document.createElement('div'));
+		parent.classList.add('result');
 
-		this.timebar = document.querySelector('#timebar') as HTMLElement;
-		this.time = new TimeController(this.timebar.querySelector('#progress') as HTMLElement, this.advance.bind(this));
+		this.romaji = parent.appendChild(document.createElement('div'));
+		this.romaji.classList.add('romaji');
 
-		document.addEventListener('keyup', this.onKeyPress.bind(this));
-		game.addEventListener('click', this.onMouseDown.bind(this));
-		game.querySelector('#close')?.addEventListener('click', this.exit.bind(this));
+		this.kana = parent.appendChild(document.createElement('div'));
+		this.kana.classList.add('kana');
+
+		this.progress = this.appendChild(document.createElement('div'));
+		this.progress.classList.add('time-progress');
+
+		document.addEventListener('click', this.onClick.bind(this));
+		document.addEventListener('keyup', this.onKeyUp.bind(this));
 	}
 
-	public show(params: Parameters) {
+	public start(params: Parameters) {
 		this.chars = params.kanas
 			.map(k => k.groups).flat()
 			.map(g => g.characters).flat()
 			.filter(c => c && !c.hidden);
-
-		this.revealOrder = [params.studying === 'reads' ? 'writes' : 'reads', params.studying];
-		this.selectedCharIndex = -1;
-		this.game.classList.add(PLAYING_CLASS);
-		this.time.delay = params.time;
-		Object.keys(this.elements).forEach(i => this.elements[i].classList.add(INVISIBLE_CLASS));
-		setTimeout(this.start.bind(this), PLAY_ANIM_DURATION);
+		this.createTimeline(params.studying, 2);
+		this.classList.add(PLAYING_CLASS);
+		this.nextCharacter();
 	}
 
-	private start() {
-		this.initialMessage.classList.remove(INVISIBLE_CLASS);
+	private createTimeline(studying: Study, time: number) {
+		this.hasTime = !isNaN(time) && time > 0;
+		const chars = studying === 'reads' ? [this.kana, this.romaji] : [this.romaji, this.kana];
 
-		const initialInput = (e: KeyboardEvent | MouseEvent) => {
-			if (e instanceof KeyboardEvent) {
-				if (e.code === ACTION_KEY) this.startGame();
-				else if (e.code === EXIT_KEY) this.exit(e);
-				else return;
-			} else {
-				this.startGame();
-			}
-			this.initialMessage.classList.add(INVISIBLE_CLASS);
-			document.removeEventListener('keyup', initialInput);
-			this.game.removeEventListener('click', initialInput);
+		this.timeline = gsap.timeline({ paused: true })
+			.to(chars, { opacity: 0, duration: 0.5 })
+			.call(() => this.randomCharacter())
+			.addLabel('step1')
+			.to(chars[0], { opacity: 1, duration: 0.5 })
+			.addLabel('step2');
+
+		if (this.hasTime) {
+			this.timeline.set({}, { delay: time }).addLabel('step3')
+			this.timeline.fromTo(this.progress, { width: '100%' }, { width: 0, duration: time, ease: 'none' }, 'step2');
 		}
 
-		document.addEventListener('keyup', initialInput);
-		this.game.addEventListener('click', initialInput);
+		this.timeline.to(chars[1], { opacity: 1, duration: 0.5 });
 	}
 
-	private startGame() {
-		this.playing = true;
-		this.canAdvance = true;
-		this.nextChar().then(() => this.advance());
-	}
-
-	private advance() {
-		if (!this.canAdvance) return;
-		this.revealIndex++;
-		if (this.revealIndex < this.revealOrder.length) {
-			this.reveal(this.revealOrder[this.revealIndex]);
-		} else {
-			this.nextChar().then(() => this.advance());
-		}
-	}
-
-	private nextChar(): Promise<void> {
-		this.revealIndex = -1;
-
+	private randomCharacter() {
 		let i: number;
 		do i = Math.floor(Math.random() * this.chars.length);
 		while (i === this.selectedCharIndex);
-
 		this.selectedCharIndex = i;
-		this.selectedChar = this.chars[i];
-
-		const keys = Object.keys(this.elements);
-		keys.forEach(k => this.elements[k].classList.add(INVISIBLE_CLASS));
-		return new Promise<void>(resolve => {
-			setTimeout(() => {
-				this.time.start();
-				keys.forEach(k => this.elements[k].innerText = this.selectedChar[k]);
-				resolve();
-			}, 1000);
-		})
-
+		const char = this.chars[i];
+		this.romaji.innerText = char.reads;
+		this.kana.innerText = char.writes;
 	}
 
-	private reveal(el: Elements) {
-		this.elements[el].classList.remove(INVISIBLE_CLASS);
+	private nextCharacter() {
+		this.timeline.restart();
+		if (!this.hasTime) {
+			this.timeline.tweenFromTo(0, 'step2');
+		}
 	}
 
-	private onKeyPress(e: KeyboardEvent) {
-		if (!this.playing) return;
-		switch (e.code) {
-			case 'Space':
-				if (this.time.enabled) this.time.interrupt();
-				else this.advance();
-				break;
-			case 'Escape':
-				this.exit(e);
-				break;
-			case 'KeyT':
-				this.reveal('tip');
-				break;
-			default:
-				return;
+
+	private nextStep() {
+		if (this.timeline.progress() === 1) {
+			this.nextCharacter();
+			return;
 		}
 
-		e.preventDefault();
-		e.stopPropagation();
+		if (!this.timeline.currentLabel()) return;
+
+		const nextLabel = this.timeline.nextLabel();
+		if (nextLabel) this.timeline.play(nextLabel);
+		else this.timeline.resume();
 	}
 
-	private onMouseDown() {
-		if (!this.playing) return;
-		if (this.time.enabled) this.time.interrupt();
-		else this.advance();
+	private onClick() {
+		this.nextStep();
 	}
 
-	private exit(e?: Event) {
-		e?.stopPropagation();
-		this.playing = false;
-		this.initialMessage.classList.add(INVISIBLE_CLASS);
-		Object.keys(this.elements).forEach(i => this.elements[i].classList.add(INVISIBLE_CLASS));
-		this.game.classList.remove(PLAYING_CLASS);
+	private onKeyUp(e: KeyboardEvent) {
+		if (e.code === ACTION_KEY) {
+			this.nextStep();
+		}
 	}
 }
