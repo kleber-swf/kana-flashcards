@@ -19,7 +19,7 @@ export interface CellElement extends HTMLTableCellElement {
 
 // #region Game
 
-export type Train = 'reads' | 'writes';
+export type Train = 'read' | 'write';
 export type Alphabet = typeof ALPHABETS[number];
 export const ALPHABETS = ['hiragana', 'katakana'] as const;
 
