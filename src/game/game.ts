@@ -13,6 +13,7 @@ export class Game extends HTMLElement {
 	private readonly romaji: HTMLElement;
 	private readonly progress: HTMLElement;
 	private readonly initialMessage: HTMLElement;
+	private readonly trainingMessage: HTMLElement;
 
 	private chars: CharacterModel[] = [];
 	private timeline: GSAPTimeline;
@@ -42,9 +43,10 @@ export class Game extends HTMLElement {
 		this.initialMessage = this.appendChild(document.createElement('div'));
 		this.initialMessage.classList.add('initial-message');
 		this.initialMessage.style.opacity = '0';
-		this.initialMessage.innerHTML = this.isMobile
-			? 'Touch to start'
-			: `Touch or press ${ACTION_KEY} to start`;
+		this.trainingMessage = this.initialMessage.appendChild(document.createElement('div'));
+		this.trainingMessage.classList.add('training-message');
+		this.initialMessage.appendChild(document.createElement('small'))
+			.innerHTML = this.isMobile ? 'touch to start' : `touch or press ${ACTION_KEY.toLowerCase()} to start`;
 
 		const exit = this.appendChild(document.createElement('div'));
 		exit.classList.add('exit-button');
@@ -71,7 +73,17 @@ export class Game extends HTMLElement {
 		this.showInitialMessage();
 	}
 
+	private setTrainingMessage() {
+		const t = ['hiragana', 'katakana']
+			.filter(e => this.chars.some(c => c.alphabet === e))
+			.map(e => `<span class="${e}">${e}</span>`)
+			.join(' &amp; ');
+		this.trainingMessage.innerHTML = `<p>training</br>${t}</p>`;
+	}
+
+
 	private showInitialMessage() {
+		this.setTrainingMessage();
 		this.initialMessage.style.opacity = '1';
 
 		const initialInput = (e: KeyboardEvent | MouseEvent) => {
