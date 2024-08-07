@@ -1,17 +1,17 @@
 import fs from 'fs/promises';
-import path from 'path';
 
 const IN_DIR = './audio';
 const EXT = '.mp3';
 const EXT_LEN = EXT.length;
 
 const OUT_FILE = './src/audio.ts';
+const OUT_REL_PATH = '../audio'
 const OUT_HEADER = 'export const AUDIO = {';
 const OUT_FOOTER = '};';
 
 const files = (await fs.readdir(IN_DIR,))
 	.filter(e => e.endsWith(EXT))
-	.map(e => `	'${e.substring(0, e.length - EXT_LEN)}': require('../audio/${e}'),`)
+	.map(e => `	'${e.substring(0, e.length - EXT_LEN)}': require('${OUT_REL_PATH}/${e}'),`)
 	.join('\n');
 
 try {
