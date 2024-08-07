@@ -103,7 +103,7 @@ export class Game extends HTMLElement {
 		this.addEventListener('click', initialInput);
 	}
 
-	private createTimeline({ revealDelay, autoAdvanceDelay, training }: Parameters) {
+	private createTimeline({ revealDelay, autoAdvanceDelay, training, withAudio }: Parameters) {
 		this.hasRevealDelay = !isNaN(revealDelay) && revealDelay > 0;
 		this.hasAdvanceDelay = !isNaN(autoAdvanceDelay) && autoAdvanceDelay > 0;
 		const chars = training === 'read' ? [this.kana, this.romaji] : [this.romaji, this.kana];
@@ -117,7 +117,7 @@ export class Game extends HTMLElement {
 				opacity: 1,
 				duration: 0.5,
 				delay: 0.5,
-				onStart: () => this.onNextCharStart(hasAudio),
+				onStart: () => this.onNextCharStart(withAudio && hasAudio),
 			})
 			.addLabel('step2');
 
@@ -134,7 +134,7 @@ export class Game extends HTMLElement {
 		timeline.fromTo(chars[1], { opacity: 0 }, {
 			opacity: 1,
 			duration: 0.5,
-			onStart: () => this.onRevealCharStart(!hasAudio),
+			onStart: () => this.onRevealCharStart(withAudio && !hasAudio),
 		});
 
 		if (this.hasAdvanceDelay) {

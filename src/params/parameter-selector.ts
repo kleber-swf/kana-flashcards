@@ -18,6 +18,7 @@ export class ParameterSelector {
 			training: this.optionsPanel.training,
 			revealDelay: this.optionsPanel.revealDelay,
 			autoAdvanceDelay: this.optionsPanel.autoAdvanceDelay,
+			withAudio: this.optionsPanel.withAudio,
 			kanas: this.kanas,
 		};
 	}
@@ -41,7 +42,7 @@ export class ParameterSelector {
 	}
 
 	private getInitialData(kanas: KanaModel[], saved: string | null): Parameters {
-		const params: Parameters = { training: 'write', revealDelay: 0, autoAdvanceDelay: 0, kanas };
+		const params: Parameters = { training: 'write', revealDelay: 0, autoAdvanceDelay: 0, kanas, withAudio: true };
 		return saved ? merge(params, JSON.parse(saved)) : params;
 	}
 }
