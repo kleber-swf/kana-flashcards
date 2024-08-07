@@ -1,4 +1,4 @@
-import { CharacterModel, Elements, GameElements, KanaModel, Parameters } from './model';
+import { CharacterModel, Elements, GameElements, Parameters } from '../model';
 
 const PLAYING_CLASS = 'playing';
 const INVISIBLE_CLASS = 'invisible';
@@ -44,10 +44,10 @@ export class Game {
 		this.revealOrder = revealOrder;
 		this.selectedCharIndex = -1;
 		this.game.classList.add(PLAYING_CLASS);
-		setTimeout(() => this.playing = true, PLAY_ANIM_DURATION);
-		this.nextChar();
 
+		this.nextChar();
 		this.showInitialMessage();
+		setTimeout(() => this.playing = true, PLAY_ANIM_DURATION);
 	}
 
 	private showInitialMessage() {

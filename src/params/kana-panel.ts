@@ -1,4 +1,4 @@
-import { CellElement, KanaModel, CharacterGroupModel, HeadElement } from './model';
+import { CellElement, CharacterGroupModel, HeadElement, KanaModel } from '../model';
 
 const SELECTED_CLASS = 'selected';
 

@@ -1,8 +1,7 @@
 import hiragana from '../content/hiragana.json';
 import { showError } from './error';
-import { Game } from './game';
-import { KanaModel } from './model';
-import { ParameterSelector } from './parameter-selector';
+import { Game } from './game/game';
+import { ParameterSelector } from './params/parameter-selector';
 
 const parameters = new ParameterSelector();
 const game = new Game();
