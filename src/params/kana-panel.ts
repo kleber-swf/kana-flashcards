@@ -52,7 +52,7 @@ export class KanaPanel {
 				if (!c) return;
 				cell.addEventListener('click', cellClick);
 				cell.classList.add(SELECTED_CLASS, KANA_CLASS);
-				cell.innerHTML = c.writes;
+				cell.innerHTML = c.kana;
 				cell.char = c;
 				head.cells.push(cell);
 			});

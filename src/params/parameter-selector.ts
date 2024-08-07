@@ -11,10 +11,10 @@ export class ParameterSelector {
 	public get canStart() { return this.kanaPanels.every(p => p.hasEnoughSelection); }
 	public get data(): Parameters {
 		return {
-			studying: this.optionsPanel.studying,
+			training: this.optionsPanel.training,
 			revealDelay: this.optionsPanel.revealDelay,
 			autoAdvanceDelay: this.optionsPanel.autoAdvanceDelay,
-			kanas: this.kanas
+			kanas: this.kanas,
 		}
 	}
 

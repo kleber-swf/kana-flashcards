@@ -1,7 +1,7 @@
 // #region Paramters
 
 export interface Parameters {
-	studying: Study;
+	training: Train;
 	revealDelay: number;
 	autoAdvanceDelay: number;
 	kanas: KanaModel[];
@@ -20,12 +20,11 @@ export interface CellElement extends HTMLTableCellElement {
 
 // #region Game
 
-export type Study = 'reads' | 'writes';
-export type Elements = Study | 'tip';
+export type Train = 'reads' | 'writes';
 
-export interface GameElements extends Record<Elements, HTMLElement> { }
-
-export interface CharacterModel extends Record<Elements, string> {
+export interface CharacterModel {
+	kana: string;
+	romaji: string;
 	hidden?: boolean;
 }
 
