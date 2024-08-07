@@ -93,4 +93,14 @@ kana-game {
 	align-items: center;
 	justify-content: center;
 	z-index: 1000;
+
+	.result {
+		display: flex;
+		flex-direction: column;
+
+		& > * {
+			user-select: none;
+			font-size: 60px;
+		}
+	}
 }
