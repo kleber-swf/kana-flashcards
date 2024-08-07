@@ -18,50 +18,59 @@
 	#kanas {
 		display: flex;
 		flex-direction: column;
+		margin-bottom: 20px;
 
-		table {
-			background-color: $primary;
-
-			td {
-				cursor: pointer;
-				user-select: none;
-				text-align: center;
-				background-color: $on-primary;
-				width: 36px;
-				height: 36px;
-			}
-
-			thead td {
-				font-size: 90%;
-				font-weight: bold;
-				text-transform: uppercase;
-				background-color: $on-primary;
-			}
-
-			tbody td {
-				color: rgba($text, 0.6);
-			}
-
-			.selected {
-				background-color: $selection;
-				color: $on-selection;
-			}
-		}
-
-		.filters {
-			margin: 20px 0;
+		.kana-panel {
 			display: flex;
-			justify-content: center;
+			flex-direction: column;
+			justify-content: stretch;
+
+			table {
+				background-color: $primary;
+
+				td {
+					cursor: pointer;
+					user-select: none;
+					text-align: center;
+					background-color: $on-primary;
+					width: 36px;
+					height: 36px;
+				}
+
+				thead td {
+					font-size: 90%;
+					font-weight: bold;
+					text-transform: uppercase;
+					background-color: $on-primary;
+				}
+
+				tbody td {
+					color: rgba($text, 0.6);
+				}
+
+				.selected {
+					background-color: $selection;
+					color: $on-selection;
+				}
+			}
+
+			.filters {
+				margin: 20px 0;
+				display: flex;
+				justify-content: center;
+			}
 		}
 	}
 
 	#options {
 		display: flex;
 		flex-direction: column;
+
 		.content {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-around;
+			margin-bottom: 140px;
 
 			.option {
 				display: flex;
@@ -101,9 +110,9 @@
 		align-items: center;
 		background-color: $primary;
 		transition: all 250ms;
+		color: $on-primary;
 		&:hover {
 			font-size: 120%;
-			color: $on-primary;
 			padding: 30px 0;
 		}
 	}

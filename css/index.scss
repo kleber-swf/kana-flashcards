@@ -40,13 +40,12 @@ body {
 	}
 }
 
-.number-input {
+number-input {
 	position: relative;
 	padding: 0;
 	display: flex;
 	justify-content: stretch;
 	align-items: stretch;
-	border: 4px solid rebeccapurple;
 
 	input[type='number'] {
 		-moz-appearance: textfield;
@@ -91,16 +90,18 @@ body {
 
 #error {
 	position: absolute;
-	bottom: 0;
+	top: 0;
 	width: 100%;
 	text-align: center;
 	opacity: 0;
 	transition: opacity 2000ms 1000ms;
 	background-color: $error;
 	color: $on-error;
+	user-select: none;
+	padding: 10px 0;
 
 	&.visible {
-		transition: none;
+		transition: opacity 250ms;
 		opacity: 1;
 	}
 }
