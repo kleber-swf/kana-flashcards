@@ -2,9 +2,11 @@ import gsap from 'gsap';
 import { CharacterModel, Parameters, Study } from '../model';
 
 const ACTION_KEY = 'Space';
+const EXIT_KEY = 'Escape';
 const PLAYING_CLASS = 'playing';
 
 export class Game extends HTMLElement {
+	private readonly isMobile: boolean;
 	private readonly kana: HTMLElement;
 	private readonly romaji: HTMLElement;
 	private readonly progress: HTMLElement;
@@ -17,18 +19,23 @@ export class Game extends HTMLElement {
 
 	constructor() {
 		super();
+		this.isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
-		const parent = this.appendChild(document.createElement('div'));
-		parent.classList.add('result');
+		const result = this.appendChild(document.createElement('div'));
+		result.classList.add('result');
 
-		this.romaji = parent.appendChild(document.createElement('div'));
+		this.romaji = result.appendChild(document.createElement('div'));
 		this.romaji.classList.add('romaji');
 
-		this.kana = parent.appendChild(document.createElement('div'));
+		this.kana = result.appendChild(document.createElement('div'));
 		this.kana.classList.add('kana');
 
 		this.progress = this.appendChild(document.createElement('div'));
 		this.progress.classList.add('time-progress');
+
+		const exit = this.appendChild(document.createElement('div'));
+		exit.classList.add('exit-button');
+		exit.addEventListener('click', this.exit.bind(this));
 
 		document.addEventListener('click', this.onClick.bind(this));
 		document.addEventListener('keyup', this.onKeyUp.bind(this));
@@ -39,7 +46,7 @@ export class Game extends HTMLElement {
 			.map(k => k.groups).flat()
 			.map(g => g.characters).flat()
 			.filter(c => c && !c.hidden);
-		this.createTimeline(params.studying, 2);
+		this.createTimeline(params.studying, params.time);
 		this.classList.add(PLAYING_CLASS);
 		this.nextCharacter();
 	}
@@ -58,6 +65,8 @@ export class Game extends HTMLElement {
 		if (this.hasTime) {
 			this.timeline.set({}, { delay: time }).addLabel('step3')
 			this.timeline.fromTo(this.progress, { width: '100%' }, { width: 0, duration: time, ease: 'none' }, 'step2');
+		} else {
+			this.progress.style.width = '0';
 		}
 
 		this.timeline.to(chars[1], { opacity: 1, duration: 0.5 });
@@ -94,13 +103,22 @@ export class Game extends HTMLElement {
 		else this.timeline.resume();
 	}
 
+	private exit() {
+		this.timeline.clear(true);
+		this.classList.remove(PLAYING_CLASS);
+		this.kana.style.opacity = '0';
+		this.romaji.style.opacity = '0';
+	}
+
 	private onClick() {
 		this.nextStep();
 	}
 
 	private onKeyUp(e: KeyboardEvent) {
-		if (e.code === ACTION_KEY) {
-			this.nextStep();
-		}
+		if (e.code === ACTION_KEY) this.nextStep();
+		else if (e.code === EXIT_KEY) this.exit();
+		else return;
+		e.preventDefault();
+		e.stopPropagation();
 	}
 }

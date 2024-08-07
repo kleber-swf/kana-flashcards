@@ -55,6 +55,7 @@ number-input {
 		flex: 1;
 		border: none;
 		text-align: center;
+		outline: none;
 		&::-webkit-inner-spin-button,
 		&::-webkit-outer-spin-button {
 			-webkit-appearance: none;
