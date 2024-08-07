@@ -1,5 +1,5 @@
 import merge from 'deepmerge-json';
-import { KanaModel, Parameters } from '../model';
+import { CharacterGroupModel, CharacterModel, FileKanaModel, KanaModel, Parameters } from '../model';
 import { KanaPanel } from './kana-panel';
 import { OptionsPanel } from './options-panel';
 
@@ -23,7 +23,8 @@ export class ParameterSelector {
 		};
 	}
 
-	public setup(kanas: KanaModel[], saved: string | null) {
+	public setup(characters: FileKanaModel, saved: string | null) {
+		const kanas = this.splitCharacters(characters);
 		const kanaParent = document.querySelector('#kanas') as HTMLElement;
 		const initialData = this.getInitialData(kanas, saved);
 		this.kanas = initialData.kanas;
@@ -44,5 +45,54 @@ export class ParameterSelector {
 	private getInitialData(kanas: KanaModel[], saved: string | null): Parameters {
 		const params: Parameters = { training: 'write', revealDelay: 0, autoAdvanceDelay: 0, kanas, withAudio: true };
 		return saved ? merge(params, JSON.parse(saved)) : params;
+	}
+
+	private splitCharacters(groups: FileKanaModel): KanaModel[] {
+		const hiraganas: CharacterGroupModel[] = [];
+		const katakanas: CharacterGroupModel[] = [];
+
+		groups.forEach(group => {
+			const hchars: (CharacterModel | null)[] = [];
+			const kchars: (CharacterModel | null)[] = [];
+
+			group.characters.forEach(char => {
+				if (char === null) {
+					hchars.push(null);
+					kchars.push(null);
+					return;
+				}
+
+				hchars.push({
+					alphabet: 'hiragana',
+					kana: char.hiragana,
+					romaji: char.romaji,
+					audio: char.audio,
+				});
+				kchars.push({
+					alphabet: 'katakana',
+					kana: char.katakana,
+					romaji: char.romaji,
+					audio: char.audio,
+				});
+			});
+
+			hiraganas.push({
+				title: group.title,
+				dakuten: group.dakuten,
+				characters: hchars,
+			});
+
+			katakanas.push({
+				title: group.title,
+				dakuten: group.dakuten,
+				characters: kchars,
+			});
+		});
+
+		return [
+			{ name: 'hiragana', groups: hiraganas },
+			{ name: 'katakana', groups: katakanas },
+		];
+
 	}
 }
