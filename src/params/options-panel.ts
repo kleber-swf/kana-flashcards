@@ -6,10 +6,12 @@ export class OptionsPanel {
 	private readonly revealDelayElement: NumberInput;
 	private readonly autoAdvanceElement: NumberInput;
 	private readonly trainingElement: TextToggle;
+	private readonly withAudioElement: HTMLInputElement;
 
 	public get revealDelay() { return this.revealDelayElement.value; }
 	public get autoAdvanceDelay() { return this.autoAdvanceElement.value; }
-	public get training(): Train { return this.trainingElement.selected ? 'writes' : 'reads'; }
+	public get training(): Train { return this.trainingElement.selected ? 'write' : 'read'; }
+	public get withAudio(): boolean { return this.withAudioElement.checked; }
 
 	public constructor(panel: HTMLElement, data: Parameters) {
 		this.revealDelayElement = panel.querySelector('#reveal-delay') as NumberInput;
@@ -19,6 +21,9 @@ export class OptionsPanel {
 		this.autoAdvanceElement.value = data.autoAdvanceDelay;
 
 		this.trainingElement = panel.querySelector('#training') as TextToggle;
-		this.trainingElement.selected = data.training === 'writes';
+		this.trainingElement.selected = data.training === 'write';
+
+		this.withAudioElement = panel.querySelector('#withAudio') as HTMLInputElement;
+		this.withAudioElement.checked = data.withAudio;
 	}
 }

@@ -27,7 +27,7 @@ export class InitialMessage extends HTMLElement {
 			.map(e => `<span class="${e}">${e}</span>`)
 			.join(' ');
 
-		const training = train === 'writes' ? 'writting' : 'reading';
+		const training = train === 'write' ? 'A ➔ あ' : 'あ ➔ A';
 		this.trainingMessage.innerHTML = `<p>${training}</br>${alphabets}</p>`;
 	}
 
