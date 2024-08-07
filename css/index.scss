@@ -40,8 +40,7 @@ body {
 	transition: $default-transition;
 
 	&.btn-primary {
-		padding: 8px 26px;
-		margin: 0 10px;
+		padding: 8px;
 		background-color: $on-primary;
 		color: $primary;
 		border: 2px solid $primary;
@@ -119,6 +118,58 @@ number-input {
 
 	div[action='up'] {
 		right: 0;
+	}
+}
+
+#options .content .option.audio {
+	& > label {
+		width: 50px;
+	}
+}
+
+.checkbox {
+	display: inline-flex;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	font-family: 'fontello';
+	color: $primary;
+
+	&:hover input ~ .checkmark {
+		color: darken($selection, 20);
+	}
+
+	input {
+		position: absolute;
+		opacity: 0;
+		cursor: pointer;
+		height: 0;
+		width: 0;
+
+		&:checked ~ .checkmark::after {
+			display: inline-block;
+			content: '\e802';
+			font-size: 22px;
+		}
+	}
+
+	.checkmark {
+		height: 25px;
+		width: 25px;
+		transition: $default-transition;
+		position: relative;
+		&::after {
+			display: inline-block;
+			position: absolute;
+			left: 0;
+			content: '\e801';
+			font-size: 22px;
+		}
 	}
 }
 

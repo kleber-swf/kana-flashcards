@@ -4,6 +4,7 @@ import { CharacterModel, Parameters, Train } from '../model';
 import { GameCompleteEvent } from './game-complete.event';
 import { InitialMessage } from './initial-message';
 import { Random } from './rnd';
+import { AUDIO } from '../audio';
 
 const ACTION_KEY = 'Space';
 const EXIT_KEY = 'Escape';
@@ -16,6 +17,7 @@ export class Game extends HTMLElement {
 	private readonly romaji: HTMLElement;
 	private readonly progress: HTMLElement;
 	private readonly initialMessage: InitialMessage;
+	private readonly audio: HTMLAudioElement;
 
 	private chars: CharacterModel[] = [];
 	private timeline: GSAPTimeline;
@@ -54,18 +56,19 @@ export class Game extends HTMLElement {
 
 		this.addEventListener('click', this.onTouch.bind(this));
 		document.addEventListener('keyup', this.onKeyUp.bind(this));
+
+		this.audio = this.appendChild(document.createElement('audio'));
 	}
 
 	public start(params: Parameters) {
 		this.chars = params.kanas.map(kana => kana.groups
 			// gets only visible characters as a single dimension array
-			.map(group => group.characters.filter(c => c && !c.hidden)).flat()
-			// adds the alphabet name to each character
-			.map(char => ({ ...char, alphabet: kana.name }))).flat();
+			.map(group => group.characters.filter(c => c && !c.hidden)).flat())
+			.flat() as CharacterModel[];
 
 		this.clear();
 
-		this.createTimeline(params.training, params.revealDelay, params.autoAdvanceDelay);
+		this.createTimeline(params);
 		this.classList.add(PLAYING_CLASS);
 
 		this.showInitialMessage(params.training);
@@ -99,10 +102,11 @@ export class Game extends HTMLElement {
 		this.addEventListener('click', initialInput);
 	}
 
-	private createTimeline(training: Train, revealDelay: number, autoAdvanceDelay: number) {
+	private createTimeline({ revealDelay, autoAdvanceDelay, training, withAudio }: Parameters) {
 		this.hasRevealDelay = !isNaN(revealDelay) && revealDelay > 0;
 		this.hasAdvanceDelay = !isNaN(autoAdvanceDelay) && autoAdvanceDelay > 0;
-		const chars = training === 'reads' ? [this.kana, this.romaji] : [this.romaji, this.kana];
+		const chars = training === 'read' ? [this.kana, this.romaji] : [this.romaji, this.kana];
+		const hasAudio = training === 'write';
 
 		const timeline = this.timeline = gsap.timeline({ paused: true })
 			.fromTo(chars, { opacity: 1 }, { opacity: 0, duration: 0.6 })
@@ -112,7 +116,7 @@ export class Game extends HTMLElement {
 				opacity: 1,
 				duration: 0.5,
 				delay: 0.5,
-				onStart: () => this.startTimer(),
+				onStart: () => this.onNextCharStart(withAudio && hasAudio),
 			})
 			.addLabel('step2');
 
@@ -129,12 +133,12 @@ export class Game extends HTMLElement {
 		timeline.fromTo(chars[1], { opacity: 0 }, {
 			opacity: 1,
 			duration: 0.5,
-			onStart: () => this.stopTimer(),
+			onStart: () => this.onRevealCharStart(withAudio && !hasAudio),
 		});
 
 		if (this.hasAdvanceDelay) {
 			timeline.addLabel('step4')
-				.call(() => this.stopTimer())
+				.call(() => this.onRevealCharStart(!hasAudio))
 				.fromTo(this.progress, { width: 0 }, {
 					width: '100%',
 					duration: autoAdvanceDelay,
@@ -147,21 +151,35 @@ export class Game extends HTMLElement {
 	}
 
 	private randomCharacter() {
-		let i: number;
-		do i = Random.between(0, this.chars.length);
-		while (i === this.selectedCharIndex);
+		let i = 0;
+		if (this.chars.length > 1) {
+			do i = Random.between(0, this.chars.length);
+			while (i === this.selectedCharIndex);
+		}
 
 		this.selectedCharIndex = i;
 		const char = this.chars[i];
 		const { romaji, kana } = this;
 
-		romaji.innerText = char.romaji;
+		romaji.innerText = char.romaji + (char.tip ? ` (${char.tip})` : '');
 		romaji.classList.toggle(HIRAGANA_CLASS, char.alphabet === 'hiragana');
 		romaji.classList.toggle(KATAKANA_CLASS, char.alphabet === 'katakana');
 
 		kana.innerText = char.kana;
 		kana.classList.toggle(HIRAGANA_CLASS, char.alphabet === 'hiragana');
 		kana.classList.toggle(KATAKANA_CLASS, char.alphabet === 'katakana');
+	}
+
+	private onNextCharStart(hasAudio: boolean) {
+		this.startTimer();
+		if (hasAudio)
+			this.playAudioForChar(this.chars[this.selectedCharIndex].romaji);
+	}
+
+	private onRevealCharStart(hasAudio: boolean) {
+		this.stopTimer();
+		if (hasAudio)
+			this.playAudioForChar(this.chars[this.selectedCharIndex].romaji);
 	}
 
 	private nextCharacter() {
@@ -227,5 +245,10 @@ export class Game extends HTMLElement {
 		else return;
 		e.preventDefault();
 		e.stopPropagation();
+	}
+
+	private playAudioForChar(romaji: string) {
+		this.audio.src = AUDIO[romaji];
+		this.audio.play();
 	}
 }
