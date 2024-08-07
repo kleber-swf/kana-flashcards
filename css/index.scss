@@ -27,6 +27,7 @@ body {
 	margin: 0 10px;
 	box-sizing: border-box;
 	text-align: center;
+	transition: $default-transition;
 
 	&.btn-primary {
 		background-color: $on-primary;
@@ -72,6 +73,7 @@ number-input {
 		justify-content: center;
 		align-items: center;
 		user-select: none;
+		transition: $default-transition;
 
 		&:hover {
 			background-color: $primary;
