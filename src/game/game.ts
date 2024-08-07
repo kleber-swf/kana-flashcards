@@ -1,4 +1,5 @@
 import { CharacterModel, Elements, GameElements, Parameters } from '../model';
+import { TimeController } from './time.controller';
 
 const PLAYING_CLASS = 'playing';
 const INVISIBLE_CLASS = 'invisible';
@@ -9,7 +10,9 @@ const EXIT_KEY = 'Escape';
 export class Game {
 	private readonly game: HTMLElement;
 	private readonly elements: GameElements;
+	private readonly timebar: HTMLElement;
 	private readonly initialMessage: HTMLElement;
+	private readonly time: TimeController;
 
 	private chars: CharacterModel[];
 	private selectedCharIndex: number;
@@ -33,6 +36,9 @@ export class Game {
 			tip: game.querySelector('#tip')!,
 		};
 
+		this.timebar = document.querySelector('#timebar') as HTMLElement;
+		this.time = new TimeController(this.timebar.querySelector('#progress') as HTMLElement);
+		// this.time.callback = this.auto.bind(this);
 		document.addEventListener('keyup', this.onKeyPress.bind(this));
 	}
 
@@ -46,7 +52,6 @@ export class Game {
 		this.selectedCharIndex = -1;
 		this.game.classList.add(PLAYING_CLASS);
 
-		this.nextChar();
 		setTimeout(this.start.bind(this), PLAY_ANIM_DURATION);
 	}
 
@@ -57,6 +62,7 @@ export class Game {
 			if (e.code === ACTION_KEY) {
 				this.playing = true;
 				this.canAdvance = true;
+				this.nextChar();
 				this.advance();
 			} else if (e.code !== EXIT_KEY) return;
 			document.removeEventListener('keyup', doStart);
@@ -95,14 +101,12 @@ export class Game {
 				e.classList.add(INVISIBLE_CLASS);
 				e.innerText = this.selectedChar[k];
 			});
+
+		this.startTimer();
 	}
 
 	private reveal(el: Elements) {
 		this.elements[el].classList.remove(INVISIBLE_CLASS);
-	}
-
-	private showTip() {
-		this.reveal('tip');
 	}
 
 	private onKeyPress(e: KeyboardEvent) {
@@ -115,7 +119,7 @@ export class Game {
 				this.exit();
 				break;
 			case 'KeyT':
-				this.showTip();
+				this.reveal('tip');
 				break;
 			default:
 				return;
@@ -123,6 +127,10 @@ export class Game {
 
 		e.preventDefault();
 		e.stopPropagation();
+	}
+
+	private startTimer() {
+		this.time.start(2000, this.advance.bind(this));
 	}
 
 	private exit() {
