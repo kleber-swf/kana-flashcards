@@ -4,22 +4,22 @@
 		{
 			"title": "a",
 			"characters": [
-				{ "kana": "ア", "romaji": "a", "tip": "XXX" },
-				{ "kana": "イ", "romaji": "i", "tip": "XXX" },
-				{ "kana": "ウ", "romaji": "u", "tip": "XXX" },
-				{ "kana": "エ", "romaji": "e", "tip": "XXX" },
-				{ "kana": "オ", "romaji": "o", "tip": "XXX" }
+				{ "kana": "ア", "romaji": "a" },
+				{ "kana": "イ", "romaji": "i" },
+				{ "kana": "ウ", "romaji": "u" },
+				{ "kana": "エ", "romaji": "e" },
+				{ "kana": "オ", "romaji": "o" }
 			]
 		},
 
 		{
 			"title": "ka",
 			"characters": [
-				{ "kana": "カ", "romaji": "ka", "tip": "XXX" },
-				{ "kana": "キ", "romaji": "ki", "tip": "XXX" },
-				{ "kana": "ク", "romaji": "ku", "tip": "XXX" },
-				{ "kana": "ケ", "romaji": "ke", "tip": "XXX" },
-				{ "kana": "コ", "romaji": "ko", "tip": "XXX" }
+				{ "kana": "カ", "romaji": "ka" },
+				{ "kana": "キ", "romaji": "ki" },
+				{ "kana": "ク", "romaji": "ku" },
+				{ "kana": "ケ", "romaji": "ke" },
+				{ "kana": "コ", "romaji": "ko" }
 			]
 		},
 
@@ -27,22 +27,22 @@
 			"title": "ga",
 			"dakuten": true,
 			"characters": [
-				{ "kana": "ガ", "romaji": "ga", "tip": "XXX" },
-				{ "kana": "ギ", "romaji": "gi", "tip": "XXX" },
-				{ "kana": "グ", "romaji": "gu", "tip": "XXX" },
-				{ "kana": "ゲ", "romaji": "ge", "tip": "XXX" },
-				{ "kana": "ゴ", "romaji": "go", "tip": "XXX" }
+				{ "kana": "ガ", "romaji": "ga" },
+				{ "kana": "ギ", "romaji": "gi" },
+				{ "kana": "グ", "romaji": "gu" },
+				{ "kana": "ゲ", "romaji": "ge" },
+				{ "kana": "ゴ", "romaji": "go" }
 			]
 		},
 
 		{
 			"title": "sa",
 			"characters": [
-				{ "kana": "サ", "romaji": "sa", "tip": "XXX" },
-				{ "kana": "シ", "romaji": "shi", "tip": "XXX" },
-				{ "kana": "ス", "romaji": "su", "tip": "XXX" },
-				{ "kana": "セ", "romaji": "se", "tip": "XXX" },
-				{ "kana": "ソ", "romaji": "so", "tip": "XXX" }
+				{ "kana": "サ", "romaji": "sa" },
+				{ "kana": "シ", "romaji": "shi" },
+				{ "kana": "ス", "romaji": "su" },
+				{ "kana": "セ", "romaji": "se" },
+				{ "kana": "ソ", "romaji": "so" }
 			]
 		},
 
@@ -50,22 +50,22 @@
 			"title": "za",
 			"dakuten": true,
 			"characters": [
-				{ "kana": "ザ", "romaji": "za", "tip": "XXX" },
-				{ "kana": "ジ", "romaji": "ji", "tip": "XXX" },
-				{ "kana": "ズ", "romaji": "zu", "tip": "XXX" },
-				{ "kana": "ゼ", "romaji": "ze", "tip": "XXX" },
-				{ "kana": "ゾ", "romaji": "zo", "tip": "XXX" }
+				{ "kana": "ザ", "romaji": "za" },
+				{ "kana": "ジ", "romaji": "ji" },
+				{ "kana": "ズ", "romaji": "zu" },
+				{ "kana": "ゼ", "romaji": "ze" },
+				{ "kana": "ゾ", "romaji": "zo" }
 			]
 		},
 
 		{
 			"title": "ta",
 			"characters": [
-				{ "kana": "タ", "romaji": "ta", "tip": "XXX" },
-				{ "kana": "チ", "romaji": "chi", "tip": "XXX" },
-				{ "kana": "ツ", "romaji": "tsu", "tip": "XXX" },
-				{ "kana": "テ", "romaji": "te", "tip": "XXX" },
-				{ "kana": "ト", "romaji": "to", "tip": "XXX" }
+				{ "kana": "タ", "romaji": "ta" },
+				{ "kana": "チ", "romaji": "chi" },
+				{ "kana": "ツ", "romaji": "tsu" },
+				{ "kana": "テ", "romaji": "te" },
+				{ "kana": "ト", "romaji": "to" }
 			]
 		},
 
@@ -73,33 +73,33 @@
 			"title": "da",
 			"dakuten": true,
 			"characters": [
-				{ "kana": "ダ", "romaji": "da", "tip": "XXX" },
-				{ "kana": "ヂ", "romaji": "ji", "tip": "XXX" },
-				{ "kana": "ヅ", "romaji": "zu", "tip": "XXX" },
-				{ "kana": "デ", "romaji": "de", "tip": "XXX" },
-				{ "kana": "ド", "romaji": "do", "tip": "XXX" }
+				{ "kana": "ダ", "romaji": "da" },
+				{ "kana": "ヂ", "romaji": "ji" },
+				{ "kana": "ヅ", "romaji": "zu" },
+				{ "kana": "デ", "romaji": "de" },
+				{ "kana": "ド", "romaji": "do" }
 			]
 		},
 
 		{
 			"title": "na",
 			"characters": [
-				{ "kana": "ナ", "romaji": "na", "tip": "XXX" },
-				{ "kana": "ニ", "romaji": "ni", "tip": "XXX" },
-				{ "kana": "ヌ", "romaji": "nu", "tip": "XXX" },
-				{ "kana": "ネ", "romaji": "ne", "tip": "XXX" },
-				{ "kana": "ノ", "romaji": "no", "tip": "XXX" }
+				{ "kana": "ナ", "romaji": "na" },
+				{ "kana": "ニ", "romaji": "ni" },
+				{ "kana": "ヌ", "romaji": "nu" },
+				{ "kana": "ネ", "romaji": "ne" },
+				{ "kana": "ノ", "romaji": "no" }
 			]
 		},
 
 		{
 			"title": "ha",
 			"characters": [
-				{ "kana": "ハ", "romaji": "ha", "tip": "XXX" },
-				{ "kana": "ヒ", "romaji": "hi", "tip": "XXX" },
-				{ "kana": "フ", "romaji": "fu", "tip": "XXX" },
-				{ "kana": "ヘ", "romaji": "he", "tip": "XXX" },
-				{ "kana": "ホ", "romaji": "ho", "tip": "XXX" }
+				{ "kana": "ハ", "romaji": "ha" },
+				{ "kana": "ヒ", "romaji": "hi" },
+				{ "kana": "フ", "romaji": "fu" },
+				{ "kana": "ヘ", "romaji": "he" },
+				{ "kana": "ホ", "romaji": "ho" }
 			]
 		},
 
@@ -107,11 +107,11 @@
 			"title": "ba",
 			"dakuten": true,
 			"characters": [
-				{ "kana": "バ", "romaji": "ba", "tip": "XXX" },
-				{ "kana": "ビ", "romaji": "bi", "tip": "XXX" },
-				{ "kana": "ブ", "romaji": "bu", "tip": "XXX" },
-				{ "kana": "ベ", "romaji": "be", "tip": "XXX" },
-				{ "kana": "ボ", "romaji": "bo", "tip": "XXX" }
+				{ "kana": "バ", "romaji": "ba" },
+				{ "kana": "ビ", "romaji": "bi" },
+				{ "kana": "ブ", "romaji": "bu" },
+				{ "kana": "ベ", "romaji": "be" },
+				{ "kana": "ボ", "romaji": "bo" }
 			]
 		},
 
@@ -119,55 +119,49 @@
 			"title": "pa",
 			"dakuten": true,
 			"characters": [
-				{ "kana": "パ", "romaji": "pa", "tip": "XXX" },
-				{ "kana": "ピ", "romaji": "pi", "tip": "XXX" },
-				{ "kana": "プ", "romaji": "pu", "tip": "XXX" },
-				{ "kana": "ペ", "romaji": "pe", "tip": "XXX" },
-				{ "kana": "ポ", "romaji": "po", "tip": "XXX" }
+				{ "kana": "パ", "romaji": "pa" },
+				{ "kana": "ピ", "romaji": "pi" },
+				{ "kana": "プ", "romaji": "pu" },
+				{ "kana": "ペ", "romaji": "pe" },
+				{ "kana": "ポ", "romaji": "po" }
 			]
 		},
 
 		{
 			"title": "ma",
 			"characters": [
-				{ "kana": "マ", "romaji": "ma", "tip": "XXX" },
-				{ "kana": "ミ", "romaji": "mi", "tip": "XXX" },
-				{ "kana": "ム", "romaji": "mu", "tip": "XXX" },
-				{ "kana": "メ", "romaji": "me", "tip": "XXX" },
-				{ "kana": "モ", "romaji": "mo", "tip": "XXX" }
+				{ "kana": "マ", "romaji": "ma" },
+				{ "kana": "ミ", "romaji": "mi" },
+				{ "kana": "ム", "romaji": "mu" },
+				{ "kana": "メ", "romaji": "me" },
+				{ "kana": "モ", "romaji": "mo" }
 			]
 		},
 
 		{
 			"title": "ya",
-			"characters": [
-				{ "kana": "ヤ", "romaji": "ya", "tip": "XXX" },
-				null,
-				{ "kana": "ユ", "romaji": "yu", "tip": "XXX" },
-				null,
-				{ "kana": "ヨ", "romaji": "yo", "tip": "XXX" }
-			]
+			"characters": [{ "kana": "ヤ", "romaji": "ya" }, null, { "kana": "ユ", "romaji": "yu" }, null, { "kana": "ヨ", "romaji": "yo" }]
 		},
 
 		{
 			"title": "ra",
 			"characters": [
-				{ "kana": "ラ", "romaji": "ra", "tip": "XXX" },
-				{ "kana": "リ", "romaji": "ri", "tip": "XXX" },
-				{ "kana": "ル", "romaji": "ru", "tip": "XXX" },
-				{ "kana": "レ", "romaji": "re", "tip": "XXX" },
-				{ "kana": "ロ", "romaji": "ro", "tip": "XXX" }
+				{ "kana": "ラ", "romaji": "ra" },
+				{ "kana": "リ", "romaji": "ri" },
+				{ "kana": "ル", "romaji": "ru" },
+				{ "kana": "レ", "romaji": "re" },
+				{ "kana": "ロ", "romaji": "ro" }
 			]
 		},
 
 		{
 			"title": "wa",
-			"characters": [{ "kana": "ワ", "romaji": "wa", "tip": "XXX" }, null, null, null, { "kana": "ヲ", "romaji": "wo", "tip": "XXX" }]
+			"characters": [{ "kana": "ワ", "romaji": "wa" }, null, null, null, { "kana": "ヲ", "romaji": "wo" }]
 		},
 
 		{
 			"title": "n",
-			"characters": [null, null, { "kana": "ン", "romaji": "n", "tip": "XXX" }, null, null]
+			"characters": [null, null, { "kana": "ン", "romaji": "n" }, null, null]
 		}
 	]
 }
