@@ -2,7 +2,7 @@ import { CellElement, CharacterGroupModel, HeadElement, KanaModel } from './mode
 
 const SELECTED_CLASS = 'selected';
 
-export class ContentSelector {
+export class ParameterSelector {
 	private readonly allCells: CellElement[] = [];
 	private readonly dakutenCells: CellElement[] = [];
 
@@ -61,10 +61,12 @@ export class ContentSelector {
 
 		const all = parent.appendChild(document.createElement('div'));
 		all.innerHTML = 'all';
+		all.classList.add('btn');
 		all.addEventListener('click', () => this.setAllCellsSelected(this.allCells));
 
 		const dakuten = parent.appendChild(document.createElement('div'));
 		dakuten.innerHTML = 'dakuten';
+		all.classList.add('btn');
 		dakuten.addEventListener('click', () => this.setAllCellsSelected(this.dakutenCells));
 
 		return parent;
