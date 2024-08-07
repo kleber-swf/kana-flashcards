@@ -151,9 +151,11 @@ export class Game extends HTMLElement {
 	}
 
 	private randomCharacter() {
-		let i: number;
-		do i = Random.between(0, this.chars.length);
-		while (i === this.selectedCharIndex);
+		let i = 0;
+		if (this.chars.length > 1) {
+			do i = Random.between(0, this.chars.length);
+			while (i === this.selectedCharIndex);
+		}
 
 		this.selectedCharIndex = i;
 		const char = this.chars[i];

@@ -8,17 +8,8 @@ const KANA_CLASS = 'kana';
 const SELECTABLE_CLASS = 'selectable';
 
 export class KanaPanel extends HTMLElement {
-	private readonly allCells: CellElement[] = [];
 	private readonly dakutenCells: CellElement[] = [];
 	private readonly typeCells: Record<KanaType, CellElement[]> = { kana: [], yoon: [], };
-
-	public get hasEnoughSelection() {
-		let i = 0;
-		return this.allCells.some(e => {
-			if (!e.char.hidden) i++;
-			return i > 1;
-		});
-	}
 
 	public connectedCallback() {
 		this.classList.add('kana-panel');
@@ -70,7 +61,6 @@ export class KanaPanel extends HTMLElement {
 			});
 
 			if (group.dakuten) this.dakutenCells.push(...head.cells);
-			this.allCells.push(...head.cells);
 			typeCells.push(...head.cells);
 		});
 
@@ -80,11 +70,6 @@ export class KanaPanel extends HTMLElement {
 	private createFilters(): HTMLElement {
 		const parent = document.createElement('div');
 		parent.classList.add('filters');
-
-		const all = parent.appendChild(document.createElement('div'));
-		all.innerHTML = 'all';
-		all.classList.add('btn', 'btn-primary');
-		all.addEventListener('click', () => this.setAllCellsSelected(this.allCells));
 
 		const kana = parent.appendChild(document.createElement('div'));
 		kana.innerHTML = 'kana';
