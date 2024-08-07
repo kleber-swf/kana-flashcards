@@ -1,10 +1,14 @@
 import hiragana from '../content/hiragana.json';
 import { showError } from './error';
 import { Game } from './game/game';
+import { NumberInput } from './number-input';
 import { ParameterSelector } from './params/parameter-selector';
 
 const parameters = new ParameterSelector();
 const game = new Game();
+
+
+customElements.define('number-input', NumberInput);
 
 document.querySelector('#start-button')!
 	.addEventListener('click', () => {

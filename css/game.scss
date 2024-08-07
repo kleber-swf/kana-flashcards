@@ -38,12 +38,12 @@
 		position: absolute;
 		bottom: 0;
 		width: 100%;
-		height: 50px;
+		height: 10px;
 
 		#progress {
 			width: 0;
-			height: 50px;
-			background-color: red;
+			height: 10px;
+			background-color: $on-primary;
 		}
 	}
 }

@@ -30,11 +30,21 @@
 
 				<div id="options">
 					<h2>options</h2>
-					<input type="number" id="time" min="0" max="10" value="0" />
-					<select id="studying">
-						<option value="writes">Write</option>
-						<option value="reads">Read</option>
-					</select>
+					<div class="content">
+						<div class="option">
+							<label for="time">time</label>
+							<number-input id="time" class="number-input input" min="0" max="100" value="0">
+								<!-- <div action="decrement">-</div>
+								<input type="number" id="time" min="0" max="100" value="0" />
+								<div action="increment">+</div> -->
+							</number-input>
+							<span>seconds</span>
+						</div>
+						<div class="option">
+							<label for="studying">train</label>
+							<div class="btn btn-primary input" id="studying">Write</div>
+						</div>
+					</div>
 				</div>
 
 				<div id="start-button" class="btn">start</div>

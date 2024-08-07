@@ -25,9 +25,11 @@ body {
 	text-transform: uppercase;
 	padding: 8px 26px;
 	margin: 0 10px;
+	box-sizing: border-box;
+	text-align: center;
 
 	&.btn-primary {
-		background-color: white;
+		background-color: $on-primary;
 		color: $primary;
 		border: 2px solid $primary;
 
@@ -36,15 +38,54 @@ body {
 			color: $on-primary;
 		}
 	}
+}
 
-	&.btn-secondary {
-		border: 2px solid $ternary;
-		color: $ternary;
+.number-input {
+	position: relative;
+	padding: 0;
+	display: flex;
+	justify-content: stretch;
+	align-items: stretch;
+	border: 4px solid rebeccapurple;
+
+	input[type='number'] {
+		-moz-appearance: textfield;
+		appearance: textfield;
+		margin: 0 20px;
+		flex: 1;
+		border: none;
+		text-align: center;
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+	}
+
+	div[action='down'],
+	div[action='up'] {
+		position: absolute;
+		background: $on-primary;
+		color: $text;
+		width: 20px;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		user-select: none;
 
 		&:hover {
-			background-color: $ternary;
+			background-color: $primary;
 			color: $on-primary;
 		}
+	}
+
+	div[action='down'] {
+		left: 0;
+	}
+
+	div[action='up'] {
+		right: 0;
 	}
 }
 
