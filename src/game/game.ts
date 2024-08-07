@@ -81,7 +81,6 @@ export class Game extends HTMLElement {
 		this.trainingMessage.innerHTML = `<p>training</br>${t}</p>`;
 	}
 
-
 	private showInitialMessage() {
 		this.setTrainingMessage();
 		this.initialMessage.style.opacity = '1';
