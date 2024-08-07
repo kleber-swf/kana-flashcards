@@ -1,4 +1,4 @@
-import { CellElement, CharacterGroupModel, HeadElement, KanaModel } from '../model';
+import { CellElement, CharacterGroupModel, HeadElement, KanaModel, KanaType } from '../model';
 
 const SELECTED_CLASS = 'selected';
 const COL_CLASS = 'col';
@@ -10,6 +10,7 @@ const SELECTABLE_CLASS = 'selectable';
 export class KanaPanel extends HTMLElement {
 	private readonly allCells: CellElement[] = [];
 	private readonly dakutenCells: CellElement[] = [];
+	private readonly typeCells: Record<KanaType, CellElement[]> = { kana: [], yoon: [], };
 
 	public get hasEnoughSelection() {
 		let i = 0;
@@ -25,8 +26,8 @@ export class KanaPanel extends HTMLElement {
 
 	public setup(kana: KanaModel) {
 		this.appendChild(this.createTitle(kana.name));
-		this.appendChild(this.createTable(kana.groups.filter(e => e.type === 'kana')));
-		this.appendChild(this.createTable(kana.groups.filter(e => e.type === 'yoon')));
+		this.appendChild(this.createTable(kana.groups, 'kana'));
+		this.appendChild(this.createTable(kana.groups, 'yoon'));
 		this.appendChild(this.createFilters());
 	}
 
@@ -37,14 +38,16 @@ export class KanaPanel extends HTMLElement {
 		return el;
 	}
 
-	private createTable(groups: CharacterGroupModel[]): HTMLElement {
+	private createTable(groups: CharacterGroupModel[], type: KanaType): HTMLElement {
 		const table = document.createElement('div');
 		table.classList.add('table');
 
 		const cellClick = this.onCellClick.bind(this);
 		const headClick = this.onHeadClick.bind(this);
 
-		groups.forEach(group => {
+		const typeCells = this.typeCells[type];
+
+		groups.filter(e => e.type === type).forEach(group => {
 			const col = table.appendChild(document.createElement('div'));
 			col.classList.add(COL_CLASS);
 
@@ -68,6 +71,7 @@ export class KanaPanel extends HTMLElement {
 
 			if (group.dakuten) this.dakutenCells.push(...head.cells);
 			this.allCells.push(...head.cells);
+			typeCells.push(...head.cells);
 		});
 
 		return table;
@@ -81,6 +85,16 @@ export class KanaPanel extends HTMLElement {
 		all.innerHTML = 'all';
 		all.classList.add('btn', 'btn-primary');
 		all.addEventListener('click', () => this.setAllCellsSelected(this.allCells));
+
+		const kana = parent.appendChild(document.createElement('div'));
+		kana.innerHTML = 'kana';
+		kana.classList.add('btn', 'btn-primary');
+		kana.addEventListener('click', () => this.setAllCellsSelected(this.typeCells.kana));
+
+		const yoon = parent.appendChild(document.createElement('div'));
+		yoon.innerHTML = 'yōon';
+		yoon.classList.add('btn', 'btn-primary');
+		yoon.addEventListener('click', () => this.setAllCellsSelected(this.typeCells.yoon));
 
 		const dakuten = parent.appendChild(document.createElement('div'));
 		dakuten.innerHTML = 'dakuten';
