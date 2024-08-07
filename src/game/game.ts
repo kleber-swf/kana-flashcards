@@ -4,6 +4,8 @@ import { CharacterModel, Parameters, Train } from '../model';
 const ACTION_KEY = 'Space';
 const EXIT_KEY = 'Escape';
 const PLAYING_CLASS = 'playing';
+const HIRAGANA_CLASS = 'hiragana';
+const KATAKANA_CLASS = 'katakana';
 
 export class Game extends HTMLElement {
 	private readonly isMobile: boolean;
@@ -11,8 +13,9 @@ export class Game extends HTMLElement {
 	private readonly romaji: HTMLElement;
 	private readonly progress: HTMLElement;
 	private readonly initialMessage: HTMLElement;
+	private readonly trainingMessage: HTMLElement;
 
-	private chars: CharacterModel[];
+	private chars: CharacterModel[] = [];
 	private timeline: GSAPTimeline;
 	private hasRevealDelay: boolean;
 	private hasAdvanceDelay: boolean;
@@ -40,9 +43,10 @@ export class Game extends HTMLElement {
 		this.initialMessage = this.appendChild(document.createElement('div'));
 		this.initialMessage.classList.add('initial-message');
 		this.initialMessage.style.opacity = '0';
-		this.initialMessage.innerHTML = this.isMobile
-			? 'Touch to start'
-			: `Touch or press ${ACTION_KEY} to start`;
+		this.trainingMessage = this.initialMessage.appendChild(document.createElement('div'));
+		this.trainingMessage.classList.add('training-message');
+		this.initialMessage.appendChild(document.createElement('small'))
+			.innerHTML = this.isMobile ? 'touch to start' : `touch or press ${ACTION_KEY.toLowerCase()} to start`;
 
 		const exit = this.appendChild(document.createElement('div'));
 		exit.classList.add('exit-button');
@@ -53,10 +57,13 @@ export class Game extends HTMLElement {
 	}
 
 	public start(params: Parameters) {
-		this.chars = params.kanas
-			.map(k => k.groups).flat()
-			.map(g => g.characters).flat()
-			.filter(c => c && !c.hidden);
+		this.chars = params.kanas.map(kana =>
+			kana.groups
+				// gets only visible characters as a single dimension array
+				.map(group => group.characters.filter(c => c && !c.hidden)).flat()
+				// adds the alphabet name to each character
+				.map(char => ({ ...char, alphabet: kana.name }))
+		).flat();
 
 		this.clear();
 
@@ -66,7 +73,16 @@ export class Game extends HTMLElement {
 		this.showInitialMessage();
 	}
 
+	private setTrainingMessage() {
+		const t = ['hiragana', 'katakana']
+			.filter(e => this.chars.some(c => c.alphabet === e))
+			.map(e => `<span class="${e}">${e}</span>`)
+			.join(' &amp; ');
+		this.trainingMessage.innerHTML = `<p>training</br>${t}</p>`;
+	}
+
 	private showInitialMessage() {
+		this.setTrainingMessage();
 		this.initialMessage.style.opacity = '1';
 
 		const initialInput = (e: KeyboardEvent | MouseEvent) => {
@@ -88,7 +104,7 @@ export class Game extends HTMLElement {
 			this.initialMessage.style.opacity = '0';
 			document.removeEventListener('keyup', initialInput);
 			this.removeEventListener('click', initialInput);
-		}
+		};
 
 		document.addEventListener('keyup', initialInput);
 		this.addEventListener('click', initialInput);
@@ -116,7 +132,7 @@ export class Game extends HTMLElement {
 
 		if (this.hasAdvanceDelay) {
 			timeline.addLabel('step4')
-				.fromTo(this.progress, { width: 0 }, { width: '100%', duration: autoAdvanceDelay, ease: 'none' })
+				.fromTo(this.progress, { width: 0 }, { width: '100%', duration: autoAdvanceDelay, delay: 1, ease: 'none' })
 				.addLabel('step5')
 				.call(this.nextStep.bind(this), undefined, 'step5+=0.1');
 		}
@@ -126,10 +142,18 @@ export class Game extends HTMLElement {
 		let i: number;
 		do i = Math.floor(Math.random() * this.chars.length);
 		while (i === this.selectedCharIndex);
+
 		this.selectedCharIndex = i;
 		const char = this.chars[i];
-		this.romaji.innerText = char.romaji;
-		this.kana.innerText = char.kana;
+		const { romaji, kana } = this;
+
+		romaji.innerText = char.romaji;
+		romaji.classList.toggle(HIRAGANA_CLASS, char.alphabet === 'hiragana');
+		romaji.classList.toggle(KATAKANA_CLASS, char.alphabet === 'katakana');
+
+		kana.innerText = char.kana;
+		kana.classList.toggle(HIRAGANA_CLASS, char.alphabet === 'hiragana');
+		kana.classList.toggle(KATAKANA_CLASS, char.alphabet === 'katakana');
 	}
 
 	private nextCharacter() {
@@ -138,7 +162,6 @@ export class Game extends HTMLElement {
 			this.timeline.tweenFromTo(0, 'step2');
 		}
 	}
-
 
 	private nextStep() {
 		if (this.timeline.progress() === 1) {

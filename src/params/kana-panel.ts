@@ -53,12 +53,12 @@ export class KanaPanel extends HTMLElement {
 			head.addEventListener('click', headClick);
 			head.cells = [];
 
-			group.characters.map(char => {
+			group.characters.forEach(char => {
 				const cell = col.appendChild(document.createElement('div')) as CellElement;
 				cell.classList.add(CELL_CLASS);
 				if (!char) return;
 				cell.classList.add(SELECTABLE_CLASS, KANA_CLASS);
-				if (!char.hidden) cell.classList.add(SELECTED_CLASS)
+				if (!char.hidden) cell.classList.add(SELECTED_CLASS);
 				cell.char = char;
 				cell.innerText = char.kana;
 				cell.addEventListener('click', cellClick);
