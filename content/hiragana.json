@@ -21,6 +21,159 @@
 				{ "writes": "け", "reads": "ke", "tip": "XXX" },
 				{ "writes": "こ", "reads": "ko", "tip": "XXX" }
 			]
+		},
+
+		{
+			"title": "ga",
+			"dakuten": true,
+			"characters": [
+				{ "writes": "が", "reads": "ga", "tip": "XXX" },
+				{ "writes": "ぎ", "reads": "gi", "tip": "XXX" },
+				{ "writes": "ぐ", "reads": "gu", "tip": "XXX" },
+				{ "writes": "げ", "reads": "ge", "tip": "XXX" },
+				{ "writes": "ご", "reads": "go", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "sa",
+			"characters": [
+				{ "writes": "さ", "reads": "sa", "tip": "XXX" },
+				{ "writes": "し", "reads": "shi", "tip": "XXX" },
+				{ "writes": "す", "reads": "su", "tip": "XXX" },
+				{ "writes": "せ", "reads": "se", "tip": "XXX" },
+				{ "writes": "そ", "reads": "so", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "za",
+			"dakuten": true,
+			"characters": [
+				{ "writes": "ざ", "reads": "za", "tip": "XXX" },
+				{ "writes": "じ", "reads": "ji", "tip": "XXX" },
+				{ "writes": "ず", "reads": "zu", "tip": "XXX" },
+				{ "writes": "ぜ", "reads": "ze", "tip": "XXX" },
+				{ "writes": "ぞ", "reads": "zo", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "ta",
+			"characters": [
+				{ "writes": "た", "reads": "ta", "tip": "XXX" },
+				{ "writes": "ち", "reads": "chi", "tip": "XXX" },
+				{ "writes": "つ", "reads": "tsu", "tip": "XXX" },
+				{ "writes": "て", "reads": "te", "tip": "XXX" },
+				{ "writes": "と", "reads": "to", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "da",
+			"dakuten": true,
+			"characters": [
+				{ "writes": "だ", "reads": "da", "tip": "XXX" },
+				{ "writes": "ぢ", "reads": "ji", "tip": "XXX" },
+				{ "writes": "づ", "reads": "zu", "tip": "XXX" },
+				{ "writes": "で", "reads": "de", "tip": "XXX" },
+				{ "writes": "ど", "reads": "do", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "na",
+			"characters": [
+				{ "writes": "な", "reads": "na", "tip": "XXX" },
+				{ "writes": "に", "reads": "ni", "tip": "XXX" },
+				{ "writes": "ぬ", "reads": "nu", "tip": "XXX" },
+				{ "writes": "ね", "reads": "ne", "tip": "XXX" },
+				{ "writes": "の", "reads": "no", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "ha",
+			"characters": [
+				{ "writes": "は", "reads": "ha", "tip": "XXX" },
+				{ "writes": "ひ", "reads": "hi", "tip": "XXX" },
+				{ "writes": "ふ", "reads": "fu", "tip": "XXX" },
+				{ "writes": "へ", "reads": "he", "tip": "XXX" },
+				{ "writes": "ほ", "reads": "ho", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "ba",
+			"dakuten": true,
+			"characters": [
+				{ "writes": "ば", "reads": "ba", "tip": "XXX" },
+				{ "writes": "び", "reads": "bi", "tip": "XXX" },
+				{ "writes": "ぶ", "reads": "bu", "tip": "XXX" },
+				{ "writes": "べ", "reads": "be", "tip": "XXX" },
+				{ "writes": "ぼ", "reads": "bo", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "pa",
+			"dakuten": true,
+			"characters": [
+				{ "writes": "ぱ", "reads": "pa", "tip": "XXX" },
+				{ "writes": "ぴ", "reads": "pi", "tip": "XXX" },
+				{ "writes": "ぷ", "reads": "pu", "tip": "XXX" },
+				{ "writes": "ぺ", "reads": "pe", "tip": "XXX" },
+				{ "writes": "ぽ", "reads": "po", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "ma",
+			"characters": [
+				{ "writes": "ま", "reads": "ma", "tip": "XXX" },
+				{ "writes": "み", "reads": "mi", "tip": "XXX" },
+				{ "writes": "む", "reads": "mu", "tip": "XXX" },
+				{ "writes": "め", "reads": "me", "tip": "XXX" },
+				{ "writes": "も", "reads": "mo", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "ya",
+			"characters": [
+				{ "writes": "や", "reads": "ya", "tip": "XXX" },
+				null,
+				{ "writes": "ゆ", "reads": "yu", "tip": "XXX" },
+				null,
+				{ "writes": "よ", "reads": "yo", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "ra",
+			"characters": [
+				{ "writes": "ら", "reads": "ra", "tip": "XXX" },
+				{ "writes": "り", "reads": "ri", "tip": "XXX" },
+				{ "writes": "る", "reads": "ru", "tip": "XXX" },
+				{ "writes": "れ", "reads": "re", "tip": "XXX" },
+				{ "writes": "ろ", "reads": "ro", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "wa",
+			"characters": [
+				{ "writes": "わ", "reads": "wa", "tip": "XXX" },
+				null,
+				null,
+				null,
+				{ "writes": "を", "reads": "wo", "tip": "XXX" }
+			]
+		},
+
+		{
+			"title": "n",
+			"characters": [null, null, { "writes": "ん", "reads": "n" }, null, null]
 		}
 	]
 }
