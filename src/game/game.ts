@@ -20,8 +20,6 @@ export class Game extends HTMLElement {
 
 	private chars: CharacterModel[] = [];
 	private timeline?: GSAPTimeline;
-	private hasRevealDelay = false;
-	private hasAdvanceDelay = false;
 
 	private playing = false;
 	private selectedCharIndex = 0;
@@ -101,9 +99,7 @@ export class Game extends HTMLElement {
 		this.addEventListener('click', initialInput);
 	}
 
-	private createTimeline({ revealDelay, autoAdvanceDelay, training }: Parameters) {
-		this.hasRevealDelay = !isNaN(revealDelay) && revealDelay > 0;
-		this.hasAdvanceDelay = !isNaN(autoAdvanceDelay) && autoAdvanceDelay > 0;
+	private createTimeline({ training }: Parameters) {
 		const chars = training === 'read' ? [this.kana, this.romaji] : [this.romaji, this.kana];
 
 		const timeline = this.timeline = gsap.timeline({ paused: true })
@@ -118,34 +114,11 @@ export class Game extends HTMLElement {
 			})
 			.addLabel('step2');
 
-		if (this.hasRevealDelay) {
-			timeline.set({}, { delay: revealDelay })
-				.addLabel('step3')
-				.fromTo(this.progress, { width: '100%' }, {
-					width: 0,
-					duration: revealDelay,
-					ease: 'none',
-				}, 'step2');
-		}
-
 		timeline.fromTo(chars[1], { opacity: 0 }, {
 			opacity: 1,
 			duration: 0.5,
 			onStart: this.onRevealCharStart.bind(this),
 		});
-
-		if (this.hasAdvanceDelay) {
-			timeline.addLabel('step4')
-				.call(this.onRevealCharStart.bind(this))
-				.fromTo(this.progress, { width: 0 }, {
-					width: '100%',
-					duration: autoAdvanceDelay,
-					delay: 1,
-					ease: 'none',
-				})
-				.addLabel('step5')
-				.call(this.nextStep.bind(this), undefined, 'step5+=0.1');
-		}
 	}
 
 	private randomCharacter() {
@@ -180,9 +153,7 @@ export class Game extends HTMLElement {
 		if (this.timeline == null) return;
 
 		this.timeline.restart();
-		if (!this.hasRevealDelay) {
-			this.timeline.tweenFromTo(0, 'step2');
-		}
+		this.timeline.tweenFromTo(0, 'step2');
 	}
 
 	private nextStep() {

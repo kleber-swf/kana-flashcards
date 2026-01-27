@@ -4,18 +4,17 @@ import { KanaPanel } from './kana-panel';
 import { OptionsPanel } from './options-panel';
 
 export class ParameterSelector {
-	private optionsPanel: OptionsPanel;
+	private optionsPanel?: OptionsPanel;
 
-	private kanas: KanaModel[];
+	private kanas: KanaModel[] = [];
 
 	public get data(): Parameters {
-		return {
-			training: this.optionsPanel.training,
-			revealDelay: this.optionsPanel.revealDelay,
-			autoAdvanceDelay: this.optionsPanel.autoAdvanceDelay,
-			withAudio: this.optionsPanel.withAudio,
-			kanas: this.kanas,
-		};
+		return this.optionsPanel
+			? {
+				training: this.optionsPanel.training,
+				kanas: this.kanas,
+			}
+			: { training: 'read', kanas: [] };
 	}
 
 	public setup(characters: FileKanaModel, saved: string | null) {
@@ -37,7 +36,7 @@ export class ParameterSelector {
 	}
 
 	private getInitialData(kanas: KanaModel[], saved: string | null): Parameters {
-		const params: Parameters = { training: 'write', revealDelay: 0, autoAdvanceDelay: 0, kanas, withAudio: true };
+		const params: Parameters = { training: 'write', kanas };
 		return saved ? merge(params, JSON.parse(saved)) : params;
 	}
 

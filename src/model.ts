@@ -2,10 +2,7 @@
 
 export interface Parameters {
 	training: Train;
-	revealDelay: number;
-	autoAdvanceDelay: number;
 	kanas: KanaModel[];
-	withAudio: boolean;
 }
 
 export interface HeadElement extends HTMLTableCellElement {

@@ -6,16 +6,14 @@
 	"license": "ISC",
 	"author": "Kleber Silva",
 	"scripts": {
-		"build": "parcel build index.html",
+		"build": "vite build index.html",
 		"dev": "vite",
-		"start": "npm run build && npm run dev",
 		"deploy": "firebase deploy",
 		"prebuild": "rm -rf dist",
 		"postbuild": "node scripts/post-build.js",
-		"predeploy": "npm run build",
+		"predeploy": "bun run build",
 		"check": "tsc --noEmit",
-		"lint": "eslint --cache --fix --color --ext .js --ext .ts \"src\"",
-		"audio-files-to-module": "bun ./scripts/audio-files-to-module.mjs"
+		"lint": "eslint --cache --fix --color --ext .js --ext .ts \"src\""
 	},
 	"files": [
 		"dist"
