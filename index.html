@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html class="no-js" lang="en-US">
 	<head>
 		<meta charset="utf-8" />
@@ -20,6 +20,7 @@
 		<link rel="stylesheet" href="css/index.scss" />
 		<link rel="stylesheet" href="css/main.scss" />
 		<link rel="stylesheet" href="css/game.scss" />
+		<link rel="stylesheet" href="css/card.scss" />
 		<link rel="stylesheet" href="css/results-panel.scss" />
 
 		<meta name="theme-color" content="#1d1d1bff" />
@@ -32,9 +33,9 @@
 				<p class="title">flashcards</p>
 			</h1>
 			<div class="content">
-				<div id="kanas"></div>
+				<!-- <div id="kanas"></div> -->
 
-				<div id="options">
+				<!-- <div id="options">
 					<h2>options</h2>
 					<div class="content">
 						<div class="option">
@@ -48,7 +49,7 @@
 							></text-toggle>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 
 			<div id="version">$VERSION$</div>
@@ -60,9 +61,26 @@
 		<error-snackbar id="error"></error-snackbar>
 		<div id="start-button" class="btn">start</div>
 
-		<kana-game id="game"></kana-game>
+		<kana-game id="game">
+			<kana-card id="card">
+				<card-face id="card-face-front">
+					<div class="main-text">Main text</div>
+					<div class="tip-text">This is the tip text</div>
+				</card-face>
+				<card-face id="card-face-back">
+					<div class="main-text">Main text</div>
+					<div class="tip-text">This is the tip text</div>
+				</card-face>
+			</kana-card>
+			<div class="action-panel">
+				<div id="minus-two" class="btn">-2</div>
+				<div id="minus-one" class="btn">-1</div>
+				<div id="plus-one" class="btn">+1</div>
+				<div id="plus-two" class="btn">+2</div>
+			</div>
+		</kana-game>
 
-		<results-panel id="results"></results-panel>
+		<!-- <results-panel id="results"></results-panel> -->
 
 		<script src="src/main.ts" type="module"></script>
 	</body>

@@ -1,0 +1,24 @@
+@use 'variables';
+
+kana-card {
+	display: block;
+	align-items: stretch;
+	justify-content: stretch;
+	padding: 20px;
+	height: 100%;
+}
+
+card-face {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+	height: 100%;
+	text-align: center;
+
+	.main-text {
+		font-weight: bold;
+		font-size: 24pt;
+		color: variables.$on-primary;
+	}
+}
