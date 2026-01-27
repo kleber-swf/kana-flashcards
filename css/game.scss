@@ -1,4 +1,5 @@
-@import './variables';
+@use "sass:color";
+@use 'variables';
 
 kana-game {
 	display: flex;
@@ -13,7 +14,7 @@ kana-game {
 	top: 100%;
 	overflow: hidden;
 	position: absolute;
-	background-color: $primary;
+	background-color: variables.$primary;
 	transition: top 500ms;
 	user-select: none;
 
@@ -37,17 +38,17 @@ kana-game {
 	}
 
 	.hiragana {
-		color: $text;
+		color: variables.$text;
 	}
 
 	.katakana {
-		color: $on-primary;
+		color: variables.$on-primary;
 	}
 
 	.initial-message {
 		position: absolute;
 		margin: auto;
-		transition: $default-transition;
+		transition: variables.$default-transition;
 		font-size: 40px;
 		text-align: center;
 		max-width: 100vh;
@@ -58,7 +59,7 @@ kana-game {
 			.hiragana,
 			.katakana {
 				display: inline-block;
-				border: 1px solid $text;
+				border: 1px solid variables.$text;
 				padding: 0 0.5em;
 				width: 205px;
 				margin: 10px;
@@ -72,6 +73,6 @@ kana-game {
 		left: 0;
 		width: 100%;
 		height: 10px;
-		background-color: darken($primary, 20);
+		background-color: color.scale(variables.$primary, $lightness: 20%);
 	}
 }

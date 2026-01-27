@@ -1,4 +1,4 @@
-@import './variables';
+@use 'variables';
 
 results-panel {
 	position: absolute;
@@ -15,7 +15,7 @@ results-panel {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: $primary;
+	background-color: variables.$primary;
 	transition: top 500ms;
 
 	&.visible {
@@ -23,7 +23,7 @@ results-panel {
 	}
 
 	div {
-		color: $text;
+		color: variables.$text;
 		font-size: 1.6rem;
 		position: relative;
 		&.title {
@@ -31,7 +31,7 @@ results-panel {
 		}
 
 		&.value-label {
-			color: $on-primary;
+			color: variables.$on-primary;
 			font-size: 4rem;
 			display: inline-flex;
 			flex-direction: column;
